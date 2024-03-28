@@ -7,7 +7,6 @@
     tools:context=".Forum_AddReview">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -24,7 +23,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
         android:text="245 Chủ đề"
-        android:textSize="26dp"
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,11 +38,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/btnAddReview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="228dp"
         android:layout_marginTop="52dp"
         android:text="+  Thêm đánh giá"
+        android:backgroundTint="#ECF96E"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
