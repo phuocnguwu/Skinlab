@@ -23,7 +23,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
         android:text="245 Chủ đề"
-        android:textSize="25dp"
+        android:textSize="22dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +33,16 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="100dp"
         android:text="4.8"
-        android:textSize="26dp"
+        android:textSize="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="26dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="104dp"
+        android:src="@drawable/Star"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
