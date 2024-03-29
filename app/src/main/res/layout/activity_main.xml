@@ -55,10 +55,11 @@
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="8"
             android:background="@drawable/edit_text_background"
             android:hint="Tìm kiếm..."
-            android:layout_weight="8"
-            android:padding="5dp" />
+            android:padding="5dp"
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
     <ImageView
         android:layout_width="match_parent"
@@ -181,16 +182,7 @@
 
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello Mai Thanh!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.661" />
+
 
 
 </LinearLayout>
