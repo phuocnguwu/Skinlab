@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Skinlab"
         tools:targetApi="31">
         <activity
+            android:name=".Myaccount_Editdiachi"
+            android:exported="false" />
+        <activity
+            android:name=".Myaccount_adddiachi"
+            android:exported="false" />
+        <activity
             android:name=".Myaccount_Diachi"
             android:exported="false" />
         <activity
