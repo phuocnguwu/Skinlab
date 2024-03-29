@@ -76,11 +76,13 @@
         android:id="@+id/btnmoronghoso"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="272dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/morong"
-        app:layout_constraintStart_toEndOf="@+id/iconprofile"
-        app:layout_constraintTop_toBottomOf="@+id/txtHotenprofile" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.747"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iconprofile" />
 
     <View
         android:id="@+id/view"
@@ -118,11 +120,13 @@
         android:id="@+id/btnmorongdonhang"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="272dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/morong"
-        app:layout_constraintStart_toEndOf="@+id/icondonhang"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.747"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/icondonhang" />
 
     <View
         android:id="@+id/view2"
@@ -160,11 +164,13 @@
         android:id="@+id/btnmorongdiachi"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="272dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/morong"
-        app:layout_constraintStart_toEndOf="@+id/icondiachi"
-        app:layout_constraintTop_toBottomOf="@+id/view2" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.747"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/icondiachi" />
 
     <View
         android:id="@+id/view3"
@@ -202,11 +208,13 @@
         android:id="@+id/btnmorongcaidat"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="272dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/morong"
-        app:layout_constraintStart_toEndOf="@+id/iconcaidat"
-        app:layout_constraintTop_toBottomOf="@+id/view3" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.747"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iconcaidat" />
 
     <View
         android:id="@+id/view4"
@@ -244,10 +252,12 @@
         android:id="@+id/btndangxuat"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="272dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="4dp"
         android:src="@drawable/morong"
-        app:layout_constraintStart_toEndOf="@+id/icondangxuat"
-        app:layout_constraintTop_toBottomOf="@+id/view4" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.747"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/icondangxuat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
