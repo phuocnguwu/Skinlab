@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imvProduct"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/product1"
+        android:scaleType="fitCenter" />
+
+
+        <TextView
+            android:id="@+id/txtProductName"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:text="Product Name"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtProductPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.00"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#E43A44" />
+
+</LinearLayout>
