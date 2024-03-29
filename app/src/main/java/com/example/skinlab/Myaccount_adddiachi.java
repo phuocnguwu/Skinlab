@@ -3,6 +3,7 @@ package com.example.skinlab;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -25,6 +26,13 @@ public class Myaccount_adddiachi extends AppCompatActivity {
     }
 
     private void addEvents() {
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Myaccount_adddiachi.this,Myaccount_Diachi.class);
+                startActivity(intent);
+            }
+        });
         binding.btnadddiachi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -20,6 +20,13 @@ public class Myaccount_Diachi extends AppCompatActivity {
     }
 
     private void addEvents() {
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Myaccount_Diachi.this,Myaccount.class);
+                startActivity(intent);
+            }
+        });
         binding.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

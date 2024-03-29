@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         >
 
+
         <TextView
             android:id="@+id/titlediachi"
             android:layout_width="wrap_content"
