@@ -17,57 +17,17 @@
         android:layout_marginTop="29dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="359dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/line_rounded"
-        android:padding="10dp"
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="109dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_address">
-
-        <TextView
-            android:id="@+id/textview_default_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Địa chỉ mặc định"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txtHoten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nguyễn Vũ Mai Thanh"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_default_address" />
-
-        <TextView
-            android:id="@+id/txtsdt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="228dp"
-            android:text="0942058065"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_default_address" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/txtDiachi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="237 Thạnh Hưng, Thạnh Phú, Châu Thành, Tiền Giang"
-        android:textSize="14sp"
-        tools:layout_editor_absoluteX="41dp"
-        tools:layout_editor_absoluteY="131dp" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
