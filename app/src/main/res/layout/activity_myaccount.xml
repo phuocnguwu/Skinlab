@@ -29,8 +29,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <ImageView
-        android:id="@+id/imveditavatar"
+    <ImageButton
+        android:id="@+id/btneditavatar"
         android:layout_width="23dp"
         android:layout_height="23dp"
         android:layout_marginStart="80dp"
@@ -72,6 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtHotenprofile" />
 
     <ImageView
+        android:id="@+id/btnmoronghoso"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="272dp"
@@ -113,6 +114,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <ImageView
+        android:id="@+id/btnmorongdonhang"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="272dp"
@@ -154,6 +156,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <ImageView
+        android:id="@+id/btnmorongdiachi"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="272dp"
@@ -195,6 +198,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     <ImageView
+        android:id="@+id/btnmorongcaidat"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="272dp"
@@ -236,6 +240,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view4" />
 
     <ImageView
+        android:id="@+id/btndangxuat"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="272dp"

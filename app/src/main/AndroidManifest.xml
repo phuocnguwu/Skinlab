@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Skinlab"
         tools:targetApi="31">
         <activity
+            android:name=".Dialog_Save"
+            android:exported="false" />
+        <activity
             android:name=".Myaccount_Editdiachi"
             android:exported="false" />
         <activity
@@ -22,7 +25,7 @@
             android:name=".Myaccount_Diachi"
             android:exported="false" />
         <activity
-            android:name=".Myaccount_Profile"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Myaccount"
@@ -31,7 +34,7 @@
             android:name=".Forum_AddReview_Main"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Myaccount_Profile"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
