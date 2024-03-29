@@ -37,6 +37,13 @@ public class Myaccount_adddiachi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showAlerDialog();
+                addInfo();
+
+            }
+
+            private void addInfo() {
+
+
 
             }
 
