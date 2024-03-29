@@ -7,227 +7,241 @@
     tools:context=".Myaccount">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
         android:text="Thông tin cá nhân"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginStart="109dp"
-        android:layout_marginTop="29dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-         />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imvavatar"
         android:layout_width="105dp"
         android:layout_height="105dp"
-        android:layout_marginStart="143dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/round_corner"
         android:src="@drawable/round_corner"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
     <ImageView
         android:id="@+id/imveditavatar"
         android:layout_width="23dp"
         android:layout_height="23dp"
-        android:layout_marginStart="222dp"
-        android:layout_marginTop="162dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="80dp"
         android:src="@drawable/baseline_edit_square_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/imvavatar"
+        app:layout_constraintTop_toTopOf="@+id/imvavatar" />
+
     <TextView
         android:id="@+id/txtHotenprofile"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
         android:text="Nguyễn Vũ Mai Thanh"
         android:textSize="20sp"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="204dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/imvavatar" />
+
     <ImageView
         android:id="@+id/iconprofile"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="287dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="52dp"
         android:src="@drawable/profile"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtHotenprofile" />
+
     <TextView
         android:id="@+id/txtHoso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp"
         android:text="Hồ sơ của bạn"
         android:textSize="14sp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="298dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintStart_toEndOf="@+id/iconprofile"
+        app:layout_constraintTop_toBottomOf="@+id/txtHotenprofile" />
+
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="331dp"
-        android:layout_marginTop="292dp"
+        android:layout_marginStart="272dp"
+        android:layout_marginTop="56dp"
         android:src="@drawable/morong"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/iconprofile"
+        app:layout_constraintTop_toBottomOf="@+id/txtHotenprofile" />
 
     <View
-        android:layout_width="321dp"
+        android:id="@+id/view"
+        android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="20dp"
         android:background="#000000"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="334dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/txtHoso" />
+
     <ImageView
         android:id="@+id/icondonhang"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="367dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
         android:src="@drawable/donhang"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
     <TextView
         android:id="@+id/txtdonhang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="36dp"
         android:text="Đơn hàng"
         android:textSize="14sp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="378dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintStart_toEndOf="@+id/icondonhang"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="331dp"
-        android:layout_marginTop="372dp"
+        android:layout_marginStart="272dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/morong"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/icondonhang"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <View
-        android:layout_width="321dp"
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
         android:background="#000000"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="414dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/txtdonhang" />
+
     <ImageView
         android:id="@+id/icondiachi"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="450dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
         android:src="@drawable/diachi"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
     <TextView
         android:id="@+id/txtDiachi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="36dp"
         android:text="Địa chỉ"
         android:textSize="14sp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="458dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintStart_toEndOf="@+id/icondiachi"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="331dp"
-        android:layout_marginTop="452dp"
+        android:layout_marginStart="272dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/morong"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/icondiachi"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <View
-        android:layout_width="321dp"
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="20dp"
         android:background="#000000"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="494dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/txtDiachi" />
+
     <ImageView
         android:id="@+id/iconcaidat"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="530dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
         android:src="@drawable/caidat"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
+
     <TextView
         android:id="@+id/txtCaidat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="36dp"
         android:text="Cài đặt"
         android:textSize="14sp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="538dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintStart_toEndOf="@+id/iconcaidat"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
+
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="331dp"
-        android:layout_marginTop="532dp"
+        android:layout_marginStart="272dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/morong"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/iconcaidat"
+        app:layout_constraintTop_toBottomOf="@+id/view3" />
 
     <View
-        android:layout_width="321dp"
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#000000"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="574dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/txtCaidat" />
+
     <ImageView
         android:id="@+id/icondangxuat"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="610dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
         android:src="@drawable/dangxuat"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
     <TextView
         android:id="@+id/txtDangxuat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="36dp"
         android:text="Đăng xuất"
         android:textSize="14sp"
-        android:layout_marginStart="79dp"
-        android:layout_marginTop="618dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintStart_toEndOf="@+id/icondangxuat"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="331dp"
-        android:layout_marginTop="612dp"
+        android:layout_marginStart="272dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/morong"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/icondangxuat"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
