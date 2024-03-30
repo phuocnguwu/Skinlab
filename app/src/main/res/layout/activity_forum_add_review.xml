@@ -42,7 +42,7 @@
         android:layout_height="21dp"
         android:layout_marginStart="56dp"
         android:layout_marginTop="104dp"
-        android:src="@drawable/Star"
+        android:src="@drawable/star"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
