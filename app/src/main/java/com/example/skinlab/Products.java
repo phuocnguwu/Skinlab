@@ -6,20 +6,20 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import android.os.Bundle;
 
 import com.example.skinlab.adapters.ProductAdapter;
-import com.example.skinlab.databinding.ActivityMainBinding;
+import com.example.skinlab.databinding.ActivityProductsBinding;
 import com.example.skinlab.models.Product;
 
 import java.util.ArrayList;
 
 public class Products extends AppCompatActivity {
-    ActivityMainBinding binding;
+    ActivityProductsBinding binding;
     ProductAdapter adapter;
     ArrayList<Product> products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         initData();
