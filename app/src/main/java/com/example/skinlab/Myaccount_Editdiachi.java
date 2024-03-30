@@ -36,6 +36,13 @@ public class Myaccount_Editdiachi extends AppCompatActivity {
         binding.btneditdiachi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String newhoten = binding.txtHoten.getText().toString();
+                String newsdt = binding.txtsdt.getText().toString();
+                String newdiachi = binding.txtDiachicuthe.getText().toString();
+                binding.txtHoten.setText(newhoten);
+                binding.txtsdt.setText(newsdt);
+                binding.txtDiachicuthe.setText(newdiachi);
+
                 showAlerDialog();
             }
 

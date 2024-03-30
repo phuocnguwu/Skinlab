@@ -43,9 +43,16 @@ public class Myaccount_Profile extends AppCompatActivity {
         binding.btnsavepf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String newhoten = binding.txtHoten.getText().toString();
+                String newsdt = binding.txtsdt.getText().toString();
+                String newemail = binding.txtEmail.getText().toString();
+                binding.txtHoten.setText(newhoten);
+                binding.txtsdt.setText(newsdt);
+                binding.txtEmail.setText(newemail);
                 showAlerDialog();
             }
+
+
 
             private void showAlerDialog() {
                 ActivityDialogSaveBinding dialogsaveBinding = ActivityDialogSaveBinding.inflate(LayoutInflater.from(Myaccount_Profile.this));
