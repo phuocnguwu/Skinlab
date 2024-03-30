@@ -2,25 +2,24 @@ package com.example.skinlab;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
 
 import com.example.skinlab.adapters.ProductAdapter;
-import com.example.skinlab.databinding.ActivityProductsBinding;
+import com.example.skinlab.databinding.ActivityMainBinding;
 import com.example.skinlab.models.Product;
 
 import java.util.ArrayList;
 
 public class Products extends AppCompatActivity {
-    ActivityProductsBinding binding;
+    ActivityMainBinding binding;
     ProductAdapter adapter;
     ArrayList<Product> products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityProductsBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         initData();

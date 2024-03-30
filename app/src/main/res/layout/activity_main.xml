@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,199 +8,337 @@
     android:padding="20dp"
     android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="15dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="20dp">
 
-        <ImageView
-            android:id="@+id/imvMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/menu" />
+        <LinearLayout
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:gravity="center"
-            android:text="Skinlab"
-            android:textSize="26dp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/shop" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="15dp">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:paddingEnd="10dp"
-            android:layout_weight="2"
-            android:src="@drawable/search" />
-
-        <EditText
-            android:id="@+id/search"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="8"
-            android:background="@drawable/edit_text_background"
-            android:hint="  Tìm kiếm..."
-            android:padding="5dp"
-            tools:ignore="TouchTargetSizeCheck" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/home_slider"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:src="@drawable/slider1"
-        android:layout_marginBottom="15dp"/>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="20dp">
 
                 <ImageView
+                    android:id="@+id/imvMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/shop" />
+                    android:layout_weight="1"
+                    android:src="@drawable/menu" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sữa rửa mặt" />
-
-            </LinearLayout>
-
-            <!-- Category 2 -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:text="Skinlab"
+                    android:textSize="26dp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:src="@drawable/shop" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Category 2" />
 
             </LinearLayout>
 
-            <!-- Category 3 -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:paddingBottom="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                tools:layout_editor_absoluteX="20dp">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/shop" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="2"
+                    android:paddingEnd="10dp"
+                    android:src="@drawable/search"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="126dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Category 3" />
+                <EditText
+                    android:id="@+id/search"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="  Tìm kiếm..."
+                    android:padding="5dp"
+                    tools:ignore="TouchTargetSizeCheck"
+                    tools:layout_editor_absoluteX="20dp"
+                    tools:layout_editor_absoluteY="125dp" />
 
             </LinearLayout>
 
-            <!-- Category 4 -->
-            <LinearLayout
-                android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/home_slider"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:paddingBottom="15dp"
+                android:src="@drawable/slider1"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                tools:layout_editor_absoluteX="20dp" />
+
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:paddingBottom="15dp"
+                android:text="Sản phẩm bán chạy"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/tableRow"
+                tools:layout_editor_absoluteX="16dp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/shop" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Category 4" />
-
-            </LinearLayout>
-
-            <!-- Category 5 -->
-            <LinearLayout
-                android:layout_width="0dp"
+            <TableRow
+                android:id="@+id/tableRow"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:paddingBottom="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/home_slider"
+                tools:layout_editor_absoluteX="4dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/shop" />
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/shop" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sữa rửa mặt" />
+
+                </LinearLayout>
+
+                <!-- Category 2 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/shop" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category 2" />
+
+                </LinearLayout>
+
+                <!-- Category 3 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/shop" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category 3" />
+
+                </LinearLayout>
+
+                <!-- Category 4 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/shop" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category 4" />
+
+                </LinearLayout>
+
+                <!-- Category 5 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/shop" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category 5" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvProduct"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="15dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:background="@drawable/spa"
+                android:paddingBottom="15dp"
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tư vấn chăm sóc da"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:paddingTop="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nâng cấp làm da của bạn với liệu trình chăm sóc được thiết kế theo tình trạng da của riêng bạn."
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:textColor="#D9D9D9"
+                    android:paddingBottom="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="2dp">
+
+                    <ImageButton
+                        android:layout_width="20sp"
+                        android:layout_height="20sp"
+                        android:src="@drawable/baseline_check_24"
+                        android:background="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Miễn phí trải nghiệm đầu tiên"
+                        android:textColor="@color/white"
+                        android:paddingLeft="5dp"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="2dp">
+
+                    <ImageButton
+                        android:layout_width="20sp"
+                        android:layout_height="20sp"
+                        android:src="@drawable/baseline_check_24"
+                        android:background="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tư vấn trực tiếp từ chuyên gia"
+                        android:textColor="@color/white"
+                        android:paddingLeft="5dp"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingBottom="15dp">
+
+                    <ImageButton
+                        android:layout_width="20sp"
+                        android:layout_height="20sp"
+                        android:src="@drawable/baseline_check_24"
+                        android:background="@color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lộ trình chăm sóc da cá nhân hóa"
+                        android:textColor="@color/white"
+                        android:paddingLeft="5dp"
+                        android:textSize="14sp"/>
+
+
+                </LinearLayout>
+
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Category 5" />
+                    android:text="Đặt lịch ngay"
+                    android:textSize="20sp"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#ECF96E"
+                    android:textColor="@color/black" />
+
 
             </LinearLayout>
 
-        </TableRow>
+        </LinearLayout>
 
-    </TableLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sản phẩm bán chạy"
-        android:textStyle="bold"
-        android:textSize="22sp"
-        />
-
-    <fragment
-        android:id="@+id/productFragment"
-        android:name="com.example.skinlab.ProductFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    </ScrollView>
 
 
 
-
-
-
-
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
