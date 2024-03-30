@@ -19,7 +19,6 @@ public class Forum_AddReview extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         addEvents();
-
     }
 
     private void addEvents() {
