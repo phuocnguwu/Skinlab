@@ -27,20 +27,20 @@ public class Myaccount extends AppCompatActivity {
 
             }
         });
-        binding.btnmoronghoso.setOnClickListener(new View.OnClickListener() {
+        binding.moronghoso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Myaccount.this, Myaccount_Profile.class);
                 startActivity(intent);
             }
         });
-        binding.btnmorongdonhang.setOnClickListener(new View.OnClickListener() {
+        binding.morongdonhang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-        binding.btnmorongdiachi.setOnClickListener(new View.OnClickListener() {
+        binding.morongdiachi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Myaccount.this, Myaccount_Diachi.class);
@@ -48,13 +48,13 @@ public class Myaccount extends AppCompatActivity {
 
             }
         });
-        binding.btnmorongcaidat.setOnClickListener(new View.OnClickListener() {
+        binding.morongcaidat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-        binding.btndangxuat.setOnClickListener(new View.OnClickListener() {
+        binding.morongdangxuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

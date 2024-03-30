@@ -84,6 +84,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="36dp"
         android:layout_marginStart="36dp"
+        android:text="Nguyễn Vũ Mai Thanh"
         android:background="@drawable/roundcorner_edittext"
         android:padding="8dp"
         android:textSize="20sp"
