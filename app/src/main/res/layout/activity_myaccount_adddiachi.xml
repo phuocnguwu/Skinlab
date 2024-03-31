@@ -109,69 +109,73 @@
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/moronghoso"
+        android:id="@+id/txtthanhphohuyen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTinh">
 
-
         <TextView
             android:id="@+id/textView12"
-            android:layout_width="130dp"
+            android:layout_width="wrap_content"
             android:layout_height="31dp"
             android:layout_marginStart="36dp"
             android:text="Quận/Thành phố"
             android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@id/textView13"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/textView13"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView13"
-            android:layout_width="135dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginRight="50dp"
             android:text="Huyện/Xã"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textView12"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintLeft_toRightOf="@+id/textView12"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-<!--    <Spinner-->
-<!--        android:id="@+id/txtThanhpho"-->
-<!--        android:layout_width="158dp"-->
-<!--        android:layout_height="35dp"-->
-<!--        android:layout_marginStart="36dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:background="@drawable/roundcorner_edittext"-->
-<!--        android:padding="7dp"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/huyenxa"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView12"-->
-<!--        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/spnthanhphohuyen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtthanhphohuyen">
 
-<!--    <Spinner-->
-<!--        android:id="@+id/huyenxa"-->
-<!--        android:layout_width="158dp"-->
-<!--        android:layout_height="35dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginEnd="40dp"-->
-<!--        android:background="@drawable/roundcorner_edittext"-->
-<!--        android:padding="7dp"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView13"-->
-<!--        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />-->
+        <Spinner
+            android:id="@+id/spnThanhpho"
+            android:layout_width="158dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="36dp"
+            android:background="@drawable/roundcorner_edittext"
+            android:padding="7dp"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/spnhuyenxa"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
+        <Spinner
+            android:id="@+id/spnhuyenxa"
+            android:layout_width="156dp"
+            android:layout_height="32dp"
+            android:background="@drawable/roundcorner_edittext"
+            android:padding="7dp"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toRightOf="@+id/spnThanhpho"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 <!--    <TextView-->
 <!--        android:id="@+id/textView14"-->
 <!--        android:layout_width="wrap_content"-->
