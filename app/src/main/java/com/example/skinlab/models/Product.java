@@ -8,15 +8,18 @@ public class Product implements Serializable {
     String pd_id;
     String pd_name;
     int pd_price;
+    int pd_price2;
     String pd_brand;
     String pd_cate;
     String pd_des;
 
-    public Product(int pd_photo, String pd_id, String pd_name, int pd_price, String pd_brand, String pd_cate, String pd_des) {
+
+    public Product(int pd_photo, String pd_id, String pd_name, int pd_price, int pd_price2, String pd_brand, String pd_cate, String pd_des) {
         this.pd_photo = pd_photo;
         this.pd_id = pd_id;
         this.pd_name = pd_name;
         this.pd_price = pd_price;
+        this.pd_price2 = pd_price2;
         this.pd_brand = pd_brand;
         this.pd_cate = pd_cate;
         this.pd_des = pd_des;
@@ -44,6 +47,14 @@ public class Product implements Serializable {
 
     public void setPd_price(int pd_price) {
         this.pd_price = pd_price;
+    }
+
+    public int getPd_price2() {
+        return pd_price2;
+    }
+
+    public void setPd_price2(int pd_price2) {
+        this.pd_price2 = pd_price2;
     }
 
     public String getPd_brand() {

@@ -98,18 +98,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                 tools:layout_editor_absoluteX="20dp" />
 
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="15dp"
-                android:text="Sản phẩm bán chạy"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/tableRow"
-                tools:layout_editor_absoluteX="16dp" />
-
             <TableRow
                 android:id="@+id/tableRow"
                 android:layout_width="match_parent"
@@ -218,6 +206,17 @@
                 </LinearLayout>
 
             </TableRow>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp"
+                android:text="Sản phẩm bán chạy"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/tableRow"
+                tools:layout_editor_absoluteX="16dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvProduct"
