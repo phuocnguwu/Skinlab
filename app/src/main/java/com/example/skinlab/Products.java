@@ -1,12 +1,19 @@
 package com.example.skinlab;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 
 import com.example.skinlab.adapters.ProductAdapter;
 import com.example.skinlab.databinding.ActivityProductsBinding;
@@ -32,6 +39,48 @@ public class Products extends AppCompatActivity {
     }
 
     private void addEvents() {
+        binding.btnSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { showFilterSheet();}
+
+            private void showFilterSheet() {
+
+                Dialog dialog = new Dialog(Products.this);
+                dialog.setContentView(R.layout.filter_dialog);
+
+
+//                LinearLayout btnDefault = dialog.findViewById(R.id.btnFilter_Default);
+//                btnDefault.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//
+//                LinearLayout btnApply = dialog.findViewById(R.id.btnFilter_Apply);
+//                btnApply.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        finish();
+//                    }
+//                });
+
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                layoutParams.copyFrom(dialog.getWindow().getAttributes());
+                int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.9);
+                layoutParams.width = width;
+                layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                dialog.getWindow().setAttributes(layoutParams);
+
+                dialog.getWindow().setWindowAnimations(R.style.FilterAnimation);
+                dialog.getWindow().setGravity(Gravity.RIGHT);
+                dialog.show();
+
+    }
+
+        });
 
     }
 
