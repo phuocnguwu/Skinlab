@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchFilter"
+    android:layout_margin="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bộ lọc tìm kiếm"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            android:paddingBottom="15dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Theo danh mục"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:paddingBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:layout_weight="5"
+                android:id="@+id/checkboxCate_SRM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sữa rửa mặt"/>
+            <CheckBox
+                android:layout_weight="5"
+                android:id="@+id/checkboxCate_ND"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nước dưỡng"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkboxCate_KD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Kem dưỡng" />
+            <CheckBox
+                android:layout_weight="5"
+                android:id="@+id/checkboxCate_TC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tinh chất"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <CheckBox
+                android:id="@+id/checkboxCate_MN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mặt nạ"
+                android:paddingBottom="15dp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtFilter_Cate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Theo thương hiệu"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:paddingBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkboxBrand_Innisfree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Innisfree" />
+            <CheckBox
+                android:layout_weight="5"
+                android:id="@+id/checkboxBrand_Laneige"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Laneige "/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <CheckBox
+                android:layout_weight="5"
+                android:id="@+id/checkboxBrand_DHC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DHC"/>
+            <CheckBox
+                android:layout_weight="5"
+                android:id="@+id/checkboxBrand_Klairs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Klairs"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtFilter_Price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Theo khoảng giá"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:paddingBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="15dp">
+
+            <CheckBox
+                android:layout_weight="5"
+                android:id="@+id/checkboxPrice_250"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dưới 200.000 đ"/>
+            <CheckBox
+                android:layout_weight="5"
+                android:id="@+id/checkboxPrice_500"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="200.000 đ - 500.000 đ"/>
+
+            <CheckBox
+                android:layout_weight="5"
+                android:id="@+id/checkboxPrice_750"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500.000 đ - 750.000 đ"/>
+            <CheckBox
+                android:layout_weight="5"
+                android:id="@+id/checkboxPrice_1000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trên 750.000 đ"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnFilter_Default"
+                android:layout_weight="5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mặc định"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/btnFilter_Apply"
+                android:layout_weight="5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Áp dụng"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:backgroundTint="#ECF96E"
+                android:textSize="20sp"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
