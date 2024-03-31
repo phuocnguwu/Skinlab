@@ -98,12 +98,13 @@
         android:id="@+id/txtTinh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="36dp"
-        android:layout_marginStart="36dp"
-        android:padding="7dp"
         android:background="@drawable/roundcorner_edittext"
+        android:padding="7dp"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -133,7 +134,7 @@
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="20dp"
             android:text="Huyện/Xã"
             android:textSize="14sp"
             app:layout_constraintLeft_toRightOf="@+id/textView12"
@@ -143,87 +144,91 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/spnthanhphohuyen"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtthanhphohuyen">
 
         <Spinner
-            android:id="@+id/spnThanhpho"
-            android:layout_width="158dp"
-            android:layout_height="35dp"
+            android:id="@+id/imageButton3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
+            android:adjustViewBounds="true"
             android:background="@drawable/roundcorner_edittext"
             android:padding="7dp"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/spnhuyenxa"
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="4:1"
+            app:layout_constraintRight_toLeftOf="@id/imageButton4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            tools:ignore="TouchTargetSizeCheck" />
 
         <Spinner
-            android:id="@+id/spnhuyenxa"
-            android:layout_width="156dp"
-            android:layout_height="32dp"
+            android:id="@+id/imageButton4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:adjustViewBounds="true"
             android:background="@drawable/roundcorner_edittext"
             android:padding="7dp"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toRightOf="@+id/spnThanhpho"
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="4:1"
+            app:layout_constraintHorizontal_bias="0.552"
+            app:layout_constraintLeft_toRightOf="@+id/imageButton3"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
 
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-<!--    <TextView-->
-<!--        android:id="@+id/textView14"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="36dp"-->
-<!--        android:layout_marginTop="28dp"-->
-<!--        android:text="Địa chỉ cụ thể"-->
-<!--        android:textSize="14sp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/txtThanhpho" />-->
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
+        android:text="Địa chỉ cụ thể"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spnthanhphohuyen" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/txtDiachicuthe"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="60dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginEnd="36dp"-->
-<!--        android:layout_marginStart="36dp"-->
-<!--        android:background="@drawable/roundcorner_edittext"-->
-<!--        android:textSize="20sp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView14"-->
-<!--        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />-->
+    <EditText
+        android:id="@+id/txtDiachicuthe"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginStart="36dp"
+        android:background="@drawable/roundcorner_edittext"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-<!--    <CheckBox-->
-<!--        android:id="@+id/cbdiachimacdinh"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="36dp"-->
-<!--        android:layout_marginTop="24dp"-->
-<!--        android:text="Sử dụng làm địa chỉ mặc định"-->
-<!--        android:textSize="14sp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/txtDiachicuthe"-->
-<!--        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />-->
+    <CheckBox
+        android:id="@+id/cbdiachimacdinh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="24dp"
+        android:text="Sử dụng làm địa chỉ mặc định"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDiachicuthe"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-<!--    <Button-->
-<!--        android:id="@+id/btnadddiachi"-->
-<!--        android:layout_width="103dp"-->
-<!--        android:layout_height="45.36dp"-->
-<!--        android:layout_marginTop="112dp"-->
-<!--        android:backgroundTint="#8AB0F9"-->
-<!--        android:text="Lưu"-->
-<!--        android:textSize="18sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/txtDiachicuthe"-->
-<!--        tools:ignore="TouchTargetSizeCheck" />-->
+    <Button
+        android:id="@+id/btnadddiachi"
+        android:layout_width="103dp"
+        android:layout_height="45.36dp"
+        android:layout_marginTop="112dp"
+        android:backgroundTint="#8AB0F9"
+        android:text="Lưu"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDiachicuthe"
+        tools:ignore="TouchTargetSizeCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
