@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Skinlab</string>
+    <string name="chu_trinh"><b><i>Chu trình dưỡng da</i></b></string>
+
 </resources>
