@@ -116,12 +116,13 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="62dp"
-                        android:src="@drawable/shop" />
+                        android:src="@drawable/cate_srm" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sữa rửa mặt" />
+                        android:text="Sữa rửa mặt"
+                        android:textSize="13dp"/>
 
                 </LinearLayout>
 
@@ -136,12 +137,13 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="62dp"
-                        android:src="@drawable/shop" />
+                        android:src="@drawable/cate_nd" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Category 2" />
+                        android:text="Nước dưỡng"
+                        android:textSize="13dp"/>
 
                 </LinearLayout>
 
@@ -156,12 +158,13 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="62dp"
-                        android:src="@drawable/shop" />
+                        android:src="@drawable/cate_kd" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Category 3" />
+                        android:text="Kem dưỡng"
+                        android:textSize="13dp"/>
 
                 </LinearLayout>
 
@@ -176,12 +179,13 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="64dp"
-                        android:src="@drawable/shop" />
+                        android:src="@drawable/cate_tc" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Category 4" />
+                        android:text="Tinh chất"
+                        android:textSize="13dp"/>
 
                 </LinearLayout>
 
@@ -196,12 +200,13 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="64dp"
-                        android:src="@drawable/shop" />
+                        android:src="@drawable/cate_mn" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Category 5" />
+                        android:text="Mặt nạ"
+                        android:textSize="13dp"/>
 
                 </LinearLayout>
 
@@ -218,11 +223,26 @@
                 app:layout_constraintTop_toBottomOf="@+id/tableRow"
                 tools:layout_editor_absoluteX="16dp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvProduct"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="15dp"/>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="10dp"
+                android:paddingBottom="15dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvProduct"
+                    android:layout_width="395dp"
+                    android:layout_height="576dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            </ScrollView>
 
             <LinearLayout
                 android:layout_width="match_parent"

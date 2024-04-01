@@ -35,6 +35,7 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/imvCart"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -74,6 +75,7 @@
             tools:layout_editor_absoluteY="125dp" />
 
         <Button
+            android:id="@+id/btnSort"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
