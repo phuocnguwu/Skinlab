@@ -1,0 +1,90 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rounded_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line_rounded"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <TextView
+            android:id="@+id/txtSTT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Câu 1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/txtQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sau khi rửa mặt, không bôi bất kì sản phẩm dưỡng ẩm, chống nắng, toner, phấn phủ
+hoặc các sản phẩm nào khác, khoảng 2-3 giờ sau soi gương dưới đèn sáng, bạn cảm thấy
+trán và gò má mình:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:justificationMode="inter_word"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="130dp">
+
+            <RadioButton
+                android:id="@+id/radA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rất thô ráp, tróc vẩy hoặc sạm lại"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/radB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Căng"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/radC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đủ ẩm nhưng không phản chiếu lại ánh sáng"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/radD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bóng và phản chiếu lại ánh sáng"
+                android:textSize="16sp"
+                android:textColor="@color/black" />
+
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
