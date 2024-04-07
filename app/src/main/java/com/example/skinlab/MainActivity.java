@@ -57,14 +57,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
-//        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(Product product) {
-//                Intent intent = new Intent(MainActivity.this, Product_Details.class);
-//                intent.putExtra("selectedProduct", product);
-//                startActivity(intent);
-//            }
-//        });
+        binding.imvCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Donhang_dathang.class);
+                startActivity(intent);
+            }
+        });
+
+        binding.tableRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Products.class);
+                startActivity(intent);
+            }
+        });
+        binding.txtProducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Products.class);
+                startActivity(intent);
+            }
+        });
+        binding.btnLichhen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Aboutskin_lichhen.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void loadData() {
