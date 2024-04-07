@@ -1,4 +1,4 @@
-package com.example.skinlab.adapters;
+package com.example.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,19 +11,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.skinlab.models.Product;
+import com.example.models.Product;
 import com.example.skinlab.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder>  {
     Context context;
-    List<Product> products;
+    ArrayList<Product> products;
 
-    AdapterView.OnItemClickListener listener;
+    OnItemClickListener listener;
+
+    public interface OnItemClickListener {
+        void onItemClick(Product product);
+    }
 
 
-    public ProductAdapter(Context context, List<Product> products) {
+    public ProductAdapter(Context context, ArrayList<Product> products) {
         this.context = context;
         this.products = products;
     }
@@ -37,11 +42,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product product = products.get(position);
-        holder.imvProduct.setImageResource(products.get(position).getPd_photo());
-        holder.txtProductName.setText(products.get(position).getPd_name());
-        holder.txtProductPrice.setText(products.get(position).getPd_price() + " đ");
+
+        final Product product = products.get(position);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener !=null) listener.onItemClick(product);
+            }
+        });
+        holder.bind(product);
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -58,13 +71,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             txtProductName = itemView.findViewById(R.id.txtProductName);
             txtProductPrice = itemView.findViewById(R.id.txtProductPrice);
         }
+
+        public void bind(Product product) {
+            imvProduct.setImageResource(product.getPd_photo());
+            txtProductName.setText(product.getPd_name());
+            txtProductPrice.setText(product.getPd_price() + " đ");
+        }
     }
 
     public interface OnClickListener {
         void onItemClick(Product product);
     }
 
-    public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 

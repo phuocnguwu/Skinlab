@@ -37,7 +37,7 @@
             android:name=".Product_Details"
             android:exported="false" />
         <activity
-            android:name=".Products"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Myaccount_Diachi"
@@ -52,7 +52,7 @@
             android:name=".Forum_AddReview_Main"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Products"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

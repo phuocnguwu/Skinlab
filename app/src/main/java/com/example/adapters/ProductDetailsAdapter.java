@@ -1,4 +1,4 @@
-package com.example.skinlab.adapters;
+package com.example.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.skinlab.Product_Details;
 import com.example.skinlab.R;
-import com.example.skinlab.models.Product;
+import com.example.models.Product;
 
 import java.util.List;
 
@@ -76,7 +76,4 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<ProductDetailsAd
             txtProductPrice = itemView.findViewById(R.id.txtProductPrice);
         }
     }
-
-
-
 }
