@@ -6,9 +6,13 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.adapters.ProductAdapter;
+import com.example.adapters.SliderRecyclerAdapter;
+import com.example.models.Slider;
 import com.example.skinlab.databinding.ActivityMainBinding;
 import com.example.models.Product;
 
@@ -18,7 +22,11 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     ProductAdapter adapter;
 
+    SliderRecyclerAdapter adapter2;
+
     ArrayList<Product> products;
+
+    ArrayList<Slider> sliders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +37,23 @@ public class MainActivity extends AppCompatActivity {
         initData();
         loadData();
         addEvents();
+        loadSlider();
+    }
+
+    private void loadSlider() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        binding.rcvSlider.setLayoutManager(layoutManager);
+        binding.rcvSlider.setHasFixedSize(true);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, layoutManager.getOrientation());
+        binding.rcvSlider.addItemDecoration(dividerItemDecoration);
+
+        sliders = new ArrayList<>();
+        sliders.add(new Slider(R.drawable.slider1));
+        sliders.add(new Slider(R.drawable.slider2));
+
+        adapter2 = new SliderRecyclerAdapter(getApplicationContext(), sliders);
+        binding.rcvSlider.setAdapter(adapter2);
     }
 
     private void addEvents() {
