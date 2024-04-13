@@ -238,14 +238,13 @@
         app:layout_constraintTop_toBottomOf="@+id/txtSubtitle4"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/textView39"
+    <Spinner
+        android:id="@+id/spnPTTT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:textSize="16sp"
-        android:text="Spinner for choosing payment methods"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle3"
         tools:ignore="MissingConstraints" />
