@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".Product_Details"
     android:paddingTop="15dp"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@color/white">
 
 
     <LinearLayout
@@ -35,6 +36,7 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/imvCart"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_weight="1"
@@ -102,7 +104,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingEnd="10dp"
-                        android:text="productname"
+                        android:text="productprice"
                         android:textColor="#F44336"
                         android:textSize="26sp"
                         android:textStyle="bold" />
@@ -120,7 +122,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="15dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imvProduct">
+                    app:layout_constraintTop_toBottomOf="@+id/imvProduct"
+                    android:weightSum="10">
 
                     <Button
                         android:id="@+id/btnBuyNow"
@@ -129,8 +132,9 @@
                         android:layout_marginEnd="10dp"
                         android:backgroundTint="#ECF96E"
                         android:text="Mua ngay"
+                        android:layout_weight="4"
                         android:textColor="@color/black"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
 
                     <Button
                         android:id="@+id/btnAddToCart"
@@ -139,14 +143,16 @@
                         android:layout_marginEnd="10dp"
                         android:backgroundTint="#FFFFFF"
                         android:text="Thêm vào giỏ"
+                        android:layout_weight="5"
                         android:textColor="@color/black"
-                        android:textSize="22sp" />
+                        android:textSize="18sp" />
 
-                    <ImageView
-                        android:id="@+id/imvFavorite"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:src="@drawable/shop" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imvFavorite"-->
+<!--                        android:layout_width="48dp"-->
+<!--                        android:layout_height="48dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:src="@drawable/shop" />-->
 
 
                 </LinearLayout>
@@ -196,8 +202,8 @@
 
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcvFeedback"
+                <ListView
+                    android:id="@+id/lvFeedback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

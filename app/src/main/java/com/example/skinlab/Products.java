@@ -1,12 +1,9 @@
 package com.example.skinlab;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -15,9 +12,9 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.example.skinlab.adapters.ProductAdapter;
+import com.example.adapters.ProductAdapter;
 import com.example.skinlab.databinding.ActivityProductsBinding;
-import com.example.skinlab.models.Product;
+import com.example.models.Product;
 
 import java.util.ArrayList;
 
@@ -49,21 +46,21 @@ public class Products extends AppCompatActivity {
                 dialog.setContentView(R.layout.filter_dialog);
 
 
-//                LinearLayout btnDefault = dialog.findViewById(R.id.btnFilter_Default);
-//                btnDefault.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//
-//                LinearLayout btnApply = dialog.findViewById(R.id.btnFilter_Apply);
-//                btnApply.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        finish();
-//                    }
-//                });
+                LinearLayout btnDefault = dialog.findViewById(R.id.btnFilter_Default);
+                btnDefault.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                LinearLayout btnApply = dialog.findViewById(R.id.btnFilter_Apply);
+                btnApply.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                });
 
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
@@ -90,6 +87,16 @@ public class Products extends AppCompatActivity {
 
         adapter = new ProductAdapter(Products.this, products);
         binding.rcvProduct.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                // Xử lý khi người dùng nhấn vào một item trong RecyclerView
+                Intent intent = new Intent(Products.this, Product_Details.class);
+                intent.putExtra("selectedProduct", product);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initData() {

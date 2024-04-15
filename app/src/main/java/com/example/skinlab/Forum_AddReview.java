@@ -34,6 +34,7 @@ public class Forum_AddReview extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(Forum_AddReview.this, Forum_Detailed.class);
+                startActivity(intent);
             }
         });
     }

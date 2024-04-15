@@ -1,4 +1,4 @@
-package com.example.skinlab.models;
+package com.example.models;
 
 import java.io.Serializable;
 
