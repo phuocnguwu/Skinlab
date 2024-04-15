@@ -52,13 +52,19 @@
             android:name=".Myaccount_Profile"
             android:exported="false" />
         <activity
-            android:name=".Myaccount"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Forum_AddReview_Main"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Myaccount_adddiachi"
+            android:exported="false" />
+        <activity
+            android:name=".Myaccount_Editdiachi"
+            android:exported="false" />
+        <activity
+            android:name=".Myaccount"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
