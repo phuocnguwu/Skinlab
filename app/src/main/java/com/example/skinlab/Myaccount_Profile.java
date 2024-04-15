@@ -50,8 +50,6 @@ public class Myaccount_Profile extends AppCompatActivity {
                 }
         );
     }
-
-
     private void addEvents() {
         binding.btneditavatar.setOnClickListener(new View.OnClickListener() {
             @Override
