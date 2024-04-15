@@ -92,9 +92,10 @@
             android:layout_marginTop="4dp"
             android:src="@drawable/morong"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.747"
+            app:layout_constraintHorizontal_bias="0.555"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iconprofile" />
+
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
@@ -146,7 +147,7 @@
             android:layout_marginTop="4dp"
             android:src="@drawable/morong"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.747"
+            app:layout_constraintHorizontal_bias="0.555"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/icondonhang" />
 
@@ -202,7 +203,7 @@
             android:layout_marginTop="4dp"
             android:src="@drawable/morong"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.747"
+            app:layout_constraintHorizontal_bias="0.555"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/icondiachi" />
 
@@ -257,7 +258,7 @@
             android:layout_marginTop="4dp"
             android:src="@drawable/morong"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.747"
+            app:layout_constraintHorizontal_bias="0.555"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/iconcaidat" />
 
@@ -314,7 +315,7 @@
             android:layout_marginTop="4dp"
             android:src="@drawable/morong"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.747"
+            app:layout_constraintHorizontal_bias="0.555"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/icondangxuat" />
     </androidx.constraintlayout.widget.ConstraintLayout>
