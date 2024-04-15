@@ -29,7 +29,6 @@
             app:layout_constraintHorizontal_bias="0.3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWeight="1.0"
             app:layout_constraintWidth_default="spread">
 
             <ImageView
@@ -54,7 +53,6 @@
             app:layout_constraintEnd_toStartOf="@+id/btnTuvan"
             app:layout_constraintStart_toEndOf="@+id/btnTrangchu"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWeight="1.0"
             app:layout_constraintWidth_default="spread">
 
             <ImageView
@@ -78,7 +76,6 @@
             app:layout_constraintEnd_toStartOf="@+id/btnTaikhoan"
             app:layout_constraintStart_toStartOf="@+id/btnDathang"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWeight="1.0"
             app:layout_constraintWidth_default="spread">
 
             <ImageView
@@ -102,7 +99,6 @@
             app:layout_constraintEnd_toEndOf="@+id/btnTaikhoan"
             app:layout_constraintStart_toStartOf="@+id/btnTuvan"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWeight="1.0"
             app:layout_constraintWidth_default="spread">
 
             <ImageView
@@ -125,7 +121,6 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWeight="1.0"
             app:layout_constraintWidth_default="spread">
 
             <ImageView

@@ -21,8 +21,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.skinlab.databinding.ActivityDialogSaveBinding;
-import com.example.skinlab.databinding.ActivityMyaccountBinding;
 import com.example.skinlab.databinding.ActivityMyaccountProfileBinding;
+import com.example.skinlab.databinding.FragmentMyAccountBinding;
 
 public class Myaccount_Profile extends AppCompatActivity {
     ActivityMyaccountProfileBinding binding;
@@ -93,7 +93,7 @@ public class Myaccount_Profile extends AppCompatActivity {
         binding.btnclickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Myaccount_Profile.this, Myaccount.class);
+                Intent intent = new Intent(Myaccount_Profile.this, FragmentMyAccountBinding.class);
                 startActivity(intent);
             }
         });

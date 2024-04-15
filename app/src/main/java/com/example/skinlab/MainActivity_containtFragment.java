@@ -1,14 +1,46 @@
 package com.example.skinlab;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.View;
+
+import com.example.skinlab.databinding.ActivityMainContaintFragmentBinding;
 
 public class MainActivity_containtFragment extends AppCompatActivity {
+    ActivityMainContaintFragmentBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_containt_fragment);
+        binding = ActivityMainContaintFragmentBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        addEvents();
+
+    }
+    View.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transction = manager.beginTransaction();
+            Fragment fragment = null;
+            if (v.equals(binding.btnTaikhoan))
+                fragment = new MyAccountFragment();
+//            else if (v.equals(binding.btnfrag2))
+//                fragment = new Fragment2();
+
+            assert fragment != null;
+            transction.replace(R.id.containerLayout, fragment);
+
+            transction.commit();
+        }
+    };
+
+    private void addEvents() {
+        binding.btnTaikhoan.setOnClickListener(clickListener);
+
     }
 }
