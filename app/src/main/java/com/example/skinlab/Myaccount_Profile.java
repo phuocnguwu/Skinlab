@@ -97,12 +97,7 @@ public class Myaccount_Profile extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        binding.btneditavatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
         binding.btnsavepf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
