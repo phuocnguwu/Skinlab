@@ -11,21 +11,21 @@ import android.widget.Toast;
 import com.example.adapters.CategoryAdapter;
 import com.example.models.Category;
 import com.example.skinlab.databinding.ActivityAboutskinIntroTestBinding;
-import com.example.skinlab.databinding.ActivityMainBinding;
+import com.example.skinlab.databinding.ActivityMainContaintFragmentBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DONHANG_Locdonhang extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    ActivityMainContaintFragmentBinding binding;
     Spinner spncategory;
     CategoryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainContaintFragmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         spncategory = findViewById(R.id.spn_category);

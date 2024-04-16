@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Homepage"
     android:orientation="vertical"
     android:background="@color/white">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="20dp">
-
         <LinearLayout
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -31,14 +28,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="20dp">
+                tools:layout_editor_absoluteX="20dp"
+                android:paddingTop="70dp">
 
                 <ImageView
                     android:id="@+id/imvMenu"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/menu" />
+                    android:layout_weight="1" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -78,16 +75,18 @@
                     tools:layout_editor_absoluteY="126dp" />
 
                 <EditText
-                    android:id="@+id/search"
+                    android:id="@+id/edtsearch"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_weight="8"
+                    android:layout_weight="6"
                     android:background="@drawable/edit_text_background"
                     android:hint="  Tìm kiếm..."
                     android:padding="5dp"
                     tools:ignore="TouchTargetSizeCheck"
                     tools:layout_editor_absoluteX="20dp"
                     tools:layout_editor_absoluteY="125dp" />
+
+                    />
 
             </LinearLayout>
 
@@ -369,8 +368,8 @@
         </LinearLayout>
 
 
-    </ScrollView>
 
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
