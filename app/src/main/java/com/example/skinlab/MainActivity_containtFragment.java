@@ -47,6 +47,7 @@ public class MainActivity_containtFragment extends AppCompatActivity {
     private void addEvents() {
         binding.btnTaikhoan.setOnClickListener(clickListener);
         binding.btnTrangchu.setOnClickListener(clickListener);
+        binding.btnDiendan.setOnClickListener(clickListener);
 
     }
 }

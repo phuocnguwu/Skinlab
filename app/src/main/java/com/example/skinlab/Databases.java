@@ -43,7 +43,7 @@ public class Databases extends SQLiteOpenHelper {
     }
 
 //    @Override
-//    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase db) {
 //        String sql = "CREATE TABLE IF NOT EXISTS "
 //                + TBL_USER+ " (" +
 //             USER_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT )";
@@ -63,16 +63,16 @@ public class Databases extends SQLiteOpenHelper {
 //
 //        db.execSQL(sql);
 //
-//    }
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TBL_USER);
-        db.execSQL("DROP TABLE IF EXISTS " + TBL_ORDERS);
-        db.execSQL("DROP TABLE IF EXISTS " + TBL_PRODUCT);
-        db.execSQL("DROP TABLE IF EXISTS " + TBL_FORUM);
-        db.execSQL("DROP TABLE IF EXISTS " + TBL_ABOUTSKIN);
-        onCreate(db);
+//        db.execSQL("DROP TABLE IF EXISTS " + TBL_USER);
+//        db.execSQL("DROP TABLE IF EXISTS " + TBL_ORDERS);
+//        db.execSQL("DROP TABLE IF EXISTS " + TBL_PRODUCT);
+//        db.execSQL("DROP TABLE IF EXISTS " + TBL_FORUM);
+//        db.execSQL("DROP TABLE IF EXISTS " + TBL_ABOUTSKIN);
+//        onCreate(db);
 
     }
 

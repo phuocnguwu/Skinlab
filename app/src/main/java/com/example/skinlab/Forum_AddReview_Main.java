@@ -31,7 +31,7 @@ public class Forum_AddReview_Main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showAlerDialog();
-                Intent intent = new Intent(Forum_AddReview_Main.this, Forum_AddReview.class);
+                Intent intent = new Intent(Forum_AddReview_Main.this, Forum_AddReview_Main.class);
                 startActivity(intent);
             }
 

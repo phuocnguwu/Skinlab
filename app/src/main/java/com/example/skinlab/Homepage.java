@@ -112,6 +112,61 @@ public class Homepage extends Fragment {
 
     private void addEvents() {
 
+        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                String keyword = binding.edtSearch.getText().toString().trim();
+//
+//                // Kiểm tra xem keyword có rỗng không
+//                if (!keyword.isEmpty()) {
+//                    // Thực hiện truy vấn dữ liệu từ cơ sở dữ liệu
+//                    ArrayList<Product> searchResults = searchProductsByName(keyword);
+//
+//                    // Hiển thị kết quả tìm kiếm trên RecyclerView
+//                    if (searchResults != null && !searchResults.isEmpty()) {
+//                        // Cập nhật dữ liệu cho Adapter của RecyclerView
+//                        adapter.setData(searchResults);
+//                        // Cập nhật giao diện RecyclerView
+//                        adapter.notifyDataSetChanged();
+//                    } else {
+//                        // Hiển thị thông báo cho người dùng không tìm thấy kết quả
+//                        Toast.makeText(requireContext(), "Không tìm thấy sản phẩm phù hợp", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    // Hiển thị thông báo cho người dùng nhập từ khóa tìm kiếm
+//                    Toast.makeText(requireContext(), "Vui lòng nhập từ khóa tìm kiếm", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+
+//            private ArrayList<Product> searchProductsByName(String keyword) {
+//                ArrayList<Product> searchResults = new ArrayList<>();
+//
+//                // Thực hiện truy vấn sản phẩm theo tên từ cơ sở dữ liệu
+//                // Ví dụ: sử dụng SQLite Database để thực hiện truy vấn
+//                // Thay đổi query này tùy theo cơ sở dữ liệu của bạn
+//                SQLiteDatabase db = dbHelper.getReadableDatabase();
+//                String query = "SELECT * FROM Products WHERE productName LIKE '%" + keyword + "%'";
+//                Cursor cursor = db.rawQuery(query, null);
+//
+//                // Duyệt qua các dòng kết quả và thêm vào danh sách searchResults
+//                if (cursor != null) {
+//                    while (cursor.moveToNext()) {
+//                        int id = cursor.getInt(cursor.getColumnIndex("id"));
+//                        String name = cursor.getString(cursor.getColumnIndex("productName"));
+//                        // Các thông tin sản phẩm khác tương ứng
+//
+//                        // Tạo đối tượng Product từ dữ liệu truy vấn
+//                        Product product = new Product(id, name, ...);
+//                        searchResults.add(product);
+//                    }
+//                    cursor.close();
+//                }
+//                db.close();
+//
+//                return searchResults;
+            }
+        });
+
         binding.imvCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

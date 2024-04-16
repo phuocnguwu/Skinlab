@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Skinlab"
         tools:targetApi="31">
         <activity
+            android:name=".ProductDetailsDialogAddtocart"
+            android:exported="false" />
+        <activity
             android:name=".dialog_dathang"
             android:exported="false" />
         <activity

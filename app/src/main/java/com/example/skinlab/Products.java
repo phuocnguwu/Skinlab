@@ -36,6 +36,20 @@ public class Products extends AppCompatActivity {
     }
 
     private void addEvents() {
+        binding.imvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        binding.imvCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Products.this, Donhang_dathang.class);
+                startActivity(intent);
+            }
+        });
         binding.btnSort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { showFilterSheet();}

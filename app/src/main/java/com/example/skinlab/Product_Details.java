@@ -1,17 +1,24 @@
 package com.example.skinlab;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.adapters.FeedbackAdapter;
 import com.example.adapters.ProductDetailsAdapter;
 import com.example.models.Feedback;
+import com.example.skinlab.databinding.ActivityDialogSaveBinding;
 import com.example.skinlab.databinding.ActivityProductDetailsBinding;
 import com.example.models.Product;
+import com.example.skinlab.databinding.ActivityProductDetailsDialogAddtocartBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +76,25 @@ public class Product_Details extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Product_Details.this, Donhang_dathang.class);
                 startActivity(intent);
+            }
+        });
+        binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityProductDetailsDialogAddtocartBinding DialogAddtocartBinding = ActivityProductDetailsDialogAddtocartBinding.inflate(LayoutInflater.from(Product_Details.this));
+                AlertDialog.Builder builder = new AlertDialog.Builder(Product_Details.this)
+                        .setView(DialogAddtocartBinding.getRoot())
+                        .setCancelable(true);
+                final AlertDialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().setLayout(200, 200);
+                dialog.show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                }, 1000);
             }
         });
 
