@@ -29,8 +29,12 @@ public class MainActivity_containtFragment extends AppCompatActivity {
             Fragment fragment = null;
             if (v.equals(binding.btnTaikhoan))
                 fragment = new MyAccountFragment();
+            else if (v.equals(binding.btnDiendan))
+                fragment = new ForumFragment();
+
 //            else if (v.equals(binding.btnfrag2))
 //                fragment = new Fragment2();
+
 
             assert fragment != null;
             transction.replace(R.id.containerLayout, fragment);
