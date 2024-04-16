@@ -8,13 +8,21 @@ import android.os.Bundle;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.example.adapters.ForumAdapter;
+import com.example.adapters.ProductAdapter;
+import com.example.adapters.SliderRecyclerAdapter;
+import com.example.models.Forum;
+import com.example.models.Product;
 import com.example.skinlab.databinding.FragmentForumBinding;
 import com.example.skinlab.databinding.FragmentMyAccountBinding;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,6 +63,8 @@ public class ForumFragment extends Fragment {
     }
 
     FragmentForumBinding binding;
+    ForumAdapter adapter;
+    ArrayList<Forum> forums;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +95,13 @@ public class ForumFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(requireActivity(), Forum_AddReview_Main.class);
                 startActivity(intent);
-
+            }
+        });
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), MainActivity_containtFragment.class);
+                startActivity(intent);
             }
         });
         binding.lvReview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

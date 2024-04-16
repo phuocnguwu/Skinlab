@@ -19,6 +19,9 @@
             android:name=".dialog_dathang"
             android:exported="false" />
         <activity
+            android:name=".Forum_Dialog_Send"
+            android:exported="false" />
+        <activity
             android:name=".Product_Details_Feedback"
             android:exported="false" />
         <activity
@@ -56,6 +59,9 @@
             android:exported="false" />
         <activity
             android:name=".Forum_AddReview_Main"
+            android:exported="false" />
+        <activity
+            android:name=".Forum_Detailed"
             android:exported="false" />
         <activity
             android:name=".Myaccount_adddiachi"

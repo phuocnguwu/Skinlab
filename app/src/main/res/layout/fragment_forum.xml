@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ForumFragment">
+    <ImageButton
+        android:id="@+id/btnclickback"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="27dp"
+        android:src="@drawable/arrowleft"
+        android:background="@drawable/backgroundbuttonback"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="match_parent"
@@ -14,15 +24,14 @@
         android:text="Forum"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="80dp"
         android:text="245 Chủ đề"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,8 +40,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="105dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="115dp"
         android:text="4.8"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +50,8 @@
     <ImageView
         android:layout_width="26dp"
         android:layout_height="21dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="109dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="119dp"
         android:src="@drawable/star"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="220dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="80dp"
         android:backgroundTint="#ECF96E"
         android:text="+  Thêm đánh giá"
         android:textColor="#000000"
@@ -62,10 +71,11 @@
 
     <ListView
         android:id="@+id/lvReview"
-        android:layout_width="371dp"
-        android:layout_height="560dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="10dp"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 
