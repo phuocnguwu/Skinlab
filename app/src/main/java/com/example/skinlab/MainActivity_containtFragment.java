@@ -1,3 +1,4 @@
+
 package com.example.skinlab;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,6 @@ public class MainActivity_containtFragment extends AppCompatActivity {
     ActivityMainContaintFragmentBinding binding;
     private boolean isLoggedIn = false;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,7 @@ public class MainActivity_containtFragment extends AppCompatActivity {
         transaction.replace(R.id.containerLayout, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        checkLoginAndReplaceFragment(); // Kiểm tra trạng thái đăng nhập sau khi thay thế fragment
+        checkLoginAndReplaceFragment();
 
     }
 
@@ -65,11 +65,9 @@ public class MainActivity_containtFragment extends AppCompatActivity {
             transction.replace(R.id.containerLayout, fragment);
             transction.addToBackStack(null);
             transction.commit();
-            checkLoginAndReplaceFragment(); // Kiểm tra trạng thái đăng nhập sau khi thay thế fragment
-
+            checkLoginAndReplaceFragment();
         }
     };
-
     private void addEvents() {
         binding.btnTaikhoan.setOnClickListener(clickListener);
         binding.btnTrangchu.setOnClickListener(clickListener);

@@ -95,7 +95,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtsdt" />
 
-    <Spinner
+    <EditText
         android:id="@+id/txtTinh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -137,8 +137,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtthanhphohuyen">
-        <Spinner
-            android:id="@+id/imageButton3"
+        <EditText
+            android:id="@+id/txtcity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"

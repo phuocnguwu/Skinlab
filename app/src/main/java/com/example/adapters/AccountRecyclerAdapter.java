@@ -13,7 +13,7 @@ import com.example.skinlab.R;
 
 import java.util.List;
 
-public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecyclerAdapter.ViewHolder> {
+public class AccountRecyclerAdapter {
     private List<Account> AccountList;
     private Context context;
 
@@ -23,24 +23,4 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecycler
     }
 
 
-    @NonNull
-    @Override
-    public AccountRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.diachi_layout, parent, false);
-        return new ViewHolder(view);    }
-
-    @Override
-    public void onBindViewHolder(@NonNull AccountRecyclerAdapter.ViewHolder holder, int position) {
-
-    }
-    @Override
-    public int getItemCount() {
-        return 0;
-    }
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-        }
-    }
 }
