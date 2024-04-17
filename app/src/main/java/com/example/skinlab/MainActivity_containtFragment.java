@@ -59,6 +59,8 @@ public class MainActivity_containtFragment extends AppCompatActivity {
                 fragment = new Homepage();
             else if (v.equals(binding.btnDiendan))
                 fragment = new ForumFragment();
+            else if (v.equals(binding.btnTuvan))
+                fragment = new AboutskinFragment();
             assert fragment != null;
             transction.replace(R.id.containerLayout, fragment);
             transction.addToBackStack(null);
@@ -72,6 +74,7 @@ public class MainActivity_containtFragment extends AppCompatActivity {
         binding.btnTaikhoan.setOnClickListener(clickListener);
         binding.btnTrangchu.setOnClickListener(clickListener);
         binding.btnDiendan.setOnClickListener(clickListener);
+        binding.btnTuvan.setOnClickListener(clickListener);
     }
     private boolean readLoginStatus() {
         SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
