@@ -186,21 +186,25 @@ public class LoginFragment extends Fragment {
                 } else {
                     isLoggedIn = true;
                     saveLoginStatus(isLoggedIn);
-
+                    Toast.makeText(getContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                     FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
                     transaction.replace(R.id.containerLayout, new MyAccountFragment());
                     transaction.addToBackStack(null);
                     transaction.commit();
-
                 }
             }
-
             private void saveLoginStatus(boolean isLoggedIn) {
                 SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("login_pref", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("isLoggedIn", isLoggedIn);
                 editor.apply();
+            }
+        });
+        binding.textViewSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
