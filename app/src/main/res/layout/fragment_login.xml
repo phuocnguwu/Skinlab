@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">>
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginFragment">
@@ -47,7 +51,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewEmailPhone"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
     <TextView
         android:id="@+id/textViewPassword"
         android:layout_width="wrap_content"
@@ -59,7 +62,6 @@
         app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmailPhone" />
-
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="0dp"
@@ -75,8 +77,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPassword"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-
     <TextView
         android:id="@+id/textViewForgotPassword"
         android:layout_width="wrap_content"
@@ -86,7 +86,6 @@
         android:text="Quên mật khẩu?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="0dp"
@@ -101,7 +100,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"/>
-
     <TextView
         android:id="@+id/textViewRegister"
         android:layout_width="wrap_content"
@@ -111,7 +109,6 @@
         android:text="Bạn đã có tài khoản chưa? "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
-
     <TextView
         android:id="@+id/textViewSignUp"
         android:layout_width="wrap_content"
@@ -122,5 +119,5 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
         app:layout_constraintStart_toEndOf="@+id/textViewRegister"
         android:layout_marginTop="20dp"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
