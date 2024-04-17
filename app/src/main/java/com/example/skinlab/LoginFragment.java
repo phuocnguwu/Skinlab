@@ -112,6 +112,7 @@
 package com.example.skinlab;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -204,7 +205,8 @@ public class LoginFragment extends Fragment {
         binding.textViewSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getContext(), Signup.class);
+                startActivity(intent);
             }
         });
 
