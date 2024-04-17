@@ -40,7 +40,7 @@
             android:name=".Donhang_Chitietdonhang"
             android:exported="false" />
         <activity
-            android:name=".MainActivity_containtFragment"
+            android:name=".Myaccount_Diachi"
             android:exported="false" />
         <activity
             android:name=".Aboutskin_intro_test"
@@ -76,7 +76,7 @@
             android:name=".Myaccount_Editdiachi"
             android:exported="false" />
         <activity
-            android:name=".Myaccount_Diachi"
+            android:name=".MainActivity_containtFragment"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -69,11 +69,7 @@ public class Databases extends SQLiteOpenHelper {
                 USER_COL_PHONE + " REAL, " +
                 USER_COL_GENDER + " TEXT, " +
                 USER_COL_DOB + " TEXT, " +
-                USER_COL_PROVINCE + " VARCHAR(50), " +
-                USER_COL_DISTRICT + " VARCHAR(50), " +
                 USER_COL_ADDRESS + " VARCHAR(50), " +
-                USER_COL_PROVINCE2 + " VARCHAR(50), " +
-                USER_COL_DISTRICT2 + " VARCHAR(50), " +
                 USER_COL_ADDRESS2 + " VARCHAR(50), " +
                 USER_COL_PASSWORD + " VARCHAR(50), " +
                 USER_COL_SKIN + " VARCHAR(50) "
@@ -113,8 +109,26 @@ public class Databases extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery(sql, null);
     }
-
     //INSERT
+    public boolean insertAdressData(String name, String phone, String address1, String address2) {
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "INSERT INTO " + TBL_USER + "(" +
+                USER_COL_NAME + ", " +
+                USER_COL_PHONE + ", " +
+                USER_COL_ADDRESS + ", " +
+                USER_COL_ADDRESS2  +
+                ") VALUES(?, ?, ?, ?)";
+
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(1, name);
+        statement.bindString(2, phone);
+        statement.bindString(3, address1);
+        statement.bindString(4, address2);
+        statement.executeInsert();
+        return true;
+    }
+
 
     //UPDATE
 
@@ -131,4 +145,10 @@ public class Databases extends SQLiteOpenHelper {
         return outputStream.toByteArray();
     }
 
+    public void createAddressSampleData(Myaccount_Diachi myaccountDiachi) {
+        SQLiteDatabase database = getWritableDatabase();
+        database.execSQL("DELETE FROM " + TBL_USER);
+        insertAdressData("Nguyễn Thuỳ Linh","0943049504","122, đường Điện Biên Phủ, phường 9","34, đường Nguyễn Văn Cừ, phường 4");
+        database.close();
+    }
 }

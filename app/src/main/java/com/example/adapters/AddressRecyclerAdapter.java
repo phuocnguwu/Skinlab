@@ -31,21 +31,20 @@ public class AddressRecyclerAdapter extends RecyclerView.Adapter<AddressRecycler
         return new ViewHolder(view);    }
 
     @Override
-    public void onBindViewHolder(@NonNull AddressRecyclerAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder( AddressRecyclerAdapter.ViewHolder holder, int position) {
         Address address = addressList.get(position);
         holder.txtName.setText(address.getName());
         holder.txtphone.setText(address.getPhone());
         holder.txtaddress.setText(address.getAddress());
-    }
 
+    }
     @Override
     public int getItemCount() {
         return addressList.size();
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView  txtName, txtphone, txtprovince, txtdistrict, txtaddress;
-        public ViewHolder(@NonNull View itemView) {
+        TextView  txtName, txtphone, txtaddress;
+        public ViewHolder( View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txtUserName);
             txtphone = itemView.findViewById(R.id.txtSdt);
