@@ -2,15 +2,24 @@ package com.example.skinlab;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.adapters.AddressRecyclerAdapter;
+import com.example.models.Address;
 import com.example.skinlab.databinding.ActivityMyaccountDiachiBinding;
 import com.example.skinlab.databinding.FragmentMyAccountBinding;
 
+import java.util.ArrayList;
+
 public class Myaccount_Diachi extends AppCompatActivity {
     ActivityMyaccountDiachiBinding binding;
+    Databases db;
+    AddressRecyclerAdapter adapter;
+    ArrayList<Address> products;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +27,12 @@ public class Myaccount_Diachi extends AppCompatActivity {
         binding = ActivityMyaccountDiachiBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         addEvents();
+        createdb();
+    }
+
+    private void createdb() {
+
+
     }
 
     private void addEvents() {

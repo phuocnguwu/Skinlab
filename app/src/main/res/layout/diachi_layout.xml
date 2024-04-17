@@ -42,7 +42,7 @@
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/txtUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -53,16 +53,18 @@
             app:layout_constraintTop_toBottomOf="@+id/titlediachi" />
 
         <TextView
+            android:id="@+id/txtSdt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="112dp"
             android:layout_marginTop="20dp"
             android:text="0942058065"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintStart_toEndOf="@+id/txtUserName"
             app:layout_constraintTop_toBottomOf="@+id/titlediachi" />
 
         <TextView
+            android:id="@+id/txtDiachicuthe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -70,6 +72,6 @@
             android:text="237 Thạnh Hưng, Thạnh Phú, Châu Thành, Tiền Giang"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/txtUserName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
