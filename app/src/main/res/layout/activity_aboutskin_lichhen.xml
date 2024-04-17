@@ -99,7 +99,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <Button
-            android:id="@+id/btnTest"
+            android:id="@+id/btnDatlich"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ECF96E"
@@ -125,7 +125,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnTest" />
+            app:layout_constraintTop_toBottomOf="@+id/btnDatlich" />
 
         <ListView
             android:id="@+id/lvLichsu"
