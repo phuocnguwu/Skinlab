@@ -22,6 +22,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/imvAvatar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginEnd="10dp"
@@ -33,17 +34,20 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txtUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Jenny Wilson" />
 
                 <TextView
+                    android:id="@+id/Date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="13 sep, 2023" />
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txtRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="90dp"
@@ -66,6 +70,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/ReviewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -74,6 +79,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/txtReviewContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nội dung bài đánh giá"

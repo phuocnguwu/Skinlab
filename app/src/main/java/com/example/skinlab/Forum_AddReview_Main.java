@@ -27,6 +27,13 @@ public class Forum_AddReview_Main extends AppCompatActivity {
     }
 
     private void addEvents() {
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Forum_AddReview_Main.this, ForumFragment.class);
+                startActivity(intent);
+            }
+        });
         binding.btnSendReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

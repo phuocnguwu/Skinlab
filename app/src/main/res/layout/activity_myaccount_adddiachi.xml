@@ -20,15 +20,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
     <TextView
         android:id="@+id/textview_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
         android:text="Thêm địa chỉ"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginStart="134dp"
-        android:layout_marginTop="29dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -126,19 +127,7 @@
             android:text="Quận/Thành phố"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/textView13"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginRight="20dp"
-            android:text="Huyện/Xã"
-            android:textSize="14sp"
-            app:layout_constraintLeft_toRightOf="@+id/textView12"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -148,38 +137,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtthanhphohuyen">
-
         <Spinner
             android:id="@+id/imageButton3"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:adjustViewBounds="true"
             android:background="@drawable/roundcorner_edittext"
             android:padding="7dp"
+            android:layout_marginEnd="36dp"
             android:scaleType="fitXY"
             app:layout_constraintDimensionRatio="4:1"
-            app:layout_constraintRight_toLeftOf="@id/imageButton4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TouchTargetSizeCheck" />
-
-        <Spinner
-            android:id="@+id/imageButton4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/roundcorner_edittext"
-            android:padding="7dp"
-            android:scaleType="fitXY"
-            app:layout_constraintDimensionRatio="4:1"
-            app:layout_constraintHorizontal_bias="0.552"
-            app:layout_constraintLeft_toRightOf="@+id/imageButton3"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
         android:id="@+id/textView14"

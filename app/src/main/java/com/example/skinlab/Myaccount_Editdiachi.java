@@ -33,7 +33,7 @@ public class Myaccount_Editdiachi extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        binding.btneditdiachi.setOnClickListener(new View.OnClickListener() {
+        binding.btnupdatediachi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String newhoten = binding.txtHoten.getText().toString();
