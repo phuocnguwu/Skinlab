@@ -189,7 +189,7 @@
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <Button
-            android:id="@+id/btnadddiachi"
+            android:id="@+id/btnupdatediachi"
             android:layout_width="103dp"
             android:layout_height="45.36dp"
             android:layout_marginTop="112dp"

@@ -12,6 +12,8 @@ import com.example.skinlab.databinding.ActivityMainContaintFragmentBinding;
 
 public class MainActivity_containtFragment extends AppCompatActivity {
     ActivityMainContaintFragmentBinding binding;
+    private boolean isLoggedIn = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +29,18 @@ public class MainActivity_containtFragment extends AppCompatActivity {
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transction = manager.beginTransaction();
             Fragment fragment = null;
-            if (v.equals(binding.btnTaikhoan))
-                fragment = new MyAccountFragment();
+            // Kiểm tra nếu người dùng nhấn vào btnTaikhoan
+            if (v.equals(binding.btnTaikhoan)) {
+                // Nếu đã đăng nhập, chuyển sang MyAccountFragment
+                if (isLoggedIn) {
+                    fragment = new MyAccountFragment();
+                } else { // Nếu chưa đăng nhập, chuyển sang LoginFragment
+                    fragment = new LoginFragment();
+                } }
             else if (v.equals(binding.btnTrangchu))
                 fragment = new Homepage();
             else if (v.equals(binding.btnDiendan))
                 fragment = new ForumFragment();
-
-//            else if (v.equals(binding.btnfrag2))
-//                fragment = new Fragment2();
-
             assert fragment != null;
             transction.replace(R.id.containerLayout, fragment);
             transction.addToBackStack(null);
