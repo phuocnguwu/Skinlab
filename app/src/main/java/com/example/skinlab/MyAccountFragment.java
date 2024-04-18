@@ -339,6 +339,7 @@ public class MyAccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+
             }
         });
         binding.morongdangxuat.setOnClickListener(new View.OnClickListener() {

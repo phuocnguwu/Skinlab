@@ -42,27 +42,6 @@ public class Myaccount_adddiachi extends AppCompatActivity {
             }
 
             private void addInfo() {
-                // Lấy thông tin từ các trường EditText
-                String hoten = binding.txtHoten.getText().toString();
-                String sdt = binding.txtsdt.getText().toString();
-                String diachi = binding.txtDiachicuthe.getText().toString();
-
-                // Lấy thông tin từ Spinner
-//                String tinh = binding.txtTinh.getSelectedItem().toString();
-//                String thanhpho = binding.txtThanhpho.getSelectedItem().toString();
-//                String huyen = binding.huyenxa.getSelectedItem().toString();
-
-                // Kiểm tra nếu Checkbox được chọn
-//                boolean diachimacdinh = binding.cbdiachimacdinh.isChecked();
-
-
-                binding.txtHoten.setText(hoten);
-                binding.txtsdt.setText(sdt);
-                binding.txtDiachicuthe.setText(diachi);
-//                binding.txtTinh.setSelected(Boolean.parseBoolean(tinh));
-//                binding.txtThanhpho.setSelected(Boolean.parseBoolean(thanhpho));
-//                binding.huyenxa.setSelected(Boolean.parseBoolean(huyen));
-//                binding.cbdiachimacdinh.setChecked(diachimacdinh);
 
             }
 
