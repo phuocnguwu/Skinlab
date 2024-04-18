@@ -17,6 +17,7 @@ import com.example.skinlab.databinding.ActivityMainContaintFragmentBinding;
 public class MainActivity_containtFragment extends AppCompatActivity {
     ActivityMainContaintFragmentBinding binding;
     private boolean isLoggedIn = false;
+    Databases db;
 
 
     @Override
@@ -27,8 +28,15 @@ public class MainActivity_containtFragment extends AppCompatActivity {
         addEvents();
         isLoggedIn = readLoginStatus();
         replaceFragment(new Homepage());
+        
+        createDb();
 
     }
+
+    private void createDb() {
+        db = new Databases(MainActivity_containtFragment.this);
+    }
+
     private void replaceFragment(Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
