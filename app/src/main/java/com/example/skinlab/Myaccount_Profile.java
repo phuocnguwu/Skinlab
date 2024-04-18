@@ -4,6 +4,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -93,8 +95,8 @@ public class Myaccount_Profile extends AppCompatActivity {
         binding.btnclickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Myaccount_Profile.this, FragmentMyAccountBinding.class);
-                startActivity(intent);
+                finish();
+
             }
         });
 

@@ -19,7 +19,6 @@ public class MainActivity_containtFragment extends AppCompatActivity {
     private boolean isLoggedIn = false;
     Databases db;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +42,7 @@ public class MainActivity_containtFragment extends AppCompatActivity {
         transaction.replace(R.id.containerLayout, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-        checkLoginAndReplaceFragment(); // Kiểm tra trạng thái đăng nhập sau khi thay thế fragment
+        checkLoginAndReplaceFragment();
 
     }
 
@@ -68,19 +67,20 @@ public class MainActivity_containtFragment extends AppCompatActivity {
                 fragment = new Homepage();
             else if (v.equals(binding.btnDiendan))
                 fragment = new ForumFragment();
+            else if (v.equals(binding.btnTuvan))
+                fragment = new AboutskinFragment();
             assert fragment != null;
             transction.replace(R.id.containerLayout, fragment);
             transction.addToBackStack(null);
             transction.commit();
-            checkLoginAndReplaceFragment(); // Kiểm tra trạng thái đăng nhập sau khi thay thế fragment
-
+            checkLoginAndReplaceFragment();
         }
     };
-
     private void addEvents() {
         binding.btnTaikhoan.setOnClickListener(clickListener);
         binding.btnTrangchu.setOnClickListener(clickListener);
         binding.btnDiendan.setOnClickListener(clickListener);
+        binding.btnTuvan.setOnClickListener(clickListener);
     }
     private boolean readLoginStatus() {
         SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);

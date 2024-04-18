@@ -29,6 +29,8 @@ public class Aboutskin_intro_test extends AppCompatActivity {
 
 
         textView.setText(fullText);
+
+        addEvents();
     }
 
     private void addEvents() {

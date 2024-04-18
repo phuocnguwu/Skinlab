@@ -43,20 +43,20 @@ public class Myaccount_Diachi extends AppCompatActivity {
     }
 
     private void loadDb() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(Myaccount_Diachi.this, LinearLayoutManager.VERTICAL, false);
-        binding.rcvdiachi.setLayoutManager(layoutManager);
-        addresses = new ArrayList<>();
-        Cursor cursor = db.queryData("SELECT * FROM " + Databases.TBL_USER);
-        while (cursor.moveToNext()) {
-            addresses.add(new Address(
-                    cursor.getString(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3)));
-        }
-        cursor.close();
-        adapter = new AddressRecyclerAdapter(Myaccount_Diachi.this, addresses);
-        binding.rcvdiachi.setAdapter(adapter);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(Myaccount_Diachi.this, LinearLayoutManager.VERTICAL, false);
+//        binding.rcvdiachi.setLayoutManager(layoutManager);
+//        addresses = new ArrayList<>();
+//        Cursor cursor = db.queryData("SELECT * FROM " + Databases.TBL_USER);
+//        while (cursor.moveToNext()) {
+//            addresses.add(new Address(
+//                    cursor.getString(0),
+//                    cursor.getString(1),
+//                    cursor.getString(2),
+//                    cursor.getString(3)));
+//        }
+//        cursor.close();
+//        adapter = new AddressRecyclerAdapter(Myaccount_Diachi.this, addresses);
+//        binding.rcvdiachi.setAdapter(adapter);
     }
 
 
@@ -64,8 +64,8 @@ public class Myaccount_Diachi extends AppCompatActivity {
         binding.btnclickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Myaccount_Diachi.this, FragmentMyAccountBinding.class);
-                startActivity(intent);
+                finish();
+
             }
         });
         binding.addButton.setOnClickListener(new View.OnClickListener() {

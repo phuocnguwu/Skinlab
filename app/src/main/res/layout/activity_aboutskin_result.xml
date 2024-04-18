@@ -132,23 +132,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txtDacdiem4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/round_corner"
-            android:padding="5dp"
-            android:text="Đặc điểm nè elm coi nè"
-            android:textSize="16sp"
-            app:layout_constraintLeft_toRightOf="@+id/txtDacdiem3"
-            app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/textViewMota1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -161,21 +148,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
-    <Button
-        android:id="@+id/btnTest"
+    <TextView
+        android:id="@+id/textViewMota2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="#ECF96E"
-        android:text="Thực hiện lại bài kiểm tra"
-        android:textColor="#000000"
+        android:justificationMode="inter_word"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewMota1" />
 
+    <TextView
+        android:id="@+id/txtGoiy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sản phẩm gợi ý"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMota2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtGoiy" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutTuvan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rcvProduct">
+
+        <include layout="@layout/item_tuvanshape"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <Button
+        android:id="@+id/btnTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
+        android:text="Thực hiện lại bài kiểm tra  >"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutTuvan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
