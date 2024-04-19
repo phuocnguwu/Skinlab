@@ -33,8 +33,8 @@ public class Myaccount_Diachi extends AppCompatActivity {
     }
 
     private void createDb() {
-        db = new Databases(this,Databases.DB_NAME, null, Databases.DB_VERSION);
-        db.createAddressSampleData(Myaccount_Diachi.this);
+//        db = new Databases(this,Databases.DB_NAME, null, Databases.DB_VERSION);
+//        db.createAddressSampleData(Myaccount_Diachi.this);
     }
     @Override
     protected void onResume() {

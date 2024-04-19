@@ -1,19 +1,32 @@
-//package com.example.skinlab;
-//
-//import android.content.Context;
-//import android.database.Cursor;
-//import android.database.sqlite.SQLiteDatabase;
-//import android.database.sqlite.SQLiteOpenHelper;
-//import android.graphics.Bitmap;
-//import android.graphics.drawable.BitmapDrawable;
-//
-//import androidx.annotation.Nullable;
-//
-//import java.io.ByteArrayOutputStream;
-//
-//public class Databases extends SQLiteOpenHelper {
-//    public static final String DB_NAME = "skinlab.sqlite";
-//    public static final int DB_VERSION = 1;
+package com.example.skinlab;
+
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+
+import androidx.annotation.Nullable;
+
+import java.io.ByteArrayOutputStream;
+
+public class Databases extends SQLiteOpenHelper {
+    public static final String DB_NAME = "skinlab.db";
+    public static final String DB_FOLDER = "databases";
+    public static SQLiteDatabase db = null;
+
+    public static final int DB_VERSION = 1;
+    private final Context context;
+
 //
 //    //Bảng USER
 //    public static final String TBL_USER = "user";
@@ -35,9 +48,7 @@
 //    //Bảng ORDER
 //    public static final String TBL_ORDERS = "orders";
 //    //Bảng PRODUCT
-//    public static final String TBL_PRODUCT = "product";
-//
-//
+
 //    //Bảng FORUM
 //    public static final String TBL_FORUM = "forum";
 //
@@ -47,58 +58,62 @@
 //
 //
 //
-//    //Constructor
-//    public Databases(@Nullable Context context) {
-//        super(context, DB_NAME, null, DB_VERSION);
-//    }
-//
-//
-////    @Override
-//    public void onCreate(SQLiteDatabase db) {
-//        String sql = "CREATE TABLE IF NOT EXISTS "
-//                + TBL_USER+ " (" +
-//                USER_COL_ID + " VARCHAR(50) PRIMARY KEY, " +
-//                USER_COL_NAME + " VARCHAR(50), " +
-//                USER_COL_AVATAR + " BLOB, " +
-//                USER_COL_EMAIL + " VARCHAR(50), " +
-//                USER_COL_PHONE + " REAL, " +
-//                USER_COL_GENDER + " TEXT, " +
-//                USER_COL_DOB + " TEXT, " +
-//                USER_COL_ADDRESS + " VARCHAR(50), " +
-//                USER_COL_ADDRESS2 + " VARCHAR(50), " +
-//                USER_COL_PASSWORD + " VARCHAR(50), " +
-//                USER_COL_SKIN + " VARCHAR(50) "
-//                + ")";
-//
-////                  "CREATE TABLE IF NOT EXISTS "
-////                + TBL_ORDERS + " ()"; " +
-////
-////
-////                "CREATE TABLE IF NOT EXISTS "
-////                + TBL_PRODUCT+ " ()"; " +
-////
-////                "CREATE TABLE IF NOT EXISTS "
-////                + TBL_FORUM + " ()"; " +
-////
-////                sql = "CREATE TABLE IF NOT EXISTS "
-////                + TBL_ABOUTSKIN + " ();";
-////
-//        db.execSQL(sql);
-////
-//    }
-//
-//
-//    @Override
-//    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    //Constructor
+    public Databases(@Nullable Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
+        this.context = context;
+    }
+   @Override
+    public void onCreate(SQLiteDatabase db) {
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 //        db.execSQL("DROP TABLE IF EXISTS " + TBL_USER );
-////        db.execSQL("DROP TABLE IF EXISTS " + TBL_ORDERS);
-////        db.execSQL("DROP TABLE IF EXISTS " + TBL_PRODUCT);
-////        db.execSQL("DROP TABLE IF EXISTS " + TBL_FORUM);
-////        db.execSQL("DROP TABLE IF EXISTS " + TBL_ABOUTSKIN);
+//        db.execSQL("DROP TABLE IF EXISTS " + TBL_ORDERS);
+//        db.execSQL("DROP TABLE IF EXISTS " + TBL_PRODUCT);
+//        db.execSQL("DROP TABLE IF EXISTS " + TBL_FORUM);
+//        db.execSQL("DROP TABLE IF EXISTS " + TBL_ABOUTSKIN);
 //        onCreate(db);
-//
-//    }
-//
+    }
+
+    public void copyDatabaseFromAssets() {
+        String dbPath = context.getApplicationInfo().dataDir + "/" + DB_FOLDER + "/" + DB_NAME;
+        if (!checkDatabaseExists(dbPath)) {
+        try {
+            InputStream inputStream = context.getAssets().open(DB_NAME);
+            File f = new File(context.getApplicationInfo().dataDir + DB_FOLDER);
+            if(!f.exists()){
+                f.mkdir();
+            }
+            OutputStream outputStream = new FileOutputStream(dbPath);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+            outputStream.flush();
+            outputStream.close();
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }}
+
+    private boolean checkDatabaseExists(String dbPath) {
+        SQLiteDatabase checkDB = null;
+        try {
+            checkDB = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READONLY);
+        } catch (Exception e) {
+            Log.e("DatabaseHelper", "Database does not exist.");
+        }
+        if (checkDB != null) {
+            checkDB.close();
+        }
+        return checkDB != null;
+    }
+
+
 //    //THUC HIEN SELECT
 //    public Cursor queryData(String sql){
 //        SQLiteDatabase db = getReadableDatabase();
@@ -147,4 +162,4 @@
 //        insertAdressData("Nguyễn Thuỳ Linh","0943049504","122, đường Điện Biên Phủ, phường 9","34, đường Nguyễn Văn Cừ, phường 4");
 //        database.close();
 //    }
-//}
+}

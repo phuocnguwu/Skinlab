@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.models.Product;
 import com.example.skinlab.R;
+import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,9 +76,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         }
 
         public void bind(Product product) {
-            imvProduct.setImageResource(product.getPd_photo());
+            Picasso.get().load(product.getPd_photo()).into(imvProduct);
             txtProductName.setText(product.getPd_name());
-            txtProductPrice.setText(product.getPd_price() + " đ");
+
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+            symbols.setGroupingSeparator('.'); // Dấu chấm làm dấu phân tách hàng nghìn
+
+            DecimalFormat decimalFormat = new DecimalFormat("#,##0", symbols);
+            decimalFormat.setGroupingSize(3); // Định dạng hàng nghìn theo từng nhóm 3 chữ số
+
+            String formattedPrice = decimalFormat.format(product.getPd_price());
+
+            txtProductName.setText(product.getPd_name());
+            txtProductPrice.setText(formattedPrice + " đ");
         }
     }
 

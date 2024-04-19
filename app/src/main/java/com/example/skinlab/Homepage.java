@@ -1,6 +1,8 @@
 package com.example.skinlab;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -69,6 +71,8 @@ public class Homepage extends Fragment {
 
     ArrayList<Slider> sliders;
 
+    Databases db;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,12 +87,62 @@ public class Homepage extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomepageBinding.inflate(inflater, container, false);
+        db = new Databases(requireContext());
+        db.copyDatabaseFromAssets();
+        products = loadProductsFromDatabase();
+
         return binding.getRoot();
     }
 
+    private ArrayList<Product> loadProductsFromDatabase() {
+        ArrayList<Product> productList = new ArrayList<>();
+        SQLiteDatabase db_product = db.getReadableDatabase();
+        Cursor cursor = db_product.rawQuery("SELECT * FROM PRODUCT", null);
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                // Lấy ra các giá trị từ Cursor sử dụng các tên cột đã được định nghĩa
+                int columnIndexId = cursor.getColumnIndex("pd_id");
+                int columnIndexName = cursor.getColumnIndex("pd_name");
+                int columnIndexPrice = cursor.getColumnIndex("pd_price");
+                int columnIndexPrice2 = cursor.getColumnIndex("pd_price2");
+                int columnIndexBrand = cursor.getColumnIndex("pd_brand");
+                int columnIndexCate = cursor.getColumnIndex("pd_cate");
+                int columnIndexDes = cursor.getColumnIndex("pd_des");
+                int columnIndexPhoto = cursor.getColumnIndex("pd_photo");
+
+                if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
+                        columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
+                        columnIndexDes != -1 && columnIndexPhoto != -1) {
+
+                    String pdId = cursor.getString(columnIndexId);
+                    String pdName = cursor.getString(columnIndexName);
+                    int pdPrice = cursor.getInt(columnIndexPrice);
+                    int pdPrice2 = cursor.getInt(columnIndexPrice2);
+                    String pdBrand = cursor.getString(columnIndexBrand);
+                    String pdCate = cursor.getString(columnIndexCate);
+                    String pdDes = cursor.getString(columnIndexDes);
+                    String pdPhoto = cursor.getString(columnIndexPhoto);
+
+                    // Tạo đối tượng Product từ dữ liệu truy vấn
+                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes);
+                    productList.add(product);
+                }
+            } while (cursor.moveToNext());
+        }
+
+
+
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+        return productList;
+    }
+
+
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initData();
+//        initData();
         loadData();
         addEvents();
         loadSlider();
@@ -200,31 +254,54 @@ public class Homepage extends Fragment {
     }
 
     private void loadData() {
-        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 3);
-        binding.rcvProduct.setLayoutManager(layoutManager);
+        // Tạo layout manager cho RecyclerView (ở đây là GridLayoutManager)
+        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 2);
+        binding.rcvProduct.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
 
+        // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
         adapter = new ProductAdapter(requireActivity(), products);
-        binding.rcvProduct.setAdapter(adapter);
+        binding.rcvProduct.setAdapter(adapter); // Đặt adapter cho RecyclerView
 
+        // Định nghĩa sự kiện click trên mỗi sản phẩm trong RecyclerView
         adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Product product) {
                 // Xử lý khi người dùng nhấn vào một item trong RecyclerView
+                // Khởi tạo Intent để chuyển sang màn hình chi tiết sản phẩm
                 Intent intent = new Intent(requireActivity(), Product_Details.class);
+                // Đính kèm thông tin sản phẩm được chọn vào Intent
                 intent.putExtra("selectedProduct", product);
+                // Chuyển sang màn hình chi tiết sản phẩm
                 startActivity(intent);
             }
         });
+
+        // Load dữ liệu bằng cách initData
+//        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 3);
+//        binding.rcvProduct.setLayoutManager(layoutManager);
+//
+//        adapter = new ProductAdapter(requireActivity(), products);
+//        binding.rcvProduct.setAdapter(adapter);
+//
+//        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(Product product) {
+//                // Xử lý khi người dùng nhấn vào một item trong RecyclerView
+//                Intent intent = new Intent(requireActivity(), Product_Details.class);
+//                intent.putExtra("selectedProduct", product);
+//                startActivity(intent);
+//            }
+//        });
     }
 
-    private void initData() {
-        products = new ArrayList<>();
-        products.add(new Product(R.drawable.product1, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-        products.add(new Product(R.drawable.product2, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-        products.add(new Product(R.drawable.product3, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-        products.add(new Product(R.drawable.product1, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-        products.add(new Product(R.drawable.product2, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-        products.add(new Product(R.drawable.product3, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000, 50000, "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-    }
+//    private void initData() {
+//        products = new ArrayList<>();
+//        products.add(new Product(R.drawable.product1, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
+//        products.add(new Product(R.drawable.product2, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
+//        products.add(new Product(R.drawable.product3, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
+//        products.add(new Product(R.drawable.product1, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
+//        products.add(new Product(R.drawable.product2, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
+//        products.add(new Product(R.drawable.product3, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000, 50000, "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
+//    }
 
 }

@@ -116,7 +116,7 @@ public class Product_Details extends AppCompatActivity {
                 selectedProduct = (Product) intent.getSerializableExtra("selectedProduct");
 
                 if (selectedProduct != null) {
-                    binding.imvProduct.setImageResource(selectedProduct.getPd_photo());
+//                    binding.imvProduct.setImageResource(selectedProduct.getPd_photo());
                     binding.txtProductName.setText(selectedProduct.getPd_name());
                     binding.txtProductBrand.setText(selectedProduct.getPd_brand());
                     binding.txtProductPrice.setText(String.valueOf(selectedProduct.getPd_price() + " đ"));

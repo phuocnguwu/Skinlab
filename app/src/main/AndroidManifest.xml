@@ -46,7 +46,7 @@
             android:name=".Myaccount_Diachi"
             android:exported="false" />
         <activity
-            android:name=".MainActivity_containtFragment"
+            android:name=".Aboutskin_intro_test"
             android:exported="false" />
         <activity
             android:name=".Aboutskin_result"
@@ -79,7 +79,7 @@
             android:name=".Myaccount_Editdiachi"
             android:exported="false" />
         <activity
-            android:name=".Aboutskin_intro_test"
+            android:name=".MainActivity_containtFragment"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
