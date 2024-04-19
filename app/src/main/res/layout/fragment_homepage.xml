@@ -42,13 +42,14 @@
                     android:layout_weight="8"
                     android:gravity="center"
                     android:text="Skinlab"
-                    android:textSize="26dp"
-                    android:textStyle="bold" />
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue"/>
 
                 <ImageView
                     android:id="@+id/imvCart"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
                     android:layout_weight="1"
                     android:src="@drawable/shop" />
 
@@ -65,7 +66,7 @@
                 <ImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:paddingEnd="10dp"
+                    android:padding="5dp"
                     android:src="@drawable/search"
                     tools:layout_editor_absoluteX="8dp"
                     tools:layout_editor_absoluteY="126dp" />
@@ -74,23 +75,23 @@
                     android:id="@+id/edtSearch"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_weight="4"
                     android:background="@drawable/edit_text_background"
                     android:hint="  Tìm kiếm..."
                     android:padding="5dp"
                     tools:ignore="TouchTargetSizeCheck"
                     tools:layout_editor_absoluteX="20dp"
                     tools:layout_editor_absoluteY="125dp"
+                    android:layout_weight="2"
                     android:layout_marginEnd="5dp"/>
 
                 <Button
                     android:id="@+id/btnSearch"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="46dp"
                     android:backgroundTint="#8AB0F9"
                     android:text="Tìm"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
+                    android:textColor="@color/white"
+                    android:textSize="15dp" />
 
             </LinearLayout>
 
@@ -227,6 +228,7 @@
                     android:text="Sản phẩm bán chạy"
                     android:textSize="22sp"
                     android:textStyle="bold"
+                    android:textColor="@color/blue"
                     app:layout_constraintTop_toBottomOf="@+id/tableRow"
                     tools:layout_editor_absoluteX="16dp" />
 
@@ -253,8 +255,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvProduct"
-                    android:layout_width="395dp"
-                    android:layout_height="576dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout" />

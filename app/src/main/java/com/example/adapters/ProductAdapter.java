@@ -91,8 +91,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             decimalFormat.setGroupingSize(3); // Định dạng hàng nghìn theo từng nhóm 3 chữ số
 
             String formattedPrice = decimalFormat.format(product.getPd_price());
-
-            txtProductName.setText(product.getPd_name());
             txtProductPrice.setText(formattedPrice + " đ");
         }
     }

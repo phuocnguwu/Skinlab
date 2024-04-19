@@ -34,19 +34,19 @@ public class Product_Details_Feedback extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
 
-        initFeedback();
+//        initFeedback();
         loadFeedback();
         addEvents();
     }
 
     private void initFeedback() {
 
-        feedbacks = new ArrayList<>();
-        feedbacks.add(new Feedback(R.drawable.account, "Emily", "07/04/2024", 5, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
-        feedbacks.add(new Feedback(R.drawable.account, "John", "07/04/2024", 4, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
-        feedbacks.add(new Feedback(R.drawable.account, "Belle", "07/04/2024", 5, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
-
-        Log.d("Product_Details", "Feedbacks size: " + feedbacks.size());
+//        feedbacks = new ArrayList<>();
+//        feedbacks.add(new Feedback(R.drawable.account, "Emily", "07/04/2024", 5, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
+//        feedbacks.add(new Feedback(R.drawable.account, "John", "07/04/2024", 4, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
+//        feedbacks.add(new Feedback(R.drawable.account, "Belle", "07/04/2024", 5, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
+//
+//        Log.d("Product_Details", "Feedbacks size: " + feedbacks.size());
     }
 
     private void loadFeedback() {

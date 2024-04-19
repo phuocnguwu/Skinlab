@@ -1,9 +1,11 @@
 package com.example.skinlab;
 
+import static com.example.skinlab.Products.db;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import com.example.skinlab.databinding.ActivityDialogSaveBinding;
 import com.example.skinlab.databinding.ActivityProductDetailsBinding;
 import com.example.models.Product;
 import com.example.skinlab.databinding.ActivityProductDetailsDialogAddtocartBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +29,21 @@ import java.util.List;
 public class Product_Details extends AppCompatActivity {
     ActivityProductDetailsBinding binding;
     ProductDetailsAdapter adapter;
-
     FeedbackAdapter feedbackAdapter;
     ArrayList<Product> products;
 
     List<Feedback> feedbacks;
     Product selectedProduct;
+
+    public static final String TABLE_NAME_FEEDBACK = "feedback";
+    public static final String COLUMN_FEEDBACK_ID = "feedback_id";
+    public static final String COLUMN_USER_ID = "user_id";
+    public static final String COLUMN_PRODUCT_ID = "product_id";
+    public static final String COLUMN_DATE_CREATED = "date_created";
+    public static final String COLUMN_FEEDBACK_RATINGS = "feedback_ratings";
+    public static final String COLUMN_FEEDBACK_TITLE = "feedback_title";
+    public static final String COLUMN_FEEDBACK_CONTENT = "feedback_content";
+
 
 
     @Override
@@ -40,21 +52,56 @@ public class Product_Details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
 
-        initFeedback();
-        loadFeedback();
+//        initFeedback();
+//        loadFeedback();
+
+//        loadFeedbacksByProductId();
 
         loadData();
         addEvents();
     }
 
+//    public List<Feedback> getFeedbacksByProductId(String productId) {
+//        List<Feedback> feedbackList = new ArrayList<>();
+//        Cursor cursor = db.rawQuery(query, new String[]{productId});
+//        if (cursor != null && cursor.moveToFirst()) {
+//            List<Feedback> feedbacks = new ArrayList<>();
+//
+//            do {
+//                String feedbackId = cursor.getString(cursor.getColumnIndex("feedback_id"));
+//                byte[] userThumb = cursor.getBlob(cursor.getColumnIndex("user_thumb"));
+//                String userName = cursor.getString(cursor.getColumnIndex("user_name"));
+//                String dateCreated = cursor.getString(cursor.getColumnIndex("date_created"));
+//                int ratings = cursor.getInt(cursor.getColumnIndex("feedback_ratings"));
+//                String title = cursor.getString(cursor.getColumnIndex("feedback_title"));
+//                String content = cursor.getString(cursor.getColumnIndex("feedback_content"));
+//
+//                // Tạo đối tượng Feedback từ dữ liệu trong Cursor
+//                Feedback feedback = new Feedback(feedbackId, userThumb, userName, dateCreated, ratings, title, content);
+//
+//                // Thêm đối tượng Feedback vào danh sách
+//                feedbacks.add(feedback);
+//            } while (cursor.moveToNext());
+//
+//            // Đóng Cursor sau khi sử dụng xong
+//            cursor.close();
+//
+//            // Trả về danh sách các đối tượng Feedback
+//            return feedbacks;
+//        } else {
+//            // Nếu Cursor rỗng, trả về danh sách trống
+//            return feedbacks;
+//        }
+//    }
+
     private void initFeedback() {
 
-        feedbacks = new ArrayList<>();
-        feedbacks.add(new Feedback(R.drawable.account, "Emily", "07/04/2024", 5, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
-        feedbacks.add(new Feedback(R.drawable.account, "John", "07/04/2024", 4, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
-        feedbacks.add(new Feedback(R.drawable.account, "Belle", "07/04/2024", 5, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
+//        feedbacks = new ArrayList<>();
+//        feedbacks.add(new Feedback("feedback01", R.drawable.account, "Emily", "07/04/2024", 5, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
+//        feedbacks.add(new Feedback("feedback01",R.drawable.account, "John", "07/04/2024", 4, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
+//        feedbacks.add(new Feedback("feedback01",R.drawable.account, "Belle", "07/04/2024", 5, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
 
-        Log.d("Product_Details", "Feedbacks size: " + feedbacks.size());
+//        Log.d("Product_Details", "Feedbacks size: " + feedbacks.size());
     }
 
     private void loadFeedback() {
@@ -116,7 +163,7 @@ public class Product_Details extends AppCompatActivity {
                 selectedProduct = (Product) intent.getSerializableExtra("selectedProduct");
 
                 if (selectedProduct != null) {
-//                    binding.imvProduct.setImageResource(selectedProduct.getPd_photo());
+                    Picasso.get().load(selectedProduct.getPd_photo()).into(binding.imvProduct);
                     binding.txtProductName.setText(selectedProduct.getPd_name());
                     binding.txtProductBrand.setText(selectedProduct.getPd_brand());
                     binding.txtProductPrice.setText(String.valueOf(selectedProduct.getPd_price() + " đ"));
@@ -127,7 +174,7 @@ public class Product_Details extends AppCompatActivity {
                     Log.d("Product_Details", "selectedProduct is null");
                 }
             }
+        }
 
     }
-
-    }}
+}

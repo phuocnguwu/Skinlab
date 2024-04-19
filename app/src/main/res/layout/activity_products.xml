@@ -7,6 +7,7 @@
     tools:context=".Products"
     android:orientation="vertical"
     android:paddingTop="15dp"
+    android:background="@color/white"
     android:padding="10dp">
 
     <LinearLayout
@@ -98,6 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <ScrollView
+        android:id="@+id/scvProduct"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -110,8 +112,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvProduct"
-            android:layout_width="395dp"
-            android:layout_height="576dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
