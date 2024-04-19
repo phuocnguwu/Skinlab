@@ -76,7 +76,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         }
 
         public void bind(Product product) {
-            Picasso.get().load(product.getPd_photo()).into(imvProduct);
+            // Load hình ảnh từ đường link được lưu trong cột pd_Photo bằng Picasso
+            if (product.getPd_photo() != null && !product.getPd_photo().isEmpty()) {
+                Picasso.get()
+                        .load(product.getPd_photo())
+                        .into(imvProduct);
+            }
             txtProductName.setText(product.getPd_name());
 
             DecimalFormatSymbols symbols = new DecimalFormatSymbols();
