@@ -14,6 +14,8 @@ public class Product implements Serializable {
     String pd_des;
 
 
+
+
     public Product(int pd_photo, String pd_id, String pd_name, int pd_price, int pd_price2, String pd_brand, String pd_cate, String pd_des) {
         this.pd_photo = pd_photo;
         this.pd_id = pd_id;
