@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class Myaccount_Diachi extends AppCompatActivity {
     ActivityMyaccountDiachiBinding binding;
-    Databases db;
+//    Databases db;
     AddressRecyclerAdapter adapter;
     ArrayList<Address> addresses;
 

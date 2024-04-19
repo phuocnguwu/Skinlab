@@ -1,5 +1,9 @@
 package com.example.skinlab;
 
+
+import static android.content.Context.MODE_PRIVATE;
+import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,9 +14,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.adapters.ProductAdapter;
 import com.example.adapters.SliderRecyclerAdapter;
@@ -22,6 +28,11 @@ import com.example.skinlab.databinding.ActivityMainContaintFragmentBinding;
 import com.example.skinlab.databinding.FragmentHomepageBinding;
 import com.example.skinlab.databinding.FragmentMyAccountBinding;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 /**
@@ -71,7 +82,23 @@ public class Homepage extends Fragment {
 
     ArrayList<Slider> sliders;
 
-    Databases db;
+    public static final String DB_NAME = "Skinlab.db";
+    public static final String DB_FOLDER = "databases";
+
+
+    public static SQLiteDatabase db = null;
+    public static final String TBL_NAME = "product";
+    public static final String COLUMN_PD_ID = "pd_id";
+    public static final String COLUMN_PD_NAME = "pd_name";
+    public static final String COLUMN_PD_PRICE = "pd_price";
+    public static final String COLUMN_PD_PRICE2 = "pd_price2";
+    public static final String COLUMN_PD_BRAND = "pd_brand";
+    public static final String COLUMN_PD_CATE = "pd_cate";
+    public static final String COLUMN_PD_PHOTO = "pd_photo";
+    public static final String COLUMN_PD_DES = "pd_des";
+    public static final String COLUMN_PD_SKINTYPE = "pd_skintype";
+
+//    Databases db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,28 +114,121 @@ public class Homepage extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomepageBinding.inflate(inflater, container, false);
-        db = new Databases(requireContext());
-        db.copyDatabaseFromAssets();
-        products = loadProductsFromDatabase();
+//        db = new Databases(requireContext());
+//        db.copyDatabaseFromAssets();
+//        products = loadProductsFromDatabase();
 
         return binding.getRoot();
     }
 
-    private ArrayList<Product> loadProductsFromDatabase() {
-        ArrayList<Product> productList = new ArrayList<>();
-        SQLiteDatabase db_product = db.getReadableDatabase();
-        Cursor cursor = db_product.rawQuery("SELECT * FROM PRODUCT", null);
+//    private ArrayList<Product> loadProductsFromDatabase() {
+//        ArrayList<Product> productList = new ArrayList<>();
+////        SQLiteDatabase db_product = db.getReadableDatabase();
+//
+//        // Kiểm tra các bảng có trong cơ sở dữ liệu
+//
+//        if (cursor != null && cursor.moveToFirst()) {
+//            do {
+//                // Lấy ra các giá trị từ Cursor sử dụng các tên cột đã được định nghĩa
+//                int columnIndexId = cursor.getColumnIndex(Databases.COLUMN_PD_ID);
+//                int columnIndexName = cursor.getColumnIndex(Databases.COLUMN_PD_NAME);
+//                int columnIndexPrice = cursor.getColumnIndex(Databases.COLUMN_PD_PRICE);
+//                int columnIndexPrice2 = cursor.getColumnIndex(Databases.COLUMN_PD_PRICE2);
+//                int columnIndexBrand = cursor.getColumnIndex(Databases.COLUMN_PD_BRAND);
+//                int columnIndexCate = cursor.getColumnIndex(Databases.COLUMN_PD_CATE);
+//                int columnIndexDes = cursor.getColumnIndex(Databases.COLUMN_PD_DES);
+//                int columnIndexPhoto = cursor.getColumnIndex(Databases.COLUMN_PD_PHOTO);
+//
+//                if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
+//                        columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
+//                        columnIndexDes != -1 && columnIndexPhoto != -1) {
+//
+//                    String pdId = cursor.getString(columnIndexId);
+//                    String pdName = cursor.getString(columnIndexName);
+//                    int pdPrice = cursor.getInt(columnIndexPrice);
+//                    int pdPrice2 = cursor.getInt(columnIndexPrice2);
+//                    String pdBrand = cursor.getString(columnIndexBrand);
+//                    String pdCate = cursor.getString(columnIndexCate);
+//                    String pdDes = cursor.getString(columnIndexDes);
+//                    String pdPhoto = cursor.getString(columnIndexPhoto);
+//
+//                    // Tạo đối tượng Product từ dữ liệu truy vấn
+//                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes);
+//                    productList.add(product);
+//                }
+//            } while (cursor.moveToNext());
+//        }
+//
+//
+//
+//        if (cursor != null) {
+//            cursor.close();
+//        }
+//        db.close();
+//        return productList;
+//    }
+
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        initData();
+        copyDb();
+//        loadDb();
+//        loadData();
+        addEvents();
+        loadSlider();
+    }
+
+
+    private void copyDb() {
+        File dbFile = requireContext().getDatabasePath(DB_NAME);
+        if(!dbFile.exists()){
+            if(copyDbFromAssets())
+                Toast.makeText(requireContext(), "Success!", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(requireContext(), "Fail!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean copyDbFromAssets() {
+        String dbPath = requireContext().getApplicationInfo().dataDir + "/" + DB_FOLDER + "/" + DB_NAME;
+        //data/data/packageName/databases/product_db.db
+        try {
+            InputStream inputStream = requireContext().getAssets().open(DB_NAME);
+//            File f = new File(requireContext().getApplicationInfo().dataDir + DB_FOLDER);
+//            if(!f.exists()){
+//                f.mkdir();
+//            }
+            OutputStream outputStream = new FileOutputStream(dbPath);
+            byte[] buffer = new byte[1024]; int length;
+            while((length=inputStream.read(buffer))>0){
+                outputStream.write(buffer,0, length);
+            }
+            outputStream.flush(); outputStream.close(); inputStream.close();
+            Log.d("CopyDB", "Database copied successfully!");
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("CopyDB", "Error copying database: " + e.getMessage());
+            return false;
+        }
+    }
+
+    private void loadDb() {
+        db = SQLiteDatabase.openDatabase(requireContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
+        products = new ArrayList<>();
+
+        Cursor cursor = db.query(TBL_NAME, null, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                // Lấy ra các giá trị từ Cursor sử dụng các tên cột đã được định nghĩa
-                int columnIndexId = cursor.getColumnIndex("pd_id");
-                int columnIndexName = cursor.getColumnIndex("pd_name");
-                int columnIndexPrice = cursor.getColumnIndex("pd_price");
-                int columnIndexPrice2 = cursor.getColumnIndex("pd_price2");
-                int columnIndexBrand = cursor.getColumnIndex("pd_brand");
-                int columnIndexCate = cursor.getColumnIndex("pd_cate");
-                int columnIndexDes = cursor.getColumnIndex("pd_des");
-                int columnIndexPhoto = cursor.getColumnIndex("pd_photo");
+                int columnIndexId = cursor.getColumnIndex(COLUMN_PD_ID);
+                int columnIndexName = cursor.getColumnIndex(COLUMN_PD_NAME);
+                int columnIndexPrice = cursor.getColumnIndex(COLUMN_PD_PRICE);
+                int columnIndexPrice2 = cursor.getColumnIndex(COLUMN_PD_PRICE2);
+                int columnIndexBrand = cursor.getColumnIndex(COLUMN_PD_BRAND);
+                int columnIndexCate = cursor.getColumnIndex(COLUMN_PD_CATE);
+                int columnIndexDes = cursor.getColumnIndex(COLUMN_PD_DES);
+                int columnIndexPhoto = cursor.getColumnIndex(COLUMN_PD_PHOTO);
 
                 if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
                         columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
@@ -122,30 +242,36 @@ public class Homepage extends Fragment {
                     String pdCate = cursor.getString(columnIndexCate);
                     String pdDes = cursor.getString(columnIndexDes);
                     String pdPhoto = cursor.getString(columnIndexPhoto);
-
-                    // Tạo đối tượng Product từ dữ liệu truy vấn
+//
+//                    // Tạo đối tượng Product từ dữ liệu truy vấn
                     Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes);
-                    productList.add(product);
+                    products.add(product);
                 }
-            } while (cursor.moveToNext());
-        }
-
-
-
-        if (cursor != null) {
+            }
+            while (cursor.moveToNext()) ;
             cursor.close();
         }
-        db.close();
-        return productList;
-    }
+        // Tạo layout manager cho RecyclerView (ở đây là GridLayoutManager)
+        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 2);
+        binding.rcvProduct.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
 
+        // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
+        adapter = new ProductAdapter(requireActivity(), products);
+        binding.rcvProduct.setAdapter(adapter); // Đặt adapter cho RecyclerView
 
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-//        initData();
-        loadData();
-        addEvents();
-        loadSlider();
+        // Định nghĩa sự kiện click trên mỗi sản phẩm trong RecyclerView
+        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                // Xử lý khi người dùng nhấn vào một item trong RecyclerView
+                // Khởi tạo Intent để chuyển sang màn hình chi tiết sản phẩm
+                Intent intent = new Intent(requireActivity(), Product_Details.class);
+                // Đính kèm thông tin sản phẩm được chọn vào Intent
+                intent.putExtra("selectedProduct", product);
+                // Chuyển sang màn hình chi tiết sản phẩm
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadSlider() {
@@ -254,27 +380,6 @@ public class Homepage extends Fragment {
     }
 
     private void loadData() {
-        // Tạo layout manager cho RecyclerView (ở đây là GridLayoutManager)
-        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 2);
-        binding.rcvProduct.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
-
-        // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
-        adapter = new ProductAdapter(requireActivity(), products);
-        binding.rcvProduct.setAdapter(adapter); // Đặt adapter cho RecyclerView
-
-        // Định nghĩa sự kiện click trên mỗi sản phẩm trong RecyclerView
-        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Product product) {
-                // Xử lý khi người dùng nhấn vào một item trong RecyclerView
-                // Khởi tạo Intent để chuyển sang màn hình chi tiết sản phẩm
-                Intent intent = new Intent(requireActivity(), Product_Details.class);
-                // Đính kèm thông tin sản phẩm được chọn vào Intent
-                intent.putExtra("selectedProduct", product);
-                // Chuyển sang màn hình chi tiết sản phẩm
-                startActivity(intent);
-            }
-        });
 
         // Load dữ liệu bằng cách initData
 //        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 3);
