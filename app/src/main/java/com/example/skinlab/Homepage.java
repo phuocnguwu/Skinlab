@@ -98,7 +98,6 @@ public class Homepage extends Fragment {
     public static final String COLUMN_PD_DES = "pd_des";
     public static final String COLUMN_PD_SKINTYPE = "pd_skintype";
 
-//    Databases db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -121,59 +120,11 @@ public class Homepage extends Fragment {
         return binding.getRoot();
     }
 
-//    private ArrayList<Product> loadProductsFromDatabase() {
-//        ArrayList<Product> productList = new ArrayList<>();
-////        SQLiteDatabase db_product = db.getReadableDatabase();
-//
-//        // Kiểm tra các bảng có trong cơ sở dữ liệu
-//
-//        if (cursor != null && cursor.moveToFirst()) {
-//            do {
-//                // Lấy ra các giá trị từ Cursor sử dụng các tên cột đã được định nghĩa
-//                int columnIndexId = cursor.getColumnIndex(Databases.COLUMN_PD_ID);
-//                int columnIndexName = cursor.getColumnIndex(Databases.COLUMN_PD_NAME);
-//                int columnIndexPrice = cursor.getColumnIndex(Databases.COLUMN_PD_PRICE);
-//                int columnIndexPrice2 = cursor.getColumnIndex(Databases.COLUMN_PD_PRICE2);
-//                int columnIndexBrand = cursor.getColumnIndex(Databases.COLUMN_PD_BRAND);
-//                int columnIndexCate = cursor.getColumnIndex(Databases.COLUMN_PD_CATE);
-//                int columnIndexDes = cursor.getColumnIndex(Databases.COLUMN_PD_DES);
-//                int columnIndexPhoto = cursor.getColumnIndex(Databases.COLUMN_PD_PHOTO);
-//
-//                if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
-//                        columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
-//                        columnIndexDes != -1 && columnIndexPhoto != -1) {
-//
-//                    String pdId = cursor.getString(columnIndexId);
-//                    String pdName = cursor.getString(columnIndexName);
-//                    int pdPrice = cursor.getInt(columnIndexPrice);
-//                    int pdPrice2 = cursor.getInt(columnIndexPrice2);
-//                    String pdBrand = cursor.getString(columnIndexBrand);
-//                    String pdCate = cursor.getString(columnIndexCate);
-//                    String pdDes = cursor.getString(columnIndexDes);
-//                    String pdPhoto = cursor.getString(columnIndexPhoto);
-//
-//                    // Tạo đối tượng Product từ dữ liệu truy vấn
-//                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes);
-//                    productList.add(product);
-//                }
-//            } while (cursor.moveToNext());
-//        }
-//
-//
-//
-//        if (cursor != null) {
-//            cursor.close();
-//        }
-//        db.close();
-//        return productList;
-//    }
-
-
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        initData();
         copyDb();
-//        loadDb();
+        loadDb();
 //        loadData();
         addEvents();
         loadSlider();
@@ -229,10 +180,11 @@ public class Homepage extends Fragment {
                 int columnIndexCate = cursor.getColumnIndex(COLUMN_PD_CATE);
                 int columnIndexDes = cursor.getColumnIndex(COLUMN_PD_DES);
                 int columnIndexPhoto = cursor.getColumnIndex(COLUMN_PD_PHOTO);
+                int columnIndexSkiptype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
 
                 if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
                         columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
-                        columnIndexDes != -1 && columnIndexPhoto != -1) {
+                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkiptype != -1) {
 
                     String pdId = cursor.getString(columnIndexId);
                     String pdName = cursor.getString(columnIndexName);
@@ -242,9 +194,10 @@ public class Homepage extends Fragment {
                     String pdCate = cursor.getString(columnIndexCate);
                     String pdDes = cursor.getString(columnIndexDes);
                     String pdPhoto = cursor.getString(columnIndexPhoto);
+                    String pdSkintype = cursor.getString(columnIndexPhoto);
 //
 //                    // Tạo đối tượng Product từ dữ liệu truy vấn
-                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes);
+                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
                     products.add(product);
                 }
             }
@@ -252,7 +205,7 @@ public class Homepage extends Fragment {
             cursor.close();
         }
         // Tạo layout manager cho RecyclerView (ở đây là GridLayoutManager)
-        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 3);
         binding.rcvProduct.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
 
         // Khởi tạo adapter và gán danh sách sản phẩm vào adapter

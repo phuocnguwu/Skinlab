@@ -12,11 +12,13 @@ public class Product implements Serializable {
     String pd_brand;
     String pd_cate;
     String pd_des;
+    String pd_skintype;
 
 
 
 
-    public Product(String pd_photo, String pd_id, String pd_name, int pd_price, int pd_price2, String pd_brand, String pd_cate, String pd_des) {
+
+    public Product(String pd_photo, String pd_id, String pd_name, int pd_price, int pd_price2, String pd_brand, String pd_cate, String pd_des, String pd_skintype) {
         this.pd_photo = pd_photo;
         this.pd_id = pd_id;
         this.pd_name = pd_name;
@@ -25,6 +27,7 @@ public class Product implements Serializable {
         this.pd_brand = pd_brand;
         this.pd_cate = pd_cate;
         this.pd_des = pd_des;
+        this.pd_skintype = pd_skintype;
     }
 
     public String getPd_id() {
@@ -88,6 +91,14 @@ public class Product implements Serializable {
     }
 
     public void setPd_des(String pd_des) {
+        this.pd_des = pd_des;
+    }
+
+    public String getPd_skintype() {
+        return pd_des;
+    }
+
+    public void setPd_skintype(String pd_des) {
         this.pd_des = pd_des;
     }
 }
