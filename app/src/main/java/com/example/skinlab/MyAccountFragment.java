@@ -13,6 +13,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
@@ -85,6 +86,15 @@ public class MyAccountFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         addEvents();
+// Đăng ký sự kiện trở lại khi Fragment được hiển thị
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Thực hiện các hoạt động cần thiết khi nhấn nút back trong Fragment
+                // Ví dụ: hiển thị hộp thoại xác nhận, hoặc đóng Fragment
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         String loggedInPhone = getLoggedInPhone();
         if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
@@ -191,6 +201,7 @@ public class MyAccountFragment extends Fragment {
             }
         });
 
+
         binding.morongdangxuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -221,5 +232,34 @@ public class MyAccountFragment extends Fragment {
                 alertDialog.show();
             }
         });
+
     }
+    public void updateUserInfo(String hoTen, Uri avatarUri) {
+        binding.txtHotenprofile.setText(hoTen);
+        if (avatarUri != null) {
+            Picasso.get().load(avatarUri).into(binding.imvavatar);
+        }
+    }
+    public void updateUserProfile(String hoTen, Uri avatarUri) {
+        updateUserInfo(hoTen, avatarUri);
+    }
+    public void refreshUserProfile() {
+        // Thực hiện tải lại thông tin người dùng từ cơ sở dữ liệu hoặc từ bất kỳ nguồn dữ liệu nào khác
+        String loggedInPhone = getLoggedInPhone();
+        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+            // Lấy thông tin của người dùng đăng nhập từ cơ sở dữ liệu hoặc bất kỳ nguồn dữ liệu nào khác
+            String avatarUrl = getUserAvatarUrl(loggedInPhone);
+            String userName = getUserName(loggedInPhone);
+            // Cập nhật thông tin người dùng trên giao diện
+            if (avatarUrl != null && !avatarUrl.isEmpty()) {
+                Picasso.get().load(avatarUrl).into(binding.imvavatar);
+            }
+            // Cập nhật các trường thông tin khác của người dùng trên giao diện
+            binding.txtHotenprofile.setText(userName);
+            // Cập nhật các trường thông tin khác của người dùng trên giao diện
+        }
+    }
+
+
+
 }

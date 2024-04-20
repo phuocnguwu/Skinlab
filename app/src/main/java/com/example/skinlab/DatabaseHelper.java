@@ -48,18 +48,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-
-    // Phương thức kiểm tra thông tin đăng nhập và trả về sđt của người dùng nếu đăng nhập thành công
-//    public boolean checkLogin(String emailPhone, String password) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        String[] columns = {COLUMN_USER_ID, COLUMN_USER_PHONE}; // Thêm COLUMN_USER_PHONE vào đây
-//        String selection = COLUMN_USER_PHONE + " = ? AND " + COLUMN_USER_PASSWORD + " = ?";
-//        String[] selectionArgs = {emailPhone, password};
-//        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
-//        int count = cursor.getCount();
-//        cursor.close();
-//        return count > 0;
-//    }
     public boolean checkLogin(String emailPhone, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_USER_ID, COLUMN_USER_PHONE}; // Thêm COLUMN_USER_PHONE vào đây
@@ -84,5 +72,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(USER, null, values);
         db.close();
     }
+    public void updateUserProfile(String phone, String newName, String newEmail, String newPhone, String newGender, String newDOB, String newAvatarUrl) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_NAME, newName);
+        values.put(COLUMN_USER_EMAIL, newEmail);
+        values.put(COLUMN_USER_PHONE, newPhone);
+        values.put(COLUMN_USER_GENDER, newGender);
+        values.put(COLUMN_USER_DOB, newDOB);
+        values.put(COLUMN_USER_AVA, newAvatarUrl);
+
+        // Cập nhật thông tin người dùng
+        db.update(USER, values, COLUMN_USER_PHONE + " = ?", new String[]{phone});
+        db.close();
+    }
+
 
 }
