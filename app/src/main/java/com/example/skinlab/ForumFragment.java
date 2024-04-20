@@ -1,6 +1,12 @@
 package com.example.skinlab;
 
+import static android.content.Context.MODE_PRIVATE;
+import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
+
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.example.adapters.ForumAdapter;
 import com.example.adapters.ProductAdapter;
@@ -22,6 +29,11 @@ import com.example.models.Product;
 import com.example.skinlab.databinding.FragmentForumBinding;
 import com.example.skinlab.databinding.FragmentMyAccountBinding;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 /**
@@ -65,6 +77,27 @@ public class ForumFragment extends Fragment {
     FragmentForumBinding binding;
     ForumAdapter adapter;
     ArrayList<Forum> forums;
+    public static final String DB_NAME = "Skinlab.db";
+    public static final String DB_FOLDER = "databases";
+
+    Context context;
+
+    public static SQLiteDatabase db = null;
+
+    public static final String TBL_NAME = "forum";
+    public static final String COLUMN_FORUM_ID = "forum_id";
+    public static final String COLUMN_FORUM_NAME = "forum_name";
+    public static final String COLUMN_FORUM_AVATAR = "forum_avatar";
+    public static final String COLUMN_FORUM_DATE = "forum_date";
+    public static final String COLUMN_FORUM_RATING = "forum_rating";
+    public static final String COLUMN_FORUM_TITLE = "forum_title";
+    public static final String COLUMN_FORUM_SHORTCONTENT = "forum_shortcontent";
+    public static final String COLUMN_FORUM_CONTENT = "forum_content";
+    public static final String COLUMN_FORUM_IMG = "forum_img";
+    public static final String COLUMN_FORUM_COMMENT_NAME1 = "forum_comment_name1";
+    public static final String COLUMN_FORUM_COMMENT_CONTENT1 = "forum_comment_content1";
+    public static final String COLUMN_FORUM_COMMENT_NAME2 = "forum_comment_name2";
+    public static final String COLUMN_FORUM_COMMENT_CONTENT2 = "forum_comment_content2";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,7 +120,29 @@ public class ForumFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         addEvents();
+        loadDb();
     }
+
+    private void loadDb() {
+        File dbFile = requireContext().getDatabasePath(DB_NAME);
+        db = SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.OPEN_READONLY);
+        forums = new ArrayList<>();
+        Cursor cursor = db.query(TBL_NAME, null, null, null, null, null, null);
+        while (cursor.moveToNext()){
+            forums.add(new Forum(cursor.getInt(0),
+                    cursor.getBlob(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getInt(4),
+                    cursor.getString(5),
+                    cursor.getString(6)));
+        }
+        cursor.close();
+
+        adapter = new ForumAdapter(requireActivity(), R.layout.forum_item_layout, forums);
+        binding.lvReview.setAdapter(adapter);
+    }
+
 
     private void addEvents() {
         binding.btnAddReview.setOnClickListener(new View.OnClickListener() {

@@ -3,18 +3,17 @@ package com.example.models;
 import java.io.Serializable;
 
 public class Forum implements Serializable {
-    String fr_id;
-    int fr_avatar;
+    int fr_id;
+    byte[] fr_avatar;
     String fr_username;
     String fr_date;
-    double fr_rating;
+    int fr_rating;
     String fr_reviewtitle;
     String fr_reviewcontent;
 
     //Constructor
 
-
-    public Forum(String fr_id, int fr_avatar, String fr_username, String fr_date, double fr_rating, String fr_reviewtitle, String fr_reviewcontent) {
+    public Forum(int fr_id, byte[] fr_avatar, String fr_username, String fr_date, int fr_rating, String fr_reviewtitle, String fr_reviewcontent) {
         this.fr_id = fr_id;
         this.fr_avatar = fr_avatar;
         this.fr_username = fr_username;
@@ -26,19 +25,19 @@ public class Forum implements Serializable {
 
     //Getter and setter
 
-    public String getFr_id() {
+    public int getFr_id() {
         return fr_id;
     }
 
-    public void setFr_id(String fr_id) {
+    public void setFr_id(int fr_id) {
         this.fr_id = fr_id;
     }
 
-    public int getFr_avatar() {
+    public byte[] getFr_avatar() {
         return fr_avatar;
     }
 
-    public void setFr_avatar(int fr_avatar) {
+    public void setFr_avatar(byte[] fr_avatar) {
         this.fr_avatar = fr_avatar;
     }
 
@@ -58,11 +57,11 @@ public class Forum implements Serializable {
         this.fr_date = fr_date;
     }
 
-    public double getFr_rating() {
+    public int getFr_rating() {
         return fr_rating;
     }
 
-    public void setFr_rating(double fr_rating) {
+    public void setFr_rating(int fr_rating) {
         this.fr_rating = fr_rating;
     }
 

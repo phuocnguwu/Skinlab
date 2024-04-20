@@ -11,20 +11,20 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.models.Feedback;
 import com.example.models.Forum;
+import com.example.skinlab.ForumFragment;
 import com.example.skinlab.R;
 
 import java.util.List;
 
 public class ForumAdapter extends BaseAdapter {
-    Activity context;
+    Context context;
 
     int list_item_forum;
     List<Forum> forums;
 
     //Constructor
-    public ForumAdapter(Activity context, int list_item_forum, List<Forum> forums) {
+    public ForumAdapter(Context context, int list_item_forum, List<Forum> forums) {
         this.context = context;
         this.list_item_forum = list_item_forum;
         this.forums = forums;
@@ -75,9 +75,9 @@ public class ForumAdapter extends BaseAdapter {
         holder.txtRating.setText(String.valueOf(f.getFr_rating()));
         holder.txtReviewTitle.setText(f.getFr_reviewtitle());
         holder.txtReviewContent.setText(f.getFr_reviewcontent());
-//        byte[] data = f.getFr_avatar();
-//        Bitmap bitmap = BitmapFactory.decodeByteArray(0, data.length);
-//        holder.imvAvatar.setImageBitmap(bitmap);
+        byte[] data = f.getFr_avatar();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+        holder.imvAvatar.setImageBitmap(bitmap);
 
         return view;
     }
