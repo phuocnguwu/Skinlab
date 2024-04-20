@@ -71,7 +71,7 @@ public class FeedbackAdapter extends BaseAdapter {
         //Lien ket du lieu
 
         Feedback f = feedbacks.get(i);
-        holder.imvUser.setImageResource(f.getUserThumb());
+//        holder.imvUser.setImageResource(f.getUserThumb());
         holder.txtUserName.setText(f.getUserName());
         holder.txtDate.setText(f.getDate());
         holder.txtRatings.setText(String.valueOf( Math.round(f.getRatings())));

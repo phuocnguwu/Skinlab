@@ -113,10 +113,6 @@ public class Homepage extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomepageBinding.inflate(inflater, container, false);
-//        db = new Databases(requireContext());
-//        db.copyDatabaseFromAssets();
-//        products = loadProductsFromDatabase();
-
         return binding.getRoot();
     }
 
@@ -208,8 +204,10 @@ public class Homepage extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 3);
         binding.rcvProduct.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
 
+        ArrayList<Product> limitedProducts = new ArrayList<>(products.subList(0, Math.min(products.size(), 6)));
         // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
-        adapter = new ProductAdapter(requireActivity(), products);
+        adapter = new ProductAdapter(requireActivity(), limitedProducts);
+
         binding.rcvProduct.setAdapter(adapter); // Đặt adapter cho RecyclerView
 
         // Định nghĩa sự kiện click trên mỗi sản phẩm trong RecyclerView

@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.skinlab.Product_Details;
 import com.example.skinlab.R;
 import com.example.models.Product;
+import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.List;
 
 public class ProductDetailsAdapter extends RecyclerView.Adapter<ProductDetailsAdapter.ViewHolder> {
@@ -36,12 +39,23 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<ProductDetailsAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        holder.imvProduct.setImageResource(products.get(position).getPd_photo());
+
+//                holder.imvProduct.setImageResource(products.get(position).getPd_photo());
+        Picasso.get().load(products.get(position).getPd_photo()).into(holder.imvProduct);
         holder.txtProductBrand.setText(products.get(position).getPd_brand());
         holder.txtProductName.setText(products.get(position).getPd_name());
-        holder.txtProductPrice.setText(products.get(position).getPd_price() + " đ");
-        holder.txtProductPrice2.setText(products.get(position).getPd_price2() + " đ");
-        holder.txtProductDes.setText(products.get(position).getPd_des() + " đ");
+        holder.txtProductDes.setText(products.get(position).getPd_des());
+
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setGroupingSeparator('.'); // Dấu chấm làm dấu phân tách hàng nghìn
+
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0", symbols);
+        decimalFormat.setGroupingSize(3); // Định dạng hàng nghìn theo từng nhóm 3 chữ số
+
+        String formattedPrice = decimalFormat.format(products.get(position).getPd_price());
+        String formattedPrice2 = decimalFormat.format(products.get(position).getPd_price2());
+        holder.txtProductPrice.setText(formattedPrice + " đ");
+        holder.txtProductPrice2.setText(formattedPrice2 + " đ");
 
         // Khi click 1 item
         final int itemPosition = position;
