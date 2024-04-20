@@ -33,7 +33,7 @@ public class Myaccount_adddiachi extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        binding.btnadddiachi.setOnClickListener(new View.OnClickListener() {
+        binding.btnupdatediachi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showAlerDialog();
