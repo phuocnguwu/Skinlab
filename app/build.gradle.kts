@@ -1,5 +1,6 @@
 import com.android.build.api.dsl.ViewBinding
 
+
 plugins {
     id("com.android.application")
 }
@@ -37,6 +38,7 @@ android {
 }
 
 dependencies {
+
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
