@@ -1,17 +1,20 @@
 package com.example.models;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 public class Feedback implements Serializable {
+    String FeedbackId;
 
-    int UserThumb;
+    Blob UserThumb;
     String UserName;
     String Date;
-    double Ratings;
+    int Ratings;
     String FeedbackTitle;
     String FeedbackContent;
 
-    public Feedback(int userThumb, String userName, String date, double ratings, String feedbackTitle, String feedbackContent) {
+    public Feedback(String feedbackId, Blob userThumb, String userName, String date, int ratings, String feedbackTitle, String feedbackContent) {
+        FeedbackId = feedbackId;
         UserThumb = userThumb;
         UserName = userName;
         Date = date;
@@ -20,11 +23,19 @@ public class Feedback implements Serializable {
         FeedbackContent = feedbackContent;
     }
 
-    public int getUserThumb() {
+    public String getFeedbackId() {
+        return FeedbackId;
+    }
+
+    public void setFeedbackId(String feedbackId) {
+        FeedbackId = feedbackId;
+    }
+
+    public Blob getUserThumb() {
         return UserThumb;
     }
 
-    public void setUserThumb(int userThumb) {
+    public void setUserThumb(Blob userThumb) {
         UserThumb = userThumb;
     }
 
@@ -44,11 +55,11 @@ public class Feedback implements Serializable {
         Date = date;
     }
 
-    public double getRatings() {
+    public int getRatings() {
         return Ratings;
     }
 
-    public void setRatings(double ratings) {
+    public void setRatings(int ratings) {
         Ratings = ratings;
     }
 
