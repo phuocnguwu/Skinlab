@@ -12,17 +12,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.models.Account;
 import com.example.skinlab.databinding.ActivityDialogSaveBinding;
 import com.example.skinlab.databinding.ActivitySignupBinding;
 
 public class Signup extends AppCompatActivity {
     ActivitySignupBinding binding;
+    DatabaseHelper databaseHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        databaseHelper = new DatabaseHelper(this);
         addEvents();
     }
 
@@ -52,12 +56,21 @@ public class Signup extends AppCompatActivity {
             }
 
             private void showSuccessDialog() {
+                String hoTen = binding.edtHoten.getText().toString().trim();
+                String sdt = binding.edtSdt.getText().toString().trim();
+                String email = binding.edtEmail.getText().toString().trim();
+                String matKhau = binding.edtMatkhau.getText().toString().trim();
+                String dob = binding.edtDOB.getText().toString().trim();
+                String gioiTinh = binding.edtGioitinh.getText().toString().trim();
+
+                Account user = new Account(hoTen, sdt, email, matKhau, dob, gioiTinh);
+                databaseHelper.saveUserToDatabase(user);
+
                 ActivityDialogSaveBinding dialogsaveBinding = ActivityDialogSaveBinding.inflate(LayoutInflater.from(Signup.this));
                 AlertDialog.Builder builder = new AlertDialog.Builder(Signup.this)
                         .setView(dialogsaveBinding.getRoot())
                         .setCancelable(true);
 
-                // Tạo dialog
                 final AlertDialog dialog = builder.create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.getWindow().setLayout(200, 200);
@@ -70,11 +83,11 @@ public class Signup extends AppCompatActivity {
                     }
 
                     private void navigateToLoginFragment() {
-                            Intent intent = new Intent(Signup.this, MainActivity_containtFragment.class); // Thay YourLoginActivity bằng tên Activity của Fragment đăng nhập
-                            startActivity(intent);
-
+                        Intent intent = new Intent(Signup.this, MainActivity_containtFragment.class);
+                        startActivity(intent);
                     }
                 }, 1000);
+
 
             }
 

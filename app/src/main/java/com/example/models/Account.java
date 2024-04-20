@@ -1,79 +1,70 @@
 package com.example.models;
 
 public class Account {
-    private String userId;
-    private String userName;
-    private byte[] userAvatar;
-    private String userEmail;
-    private String userPhone;
-    private String userGender;
-    private String userDob;
+    private String hoTen;
+    private String sdt;
+    private String email;
+    private String matKhau;
+    private String dob;
+    private String gioiTinh;
 
-
-    public Account(String userId, String userName, byte[] userAvatar, String userEmail, String userPhone, String userGender, String userDob) {
-        this.userId = userId;
-        this.userName = userName;
-        this.userAvatar = userAvatar;
-        this.userEmail = userEmail;
-        this.userPhone = userPhone;
-        this.userGender = userGender;
-        this.userDob = userDob;
-
+    public Account(String hoTen, String sdt, String email, String matKhau, String dob, String gioiTinh) {
+        this.hoTen = hoTen;
+        this.sdt = sdt;
+        this.email = email;
+        this.matKhau = matKhau;
+        this.dob = dob;
+        this.gioiTinh = gioiTinh;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getHoTen() {
+        return hoTen;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setHoTen(String hoTen) {
+        this.hoTen = hoTen;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getSdt() {
+        return sdt;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
     }
 
-    public byte[] getUserAvatar() {
-        return userAvatar;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserAvatar(byte[] userAvatar) {
-        this.userAvatar = userAvatar;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getMatKhau() {
+        return matKhau;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
     }
 
-    public String getUserPhone() {
-        return userPhone;
+    public String getDob() {
+        return dob;
     }
 
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
-    public String getUserGender() {
-        return userGender;
+    public String getGioiTinh() {
+        return gioiTinh;
     }
 
-    public void setUserGender(String userGender) {
-        this.userGender = userGender;
-    }
-
-    public String getUserDob() {
-        return userDob;
-    }
-
-    public void setUserDob(String userDob) {
-        this.userDob = userDob;
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
     }
 }
+
+
+

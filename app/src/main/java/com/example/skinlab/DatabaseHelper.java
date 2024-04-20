@@ -1,10 +1,13 @@
 package com.example.skinlab;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.models.Account;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "Skinlab.db";
@@ -66,6 +69,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int count = cursor.getCount();
         cursor.close();
         return count > 0;
+    }
+    public void saveUserToDatabase(Account user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_NAME, user.getHoTen());
+        values.put(COLUMN_USER_PHONE, user.getSdt());
+        values.put(COLUMN_USER_EMAIL, user.getEmail());
+        values.put(COLUMN_USER_PASSWORD, user.getMatKhau());
+        values.put(COLUMN_USER_DOB, user.getDob());
+        values.put(COLUMN_USER_GENDER, user.getGioiTinh());
+
+        // Insert dữ liệu vào bảng người dùng
+        db.insert(USER, null, values);
+        db.close();
     }
 
 }
