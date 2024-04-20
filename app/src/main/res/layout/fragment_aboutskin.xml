@@ -133,13 +133,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvProduct"
-            android:layout_width="395dp"
-            android:layout_height="576dp"
-            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtGoiy" />
-
+            app:layout_constraintTop_toBottomOf="@+id/txtGoiy"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

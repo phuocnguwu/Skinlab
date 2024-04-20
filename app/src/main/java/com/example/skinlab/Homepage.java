@@ -243,6 +243,54 @@ public class Homepage extends Fragment {
 
     private void addEvents() {
 
+        // Category
+        binding.layoutSuaruamat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Gửi Intent tới Products với category tương ứng
+                Intent intent = new Intent(requireActivity(), Products.class);
+                intent.putExtra("category", "Sữa rửa mặt");
+                startActivity(intent);
+            }
+        });
+
+        binding.layoutNuocduong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), Products.class);
+                intent.putExtra("category", "Nước dưỡng");
+                startActivity(intent);
+            }
+        });
+
+        // Tương tự cho các category khác
+        binding.layoutKemduong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), Products.class);
+                intent.putExtra("category", "Kem dưỡng");
+                startActivity(intent);
+            }
+        });
+
+        binding.layoutTinhchat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), Products.class);
+                intent.putExtra("category", "Tinh chất");
+                startActivity(intent);
+            }
+        });
+
+        binding.layoutMatna.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), Products.class);
+                intent.putExtra("category", "Mặt nạ");
+                startActivity(intent);
+            }
+        });
+
         binding.btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -284,6 +332,7 @@ public class Homepage extends Fragment {
                 Intent intent = new Intent(requireActivity(), Products.class);
                 intent.putExtra("showAllProducts", true);
                 intent.putExtra("searchKeyword", "");
+                intent.putExtra("category", "Sữa rửa mặt");
                 startActivity(intent);
             }
         });

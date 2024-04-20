@@ -99,7 +99,6 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <ScrollView
-        android:id="@+id/scvProduct"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -107,8 +106,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSort"
         app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="10dp">
-
+        tools:layout_editor_absoluteX="10dp"
+        android:paddingBottom="15dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvProduct"
