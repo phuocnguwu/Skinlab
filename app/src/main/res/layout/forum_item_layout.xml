@@ -6,7 +6,7 @@
     android:padding="10dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
                     android:text="Jenny Wilson" />
 
                 <TextView
-                    android:id="@+id/Date"
+                    android:id="@+id/txtDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="13 sep, 2023" />
