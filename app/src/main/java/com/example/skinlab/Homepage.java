@@ -283,6 +283,7 @@ public class Homepage extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(requireActivity(), Products.class);
                 intent.putExtra("showAllProducts", true);
+                intent.putExtra("searchKeyword", "");
                 startActivity(intent);
             }
         });

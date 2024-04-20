@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -28,10 +29,7 @@ public class Products extends AppCompatActivity {
     ArrayList<Product> products;
 
     public static final String DB_NAME = "Skinlab.db";
-    public static final String DB_FOLDER = "databases";
-
-    Context context;
-    boolean showAllProducts = false;
+    boolean showAllProducts = true;
     String searchKeyword;
 
 
@@ -52,18 +50,20 @@ public class Products extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        loadDb();
-        addEvents();
 
         Intent intent = getIntent();
         if (intent !=null) {
             showAllProducts = intent.getBooleanExtra("showAllProducts", false);
             searchKeyword = intent.getStringExtra("searchKeyword");
         }
+
+        loadDb();
+        addEvents();
+
+
     }
 
     private void loadDb() {
-        Log.d("SearchKeyword", "Keyword: " + searchKeyword);
         db = SQLiteDatabase.openDatabase(getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
         products = new ArrayList<>();
 
@@ -71,15 +71,15 @@ public class Products extends AppCompatActivity {
 
         if (showAllProducts) {
             // Nếu yêu cầu hiển thị tất cả sản phẩm, thực hiện query toàn bộ dữ liệu
-            String selection = COLUMN_PD_NAME + " LIKE ?";
-            String[] selectionArgs = { "%" + searchKeyword + "%" };
-            cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
+            cursor = db.query(TBL_NAME, null, null, null, null, null, null);
         } else {
             // Nếu không hiển thị tất cả sản phẩm, thực hiện query dựa trên từ khóa tìm kiếm
             String selection = COLUMN_PD_NAME + " LIKE ?";
             String[] selectionArgs = { "%" + searchKeyword + "%" };
             cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
         }
+
+//        cursor = db.query(TBL_NAME, null, null, null, null, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -112,11 +112,9 @@ public class Products extends AppCompatActivity {
                     products.add(product);
                 }
             } while (cursor.moveToNext());
-            Log.d("CursorCount", "Count: " + cursor.getCount());
 
             cursor.close();
         }
-        Log.d("ProductList", "Size: " + products.size());
 
         // Tạo layout manager cho RecyclerView (ở đây là GridLayoutManager)
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
@@ -142,6 +140,26 @@ public class Products extends AppCompatActivity {
     }
 
     private void addEvents() {
+
+        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String keyword = binding.edtSearch.getText().toString().trim();
+
+                // Kiểm tra xem keyword có rỗng không
+                if (!keyword.isEmpty()) {
+                    // Tạo Intent để chuyển sang trang Product
+                    Intent intent = new Intent(Products.this, Products.class);
+                    // Đính kèm từ khoá tìm kiếm vào Intent
+                    intent.putExtra("searchKeyword", keyword);
+                    // Chuyển sang trang Product
+                    startActivity(intent);
+                } else {
+                    // Hiển thị thông báo cho người dùng nhập từ khóa tìm kiếm
+                    Toast.makeText(Products.this, "Vui lòng nhập từ khóa tìm kiếm", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         binding.imvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
