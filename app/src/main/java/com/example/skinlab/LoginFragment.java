@@ -72,6 +72,10 @@ public class LoginFragment extends Fragment {
                 if (emailPhone.isEmpty() || password.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
+                    // Thêm log để kiểm tra dữ liệu đầu vào
+                    Log.d("LoginFragment", "Số điện thoại: " + emailPhone + ", Mật khẩu: " + password);
+
+                    // Kiểm tra đăng nhập
                     if (databaseHelper.checkLogin(emailPhone, password)) {
                         isLoggedIn = true;
                         saveLoginStatus(isLoggedIn, emailPhone); // Lưu sđt của người dùng đăng nhập
@@ -96,8 +100,6 @@ public class LoginFragment extends Fragment {
                 editor.putString("loggedInPhone", loggedInPhone); // Lưu sđt của người dùng đăng nhập
                 editor.apply();
             }
-
-
         });
         binding.textViewSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
