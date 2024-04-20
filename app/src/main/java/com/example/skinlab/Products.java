@@ -6,11 +6,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,9 +29,8 @@ public class Products extends AppCompatActivity {
     ArrayList<Product> products;
 
     public static final String DB_NAME = "Skinlab.db";
-    public static final String DB_FOLDER = "databases";
-
-    Context context;
+    boolean showAllProducts = true;
+    String searchKeyword;
 
 
     public static SQLiteDatabase db = null;
@@ -49,11 +50,16 @@ public class Products extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        loadDb();
 
-//        initData();
-//        loadData();
+        Intent intent = getIntent();
+        if (intent !=null) {
+            showAllProducts = intent.getBooleanExtra("showAllProducts", false);
+            searchKeyword = intent.getStringExtra("searchKeyword");
+        }
+
+        loadDb();
         addEvents();
+
 
     }
 
@@ -61,7 +67,20 @@ public class Products extends AppCompatActivity {
         db = SQLiteDatabase.openDatabase(getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
         products = new ArrayList<>();
 
-        Cursor cursor = db.query(TBL_NAME, null, null, null, null, null, null);
+        Cursor cursor;
+
+        if (showAllProducts) {
+            // Nếu yêu cầu hiển thị tất cả sản phẩm, thực hiện query toàn bộ dữ liệu
+            cursor = db.query(TBL_NAME, null, null, null, null, null, null);
+        } else {
+            // Nếu không hiển thị tất cả sản phẩm, thực hiện query dựa trên từ khóa tìm kiếm
+            String selection = COLUMN_PD_NAME + " LIKE ?";
+            String[] selectionArgs = { "%" + searchKeyword + "%" };
+            cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
+        }
+
+//        cursor = db.query(TBL_NAME, null, null, null, null, null, null);
+
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 int columnIndexId = cursor.getColumnIndex(COLUMN_PD_ID);
@@ -87,15 +106,16 @@ public class Products extends AppCompatActivity {
                     String pdDes = cursor.getString(columnIndexDes);
                     String pdPhoto = cursor.getString(columnIndexPhoto);
                     String pdSkintype = cursor.getString(columnIndexPhoto);
-//
-//                    // Tạo đối tượng Product từ dữ liệu truy vấn
+
+                    // Tạo đối tượng Product từ dữ liệu truy vấn
                     Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
                     products.add(product);
                 }
-            }
-            while (cursor.moveToNext()) ;
+            } while (cursor.moveToNext());
+
             cursor.close();
         }
+
         // Tạo layout manager cho RecyclerView (ở đây là GridLayoutManager)
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         binding.rcvProduct.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
@@ -110,7 +130,7 @@ public class Products extends AppCompatActivity {
             public void onItemClick(Product product) {
                 // Xử lý khi người dùng nhấn vào một item trong RecyclerView
                 // Khởi tạo Intent để chuyển sang màn hình chi tiết sản phẩm
-                Intent intent = new Intent(context, Product_Details.class);
+                Intent intent = new Intent(Products.this, Product_Details.class);
                 // Đính kèm thông tin sản phẩm được chọn vào Intent
                 intent.putExtra("selectedProduct", product);
                 // Chuyển sang màn hình chi tiết sản phẩm
@@ -120,6 +140,26 @@ public class Products extends AppCompatActivity {
     }
 
     private void addEvents() {
+
+        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String keyword = binding.edtSearch.getText().toString().trim();
+
+                // Kiểm tra xem keyword có rỗng không
+                if (!keyword.isEmpty()) {
+                    // Tạo Intent để chuyển sang trang Product
+                    Intent intent = new Intent(Products.this, Products.class);
+                    // Đính kèm từ khoá tìm kiếm vào Intent
+                    intent.putExtra("searchKeyword", keyword);
+                    // Chuyển sang trang Product
+                    startActivity(intent);
+                } else {
+                    // Hiển thị thông báo cho người dùng nhập từ khóa tìm kiếm
+                    Toast.makeText(Products.this, "Vui lòng nhập từ khóa tìm kiếm", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         binding.imvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,34 +217,6 @@ public class Products extends AppCompatActivity {
 
         });
 
-    }
-
-    private void loadData() {
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
-        binding.rcvProduct.setLayoutManager(layoutManager);
-
-        adapter = new ProductAdapter(Products.this, products);
-        binding.rcvProduct.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Product product) {
-                // Xử lý khi người dùng nhấn vào một item trong RecyclerView
-                Intent intent = new Intent(Products.this, Product_Details.class);
-                intent.putExtra("selectedProduct", product);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void initData() {
-//        products = new ArrayList<>();
-//        products.add(new Product(R.drawable.product1, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,500000, "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-//        products.add(new Product(R.drawable.product2, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,500000, "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-//        products.add(new Product(R.drawable.product3, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,500000, "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-//        products.add(new Product(R.drawable.product1, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,500000, "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-//        products.add(new Product(R.drawable.product2, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,500000, "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-//        products.add(new Product(R.drawable.product3, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,500000, "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
     }
 
 }

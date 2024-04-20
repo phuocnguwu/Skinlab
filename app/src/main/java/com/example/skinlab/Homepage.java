@@ -176,11 +176,11 @@ public class Homepage extends Fragment {
                 int columnIndexCate = cursor.getColumnIndex(COLUMN_PD_CATE);
                 int columnIndexDes = cursor.getColumnIndex(COLUMN_PD_DES);
                 int columnIndexPhoto = cursor.getColumnIndex(COLUMN_PD_PHOTO);
-                int columnIndexSkiptype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
+                int columnIndexSkintype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
 
                 if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
                         columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
-                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkiptype != -1) {
+                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkintype != -1) {
 
                     String pdId = cursor.getString(columnIndexId);
                     String pdName = cursor.getString(columnIndexName);
@@ -190,7 +190,7 @@ public class Homepage extends Fragment {
                     String pdCate = cursor.getString(columnIndexCate);
                     String pdDes = cursor.getString(columnIndexDes);
                     String pdPhoto = cursor.getString(columnIndexPhoto);
-                    String pdSkintype = cursor.getString(columnIndexPhoto);
+                    String pdSkintype = cursor.getString(columnIndexSkintype);
 //
 //                    // Tạo đối tượng Product từ dữ liệu truy vấn
                     Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
@@ -246,55 +246,20 @@ public class Homepage extends Fragment {
         binding.btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String keyword = binding.edtSearch.getText().toString().trim();
-//
-//                // Kiểm tra xem keyword có rỗng không
-//                if (!keyword.isEmpty()) {
-//                    // Thực hiện truy vấn dữ liệu từ cơ sở dữ liệu
-//                    ArrayList<Product> searchResults = searchProductsByName(keyword);
-//
-//                    // Hiển thị kết quả tìm kiếm trên RecyclerView
-//                    if (searchResults != null && !searchResults.isEmpty()) {
-//                        // Cập nhật dữ liệu cho Adapter của RecyclerView
-//                        adapter.setData(searchResults);
-//                        // Cập nhật giao diện RecyclerView
-//                        adapter.notifyDataSetChanged();
-//                    } else {
-//                        // Hiển thị thông báo cho người dùng không tìm thấy kết quả
-//                        Toast.makeText(requireContext(), "Không tìm thấy sản phẩm phù hợp", Toast.LENGTH_SHORT).show();
-//                    }
-//                } else {
-//                    // Hiển thị thông báo cho người dùng nhập từ khóa tìm kiếm
-//                    Toast.makeText(requireContext(), "Vui lòng nhập từ khóa tìm kiếm", Toast.LENGTH_SHORT).show();
-//                }
-//            }
+                String keyword = binding.edtSearch.getText().toString().trim();
 
-//            private ArrayList<Product> searchProductsByName(String keyword) {
-//                ArrayList<Product> searchResults = new ArrayList<>();
-//
-//                // Thực hiện truy vấn sản phẩm theo tên từ cơ sở dữ liệu
-//                // Ví dụ: sử dụng SQLite Database để thực hiện truy vấn
-//                // Thay đổi query này tùy theo cơ sở dữ liệu của bạn
-//                SQLiteDatabase db = dbHelper.getReadableDatabase();
-//                String query = "SELECT * FROM Products WHERE productName LIKE '%" + keyword + "%'";
-//                Cursor cursor = db.rawQuery(query, null);
-//
-//                // Duyệt qua các dòng kết quả và thêm vào danh sách searchResults
-//                if (cursor != null) {
-//                    while (cursor.moveToNext()) {
-//                        int id = cursor.getInt(cursor.getColumnIndex("id"));
-//                        String name = cursor.getString(cursor.getColumnIndex("productName"));
-//                        // Các thông tin sản phẩm khác tương ứng
-//
-//                        // Tạo đối tượng Product từ dữ liệu truy vấn
-//                        Product product = new Product(id, name, ...);
-//                        searchResults.add(product);
-//                    }
-//                    cursor.close();
-//                }
-//                db.close();
-//
-//                return searchResults;
+                // Kiểm tra xem keyword có rỗng không
+                if (!keyword.isEmpty()) {
+                    // Tạo Intent để chuyển sang trang Product
+                    Intent intent = new Intent(requireActivity(), Products.class);
+                    // Đính kèm từ khoá tìm kiếm vào Intent
+                    intent.putExtra("searchKeyword", keyword);
+                    // Chuyển sang trang Product
+                    startActivity(intent);
+                } else {
+                    // Hiển thị thông báo cho người dùng nhập từ khóa tìm kiếm
+                    Toast.makeText(requireContext(), "Vui lòng nhập từ khóa tìm kiếm", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -317,6 +282,8 @@ public class Homepage extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireActivity(), Products.class);
+                intent.putExtra("showAllProducts", true);
+                intent.putExtra("searchKeyword", "");
                 startActivity(intent);
             }
         });
@@ -329,35 +296,5 @@ public class Homepage extends Fragment {
         });
 
     }
-
-    private void loadData() {
-
-        // Load dữ liệu bằng cách initData
-//        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 3);
-//        binding.rcvProduct.setLayoutManager(layoutManager);
-//
-//        adapter = new ProductAdapter(requireActivity(), products);
-//        binding.rcvProduct.setAdapter(adapter);
-//
-//        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(Product product) {
-//                // Xử lý khi người dùng nhấn vào một item trong RecyclerView
-//                Intent intent = new Intent(requireActivity(), Product_Details.class);
-//                intent.putExtra("selectedProduct", product);
-//                startActivity(intent);
-//            }
-//        });
-    }
-
-//    private void initData() {
-//        products = new ArrayList<>();
-//        products.add(new Product(R.drawable.product1, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-//        products.add(new Product(R.drawable.product2, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-//        products.add(new Product(R.drawable.product3, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-//        products.add(new Product(R.drawable.product1, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-//        products.add(new Product(R.drawable.product2, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000,50000,  "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-//        products.add(new Product(R.drawable.product3, "product01", "Kem dưỡng ẩm trà xanh Innisfree Green Tea Seed", 468000, 50000, "Innisfree", "Kem dưỡng", "Kem dưỡng ẩm trà xanh innisfree Green Tea Seed Cream, giải pháp cấp ẩm và làm dịu cho da bổ sung lớp màng dưỡng ẩm để bảo bệ da khỏi những tác hại bởi việc mất nước gây ra."));
-//    }
 
 }
