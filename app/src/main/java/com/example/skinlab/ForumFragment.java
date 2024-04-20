@@ -5,9 +5,11 @@ import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -129,9 +131,10 @@ public class ForumFragment extends Fragment {
         forums = new ArrayList<>();
         Cursor cursor = db.query(TBL_NAME, null, null, null, null, null, null);
         while (cursor.moveToNext()){
+            byte[] imageData = cursor.getBlob(2);
             forums.add(new Forum(cursor.getInt(0),
-                    cursor.getBlob(1),
-                    cursor.getString(2),
+                    imageData,
+                    cursor.getString(1),
                     cursor.getString(3),
                     cursor.getInt(4),
                     cursor.getString(5),
@@ -162,7 +165,13 @@ public class ForumFragment extends Fragment {
         binding.lvReview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Forum selectedForumId = forums.get(position);
                 Intent intent = new Intent(requireActivity(), Forum_Detailed.class);
+                intent.putExtra("forum_id", selectedForumId.getFr_id());
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences("SelectedForum", Context.MODE_PRIVATE).edit();
+                editor.putInt("forum_id", selectedForumId.getFr_id());
+                editor.apply();
+
                 startActivity(intent);
             }
         });
