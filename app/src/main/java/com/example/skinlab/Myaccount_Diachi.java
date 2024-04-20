@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.adapters.AddressRecyclerAdapter;
 import com.example.models.Address;
@@ -15,12 +17,14 @@ import com.example.skinlab.databinding.ActivityMyaccountDiachiBinding;
 import com.example.skinlab.databinding.FragmentMyAccountBinding;
 
 import java.util.ArrayList;
+import android.content.SharedPreferences;
 
 public class Myaccount_Diachi extends AppCompatActivity {
     ActivityMyaccountDiachiBinding binding;
 //    Databases db;
     AddressRecyclerAdapter adapter;
     ArrayList<Address> addresses;
+    DatabaseHelper databaseHelper;
 
 
     @Override
@@ -30,6 +34,8 @@ public class Myaccount_Diachi extends AppCompatActivity {
         setContentView(binding.getRoot());
         addEvents();
         createDb();
+        databaseHelper = new DatabaseHelper(this);
+
     }
 
     private void createDb() {
@@ -39,24 +45,46 @@ public class Myaccount_Diachi extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadDb();
+        loadUserAddresses();
     }
 
-    private void loadDb() {
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(Myaccount_Diachi.this, LinearLayoutManager.VERTICAL, false);
-//        binding.rcvdiachi.setLayoutManager(layoutManager);
-//        addresses = new ArrayList<>();
-//        Cursor cursor = db.queryData("SELECT * FROM " + Databases.TBL_USER);
-//        while (cursor.moveToNext()) {
-//            addresses.add(new Address(
-//                    cursor.getString(0),
-//                    cursor.getString(1),
-//                    cursor.getString(2),
-//                    cursor.getString(3)));
-//        }
-//        cursor.close();
-//        adapter = new AddressRecyclerAdapter(Myaccount_Diachi.this, addresses);
-//        binding.rcvdiachi.setAdapter(adapter);
+    private void loadUserAddresses() {
+        String loggedInPhone = getLoggedInPhone();
+        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+            addresses = new ArrayList<>();
+            SQLiteDatabase db = databaseHelper.getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.USER +
+                    " WHERE " + DatabaseHelper.COLUMN_USER_PHONE + " = ?", new String[]{loggedInPhone});
+            if (cursor.moveToFirst()) {
+                do {
+                    String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_NAME));
+                    String phone = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_PHONE));
+                    String address1 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS));
+                    String address2 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS2));
+                    Address address = new Address(name, phone, address1, address2);
+                    // Add the address to the list
+                    addresses.add(address);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+            // Display the addresses in the RecyclerView
+            displayAddresses();
+        } else {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+        private void displayAddresses() {
+            AddressRecyclerAdapter adapter = new AddressRecyclerAdapter(this, addresses);
+            binding.rcvdiachi.setLayoutManager(new LinearLayoutManager(this));
+            binding.rcvdiachi.setAdapter(adapter);
+        }
+
+
+    private String getLoggedInPhone() {
+        SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("loggedInPhone", "");
     }
 
 
