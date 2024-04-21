@@ -25,10 +25,6 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         this.context = context;
         this.appointmentList = appointmentList;
     }
-
-    public AppointmentAdapter(Aboutskin_lichhen context, List<Appointment> appointments) {
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
