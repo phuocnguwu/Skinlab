@@ -85,6 +85,15 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/txtId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="Brand"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
+
+                <TextView
                     android:id="@+id/txtProductName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

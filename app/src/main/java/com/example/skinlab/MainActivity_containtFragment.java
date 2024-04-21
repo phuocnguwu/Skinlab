@@ -12,11 +12,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.example.models.Product;
 import com.example.skinlab.databinding.ActivityMainContaintFragmentBinding;
 
 public class MainActivity_containtFragment extends AppCompatActivity {
     ActivityMainContaintFragmentBinding binding;
     private boolean isLoggedIn = false;
+
+    Product selectedProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +29,37 @@ public class MainActivity_containtFragment extends AppCompatActivity {
         addEvents();
         isLoggedIn = readLoginStatus();
         replaceFragment(new Homepage());
-
     }
 
+//    protected void onStart() {
+//        super.onStart();
+//        replaceFragment(new Homepage());
+//        return;
+//    }
+
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+//        // Kiểm tra xem có dữ liệu trong Bundle không
+//        Bundle bundle = getArguments();
+//        if (bundle != null && bundle.containsKey("selectedProduct")) {
+//            selectedProduct = (Product) bundle.getSerializable("selectedProduct");
+//            Log.d("Product_Details", "selectedProduct: Price1 = " + selectedProduct);
+//        } else {
+//            Log.d("Product_Details", "vãi lồn");
+//            replaceFragment(new Giohang_Fragment());
+//        }
+        Product selectedProduct = (Product) getIntent().getSerializableExtra("selectedProduct");
+
+        Giohang_Fragment giohangFragment = new Giohang_Fragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("selectedProduct", selectedProduct);
+        giohangFragment.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.containerLayout, giohangFragment)
+                .commit();
+//        replaceFragment(new Homepage());
+    }
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
@@ -38,6 +69,17 @@ public class MainActivity_containtFragment extends AppCompatActivity {
         transaction.commit();
         checkLoginAndReplaceFragment();
 
+        // Kiểm tra fragment có phải là Giohang_Fragment không
+//        if (fragment instanceof Giohang_Fragment) {
+//            Giohang_Fragment giohangFragment = (Giohang_Fragment) fragment;
+//            if (selectedProduct != null) {
+//                // Tạo bundle và truyền selectedProduct vào Giohang_Fragment
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("selectedProduct", selectedProduct);
+//                giohangFragment.setArguments(bundle);
+//                Log.d("Product_Details", "selectedProduct: Price2 = " + bundle);
+//            }
+//        }
     }
 
     private void checkLoginAndReplaceFragment() {

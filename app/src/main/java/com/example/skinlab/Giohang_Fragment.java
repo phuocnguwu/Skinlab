@@ -1,88 +1,115 @@
 package com.example.skinlab;
 
+import android.content.Context;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
 import com.example.adapters.GioHangAdapter;
 import com.example.models.Product;
-
+import com.example.skinlab.databinding.FragmentGiohangBinding;
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Giohang_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Giohang_Fragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private ListView lvGiohang;
-    private ArrayList<Product> gioHangItemList;
     private GioHangAdapter gioHangAdapter;
+    private ArrayList<Product> gioHangItemList = new ArrayList<>();
+    FragmentGiohangBinding binding;
+    Product selectedProduct;
 
+    public Giohang_Fragment() {}
 
-    public Giohang_Fragment() {
-        // Required empty public constructor
-    }
+//    public static Giohang_Fragment newInstance(Bundle bundle) {
+//        Giohang_Fragment giohangFragment = new Giohang_Fragment();
+//        if (bundle != null) {
+//            giohangFragment.setArguments(bundle);
+//        }
+//        return giohangFragment;
+//    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Giohang_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Giohang_Fragment newInstance(String param1, String param2) {
-        Giohang_Fragment fragment = new Giohang_Fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    private ArrayList<Product> gioHangItemList;
+
+//    public void addToCart(Product product, Context context) {
+//        if (lvGiohang != null) {
+//            if (gioHangAdapter == null) {
+//                gioHangItemList.add(product);
+//                gioHangAdapter = new GioHangAdapter(context, R.layout.giohang_item, gioHangItemList);
+//                lvGiohang.setAdapter(gioHangAdapter);
+//            } else {
+//                gioHangItemList.add(product);
+//                gioHangAdapter.notifyDataSetChanged();
+//            }
+//        } else {
+//            // Log hoặc xử lý trường hợp lvGiohang không được tìm thấy
+//            Log.e("Giohang_Fragment", "ListView lvGiohang is null");
+//        }
+//    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_giohang_, container, false);
-
-        // Khởi tạo danh sách giỏ hàng
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentGiohangBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
         gioHangItemList = new ArrayList<>();
-        // Thêm các item vào danh sách giỏ hàng (giả sử bạn có danh sách các sản phẩm)
-        gioHangItemList.add(new Product("https://i.pinimg.com/736x/bf/69/e1/bf69e1c1f03979c3f712a5c0a86d4da8.jpg",null, "Nước tẩy trang", 189000,0,null,null,null,null));
-
-        // Ánh xạ ListView
+//        gioHangItemList.add(new Product("https://i.pinimg.com/736x/bf/69/e1/bf69e1c1f03979c3f712a5c0a86d4da8.jpg", null, "Nước tẩy trang", 189000, 0, null, null, null, null));
         lvGiohang = view.findViewById(R.id.lvGiohang);
-
-        // Khởi tạo và thiết lập adapter
+//        if (getArguments() != null) {
+//            getData();
+//        }
         gioHangAdapter = new GioHangAdapter(getContext(), R.layout.giohang_item, gioHangItemList);
         lvGiohang.setAdapter(gioHangAdapter);
-
         return view;
+    }
+
+    public void onStart() {
+//        gioHangItemList.add(new Product("https://i.pinimg.com/736x/bf/69/e1/bf69e1c1f03979c3f712a5c0a86d4da8.jpg", null, "Nước tẩy trang", 189000, 0, null, null, null, null));
+        super.onStart();
+    }
+
+    public void onResume() {
+        Log.d("Resume", "có chạy nè");
+        if (getArguments() != null) {
+            getData();
+        }
+//        Bundle bundle = getArguments();
+//        Log.d("Product_Details", "selectedProduct: Price = " + bundle);
+//        if (bundle != null && bundle.containsKey("selectedProduct")) {
+//            // Nhận selectedProduct từ bundle
+//            selectedProduct = (Product) bundle.getSerializable("selectedProduct");
+//            // Thêm selectedProduct vào danh sách và cập nhật adapter
+//            gioHangItemList.add(selectedProduct);
+//            gioHangAdapter = new GioHangAdapter(getContext(), R.layout.giohang_item, gioHangItemList);
+//            lvGiohang.setAdapter(gioHangAdapter);
+//        } else {
+//            Log.d("Giohang_Fragment", "selectedProduct not found in arguments");
+//        }
+        super.onResume();
+    }
+
+    private void getData() {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            Log.d("bundle", "huhu" + bundle);
+            Product p = (Product) bundle.getSerializable("selectedProduct");
+//            gioHangItemList.add(new Product("https://i.pinimg.com/736x/bf/69/e1/bf69e1c1f03979c3f712a5c0a86d4da8.jpg", null, "Nước tẩy trang", 189000, 0, null, null, null, null));
+//            lvGiohang = view.findViewById(R.id.lvGiohang);
+            if (p != null) {
+            Log.d("Product_Details", "selectedProduct: " + p);
+            Log.d("Product_Details", "selectedProduct: ID = " + p.getPd_id());
+            Log.d("Product_Details", "selectedProduct: Name = " + p.getPd_name());
+            Log.d("Product_Details", "selectedProduct: Price = " + p.getPd_price());
+
+                gioHangItemList.add(p);
+//                gioHangItemList.notifyDataSetChanged();
+            } else {
+                Log.d("product", "đ có product đâu");
+
+            }
+        } else {
+            Log.d("Bundle", "Đ có Bundle");
+        }
     }
 }
