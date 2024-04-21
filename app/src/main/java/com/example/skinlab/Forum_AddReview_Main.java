@@ -150,6 +150,8 @@ public class Forum_AddReview_Main extends AppCompatActivity {
                     userCursor.close();
 
                     ContentValues values = new ContentValues();
+                    values.put(COLUMN_FORUM_AVATAR, userAvatar);
+                    values.put(COLUMN_FORUM_NAME, userName);
                     values.put(COLUMN_FORUM_TITLE, forumTitle);
                     values.put(COLUMN_FORUM_CONTENT, forumContent);
                     values.put(COLUMN_FORUM_CONTENT_IMG, forumImage);
@@ -166,10 +168,6 @@ public class Forum_AddReview_Main extends AppCompatActivity {
                     } else {
                         Toast.makeText(Forum_AddReview_Main.this, "Failed to add review!", Toast.LENGTH_SHORT).show();
                     }
-
-                    Intent intent = new Intent(Forum_AddReview_Main.this, ForumFragment.class);
-                    showAlerDialog();
-                    startActivity(intent);
                     finish();
                 } else {
                     // Handle the case when no image is selected
@@ -179,24 +177,25 @@ public class Forum_AddReview_Main extends AppCompatActivity {
 
         });
     }
-
     private void showAlerDialog() {
-        ActivityForumDialogSendBinding forumdialogsendBinding = ActivityForumDialogSendBinding.inflate(LayoutInflater.from(Forum_AddReview_Main.this));
-        AlertDialog.Builder builder = new AlertDialog.Builder(Forum_AddReview_Main.this)
-                .setView(forumdialogsendBinding.getRoot())
-                .setCancelable(true);
+        if (!isFinishing()) { // Kiểm tra xem Activity có đang hoạt động hay không
+            ActivityForumDialogSendBinding forumdialogsendBinding = ActivityForumDialogSendBinding.inflate(LayoutInflater.from(Forum_AddReview_Main.this));
+            AlertDialog.Builder builder = new AlertDialog.Builder(Forum_AddReview_Main.this)
+                    .setView(forumdialogsendBinding.getRoot())
+                    .setCancelable(true);
 
-        // Create dialog
-        final AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().setLayout(200, 200);
-        dialog.show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dialog.dismiss();
-            }
-        }, 1000);
+            // Create dialog
+            final AlertDialog dialog = builder.create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setLayout(200, 200);
+            dialog.show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.dismiss();
+                }
+            }, 1000);
+        }
     }
 
     private void showBottomSheet() {
