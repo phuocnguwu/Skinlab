@@ -61,21 +61,40 @@ public class Myaccount_Diachi extends AppCompatActivity {
                     String phone = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_PHONE));
                     String address1 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS));
                     String address2 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS2));
-                    Address address = new Address(name, phone, address1, address2);
-                    // Add the address to the list
-                    addresses.add(address);
+
+                    // Kiểm tra xem cả address1 và address2 đều có giá trị
+                    if (address1 != null && !address1.isEmpty()) {
+                        Address address = new Address(name, phone, address1, null);
+                        addresses.add(address);
+                    }
+                    // Nếu address2 cũng có giá trị, thêm một địa chỉ mới với address2
+                    if (address2 != null && !address2.isEmpty()) {
+                        Address address2Item = new Address(name, phone, address2, null);
+                        addresses.add(address2Item);
+                    }
                 } while (cursor.moveToNext());
             }
             cursor.close();
             db.close();
-            // Display the addresses in the RecyclerView
-            displayAddresses();
+            // Kiểm tra xem danh sách địa chỉ có dữ liệu hay không
+            if (addresses.isEmpty()) {
+                // Nếu danh sách địa chỉ trống, ẩn RecyclerView và hiển thị thông báo
+                binding.rcvdiachi.setVisibility(View.GONE);
+                Toast.makeText(this, "Không có địa chỉ", Toast.LENGTH_SHORT).show();
+            } else {
+                // Nếu danh sách địa chỉ có dữ liệu, hiển thị RecyclerView và hiển thị các địa chỉ
+                binding.rcvdiachi.setVisibility(View.VISIBLE);
+                displayAddresses();
+            }
         } else {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
         }
     }
 
-        private void displayAddresses() {
+
+
+
+    private void displayAddresses() {
             AddressRecyclerAdapter adapter = new AddressRecyclerAdapter(this, addresses);
             binding.rcvdiachi.setLayoutManager(new LinearLayoutManager(this));
             binding.rcvdiachi.setAdapter(adapter);
@@ -103,6 +122,7 @@ public class Myaccount_Diachi extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
     }
 }

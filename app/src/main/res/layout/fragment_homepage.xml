@@ -110,6 +110,7 @@
                 tools:layout_editor_absoluteX="4dp">
 
                 <LinearLayout
+                    android:id="@+id/layoutSuaruamat"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -131,6 +132,7 @@
 
                 <!-- Category 2 -->
                 <LinearLayout
+                    android:id="@+id/layoutNuocduong"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -152,6 +154,7 @@
 
                 <!-- Category 3 -->
                 <LinearLayout
+                    android:id="@+id/layoutKemduong"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -173,6 +176,7 @@
 
                 <!-- Category 4 -->
                 <LinearLayout
+                    android:id="@+id/layoutTinhchat"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -194,6 +198,7 @@
 
                 <!-- Category 5 -->
                 <LinearLayout
+                    android:id="@+id/layoutMatna"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

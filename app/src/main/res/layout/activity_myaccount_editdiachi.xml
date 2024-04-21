@@ -90,78 +90,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginTop="28dp"
-            android:text="Thành phố/Tỉnh"
+            android:text="Địa chỉ cụ thể"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtsdt" />
 
-        <Spinner
-            android:id="@+id/txtTinh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="36dp"
-            android:background="@drawable/roundcorner_edittext"
-            android:padding="7dp"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/txtthanhphohuyen"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="28dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtTinh">
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="31dp"
-                android:layout_marginStart="36dp"
-                android:text="Quận/Thành phố"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/spnthanhphohuyen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtthanhphohuyen">
-            <Spinner
-                android:id="@+id/imageButton3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:adjustViewBounds="true"
-                android:background="@drawable/roundcorner_edittext"
-                android:padding="7dp"
-                android:layout_marginEnd="36dp"
-                android:scaleType="fitXY"
-                app:layout_constraintDimensionRatio="4:1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TouchTargetSizeCheck" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="28dp"
-            android:text="Địa chỉ cụ thể"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spnthanhphohuyen" />
 
         <EditText
             android:id="@+id/txtDiachicuthe"
@@ -173,20 +108,9 @@
             android:background="@drawable/roundcorner_edittext"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/textView11"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-        <CheckBox
-            android:id="@+id/cbdiachimacdinh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="24dp"
-            android:text="Sử dụng làm địa chỉ mặc định"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtDiachicuthe"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <Button
             android:id="@+id/btnupdatediachi"

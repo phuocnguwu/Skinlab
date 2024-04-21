@@ -27,11 +27,9 @@ public class Products extends AppCompatActivity {
     ActivityProductsBinding binding;
     ProductAdapter adapter;
     ArrayList<Product> products;
-
     public static final String DB_NAME = "Skinlab.db";
     boolean showAllProducts = true;
     String searchKeyword;
-
 
     public static SQLiteDatabase db = null;
     public static final String TBL_NAME = "product";
@@ -67,17 +65,43 @@ public class Products extends AppCompatActivity {
         db = SQLiteDatabase.openDatabase(getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
         products = new ArrayList<>();
 
+        Intent intent = getIntent();
+        boolean showAllProducts = intent.getBooleanExtra("showAllProducts", false);
+        String searchKeyword = intent.getStringExtra("searchKeyword");
+        if (searchKeyword == null) {
+            searchKeyword = "";
+        }
+        String category = intent.getStringExtra("category");
+
         Cursor cursor;
 
         if (showAllProducts) {
-            // Nếu yêu cầu hiển thị tất cả sản phẩm, thực hiện query toàn bộ dữ liệu
+            // Hiển thị tất cả sản phẩm
             cursor = db.query(TBL_NAME, null, null, null, null, null, null);
-        } else {
-            // Nếu không hiển thị tất cả sản phẩm, thực hiện query dựa trên từ khóa tìm kiếm
+        } else if (searchKeyword != null && !searchKeyword.isEmpty()) {
+            // Tìm kiếm sản phẩm theo từ khoá
             String selection = COLUMN_PD_NAME + " LIKE ?";
             String[] selectionArgs = { "%" + searchKeyword + "%" };
             cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
+        } else if (category != null && !category.isEmpty()) {
+            // Lọc sản phẩm theo category
+            String selection = COLUMN_PD_CATE + " = ?";
+            String[] selectionArgs = { category };
+            cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
+        } else {
+            // Mặc định không hiển thị sản phẩm nào
+            cursor = null;
         }
+
+//        if (showAllProducts) {
+//            // Nếu yêu cầu hiển thị tất cả sản phẩm, thực hiện query toàn bộ dữ liệu
+//            cursor = db.query(TBL_NAME, null, null, null, null, null, null);
+//        } else {
+//            // Nếu không hiển thị tất cả sản phẩm, thực hiện query dựa trên từ khóa tìm kiếm
+//            String selection = COLUMN_PD_NAME + " LIKE ?";
+//            String[] selectionArgs = { "%" + searchKeyword + "%" };
+//            cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
+//        }
 
 //        cursor = db.query(TBL_NAME, null, null, null, null, null, null);
 
