@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.models.Feedback;
 import com.example.models.Product;
 import com.example.skinlab.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,7 @@ public class FeedbackAdapter extends BaseAdapter {
         //Lien ket du lieu
 
         Feedback f = feedbacks.get(i);
-//        holder.imvUser.setImageResource(f.getUserThumb());
+        Picasso.get().load(f.getUserThumbUrl()).into(holder.imvUser);
         holder.txtUserName.setText(f.getUserName());
         holder.txtDate.setText(f.getDate());
         holder.txtRatings.setText(String.valueOf( Math.round(f.getRatings())));

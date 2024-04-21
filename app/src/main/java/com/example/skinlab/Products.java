@@ -31,7 +31,7 @@ public class Products extends AppCompatActivity {
     boolean showAllProducts = true;
     String searchKeyword;
 
-    public static SQLiteDatabase db = null;
+    public static SQLiteDatabase db;
     public static final String TBL_NAME = "product";
     public static final String COLUMN_PD_ID = "pd_id";
     public static final String COLUMN_PD_NAME = "pd_name";
