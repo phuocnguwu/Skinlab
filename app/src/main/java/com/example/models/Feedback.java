@@ -4,78 +4,77 @@ import java.io.Serializable;
 import java.sql.Blob;
 
 public class Feedback implements Serializable {
-    String FeedbackId;
+    private String feedbackId;
+    private String userThumbUrl; // Đường dẫn ảnh đại diện của người dùng
+    private String userName;
+    private String date;
+    private int ratings;
+    private String feedbackTitle;
+    private String feedbackContent;
 
-    Blob UserThumb;
-    String UserName;
-    String Date;
-    int Ratings;
-    String FeedbackTitle;
-    String FeedbackContent;
-
-    public Feedback(String feedbackId, Blob userThumb, String userName, String date, int ratings, String feedbackTitle, String feedbackContent) {
-        FeedbackId = feedbackId;
-        UserThumb = userThumb;
-        UserName = userName;
-        Date = date;
-        Ratings = ratings;
-        FeedbackTitle = feedbackTitle;
-        FeedbackContent = feedbackContent;
+    public Feedback(String feedbackId, String userThumbUrl, String userName, String date, int ratings, String feedbackTitle, String feedbackContent) {
+        this.feedbackId = feedbackId;
+        this.userThumbUrl = userThumbUrl;
+        this.userName = userName;
+        this.date = date;
+        this.ratings = ratings;
+        this.feedbackTitle = feedbackTitle;
+        this.feedbackContent = feedbackContent;
     }
 
     public String getFeedbackId() {
-        return FeedbackId;
+        return feedbackId;
     }
 
     public void setFeedbackId(String feedbackId) {
-        FeedbackId = feedbackId;
+        this.feedbackId = feedbackId;
     }
 
-    public Blob getUserThumb() {
-        return UserThumb;
+    public String getUserThumbUrl() {
+        return userThumbUrl;
     }
 
-    public void setUserThumb(Blob userThumb) {
-        UserThumb = userThumb;
+    public void setUserThumbUrl(String userThumbUrl) {
+        this.userThumbUrl = userThumbUrl;
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        this.userName = userName;
     }
 
     public String getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(String date) {
-        Date = date;
+        this.date = date;
     }
 
     public int getRatings() {
-        return Ratings;
+        return ratings;
     }
 
     public void setRatings(int ratings) {
-        Ratings = ratings;
+        this.ratings = ratings;
     }
 
     public String getFeedbackTitle() {
-        return FeedbackTitle;
+        return feedbackTitle;
     }
 
     public void setFeedbackTitle(String feedbackTitle) {
-        FeedbackTitle = feedbackTitle;
+        this.feedbackTitle = feedbackTitle;
     }
 
     public String getFeedbackContent() {
-        return FeedbackContent;
+        return feedbackContent;
     }
 
     public void setFeedbackContent(String feedbackContent) {
-        FeedbackContent = feedbackContent;
+        this.feedbackContent = feedbackContent;
     }
 }

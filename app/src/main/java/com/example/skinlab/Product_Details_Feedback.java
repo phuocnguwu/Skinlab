@@ -50,8 +50,14 @@ public class Product_Details_Feedback extends AppCompatActivity {
     }
 
     private void loadFeedback() {
-        feedbackAdapter = new FeedbackAdapter(Product_Details_Feedback.this, R.layout.list_item_feedback, feedbacks);
-        binding.lvFeedback.setAdapter(feedbackAdapter);
+        if (feedbacks != null) {
+            // Thực hiện các hoạt động liên quan đến feedbacks
+            FeedbackAdapter feedbackAdapter = new FeedbackAdapter(Product_Details_Feedback.this, R.layout.list_item_feedback, feedbacks);
+            binding.lvFeedback.setAdapter(feedbackAdapter);
+        } else {
+            // Xử lý khi feedbacks là null
+            Log.e("Product_Details_Feedback", "Feedbacks is null");
+        }
     }
 
     private void addEvents() {
