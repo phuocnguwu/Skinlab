@@ -15,6 +15,8 @@ import com.example.skinlab.databinding.ActivityQuenmatkhauNhapOtpBinding;
 public class Quenmatkhau_nhapOTP extends AppCompatActivity {
     ActivityQuenmatkhauNhapOtpBinding binding;
     EditText edtOTP1, edtOTP2, edtOTP3, edtOTP4;
+    String loggedInPhone; // Số điện thoại đăng nhập
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,8 @@ public class Quenmatkhau_nhapOTP extends AppCompatActivity {
         edtOTP2 = findViewById(R.id.edtOTP2);
         edtOTP3 = findViewById(R.id.edtOTP3);
         edtOTP4 = findViewById(R.id.edtOTP4);
+        loggedInPhone = getIntent().getStringExtra("soDienThoai");
+
 
         Button btntieptuc = findViewById(R.id.btntieptuc);
         btntieptuc.setOnClickListener(new View.OnClickListener() {
@@ -48,8 +52,9 @@ public class Quenmatkhau_nhapOTP extends AppCompatActivity {
             return;
         }
 
-        // Nếu đã nhập đủ OTP, chuyển qua trang Quenmatkhau_Matkhaumoi
+        // Nếu đã nhập đủ OTP, chuyển qua trang Quenmatkhau_Matkhaumoi và truyền số điện thoại
         Intent intent = new Intent(Quenmatkhau_nhapOTP.this, Quenmatkhau_Matkhaumoi.class);
+        intent.putExtra("soDienThoai", loggedInPhone);
         startActivity(intent);
     }
 }
