@@ -1,5 +1,7 @@
 package com.example.models;
 
+import android.widget.Adapter;
+
 import java.io.Serializable;
 
 public class Product implements Serializable {
