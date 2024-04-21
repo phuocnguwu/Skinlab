@@ -134,7 +134,6 @@ public class Forum_AddReview_Main extends AppCompatActivity {
                     String forumTitle = binding.edtAddTitle.getText().toString();
                     String forumContent = binding.edtAddContent.getText().toString();
                     int forumRating = Integer.parseInt(binding.edtRating.getText().toString());
-
                     String currentDateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
                     // Insert user details into the forum
