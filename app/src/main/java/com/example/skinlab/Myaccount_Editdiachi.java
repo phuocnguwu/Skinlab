@@ -11,11 +11,14 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.example.models.Address;
 import com.example.skinlab.databinding.ActivityDialogSaveBinding;
 import com.example.skinlab.databinding.ActivityMyaccountEditdiachiBinding;
 
 public class Myaccount_Editdiachi extends AppCompatActivity {
     ActivityMyaccountEditdiachiBinding binding;
+    private Address selectedAddress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,19 @@ public class Myaccount_Editdiachi extends AppCompatActivity {
         binding = ActivityMyaccountEditdiachiBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         addEvents();
+
+        // Nhận selectedAddress từ Intent
+        Intent intent = getIntent();
+        if (intent != null) {
+            selectedAddress = (Address) intent.getSerializableExtra("selectedAddress");
+            if (selectedAddress != null) {
+                // Đặt giá trị cho các EditText
+                binding.txtHoten.setText(selectedAddress.getName());
+                binding.txtsdt.setText(selectedAddress.getPhone());
+                binding.txtDiachicuthe.setText(selectedAddress.getAddress());
+            }
+        }
+
     }
 
     private void addEvents() {
@@ -42,7 +58,13 @@ public class Myaccount_Editdiachi extends AppCompatActivity {
                 binding.txtsdt.setText(newsdt);
                 binding.txtDiachicuthe.setText(newdiachi);
 
+                // Cập nhật thông tin vào cơ sở dữ liệu
+                DatabaseHelper dbHelper = new DatabaseHelper(Myaccount_Editdiachi.this);
+                dbHelper.updateUserAdress(selectedAddress.getPhone(), newhoten, null, newsdt, null, null, newdiachi);
+
+
                 showAlerDialog();
+                finish();
             }
 
             private void showAlerDialog() {
