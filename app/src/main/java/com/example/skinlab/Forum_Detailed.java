@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Forum_Detailed extends AppCompatActivity {
     ActivityForumDetailedBinding binding;
@@ -39,7 +40,7 @@ public class Forum_Detailed extends AppCompatActivity {
     public static final String COLUMN_FORUM_TITLE = "forum_title";
     public static final String COLUMN_FORUM_SHORTCONTENT = "forum_shortcontent";
     public static final String COLUMN_FORUM_CONTENT = "forum_content";
-    public static final String COLUMN_FORUM_IMG = "forum_img";
+    public static final String COLUMN_FORUM_CONTENT_IMG = "forum_content_img";
     public static final String COLUMN_FORUM_COMMENT_NAME1 = "forum_comment_name1";
     public static final String COLUMN_FORUM_COMMENT_CONTENT1 = "forum_comment_content1";
     public static final String COLUMN_FORUM_COMMENT_NAME2 = "forum_comment_name2";
@@ -72,7 +73,7 @@ public class Forum_Detailed extends AppCompatActivity {
         int forumDateIndex = cursor.getColumnIndex(COLUMN_FORUM_DATE);
         int forumTitleIndex = cursor.getColumnIndex(COLUMN_FORUM_TITLE);
         int forumContentIndex = cursor.getColumnIndex(COLUMN_FORUM_CONTENT);
-        int forumImageIndex = cursor.getColumnIndex(COLUMN_FORUM_IMG);
+        int forumImageIndex = cursor.getColumnIndex(COLUMN_FORUM_CONTENT_IMG);
         int forumCommentName1Index = cursor.getColumnIndex(COLUMN_FORUM_COMMENT_NAME1);
         int forumCommentContent1Index = cursor.getColumnIndex(COLUMN_FORUM_COMMENT_CONTENT1);
         int forumCommentName2Index = cursor.getColumnIndex(COLUMN_FORUM_COMMENT_NAME2);
@@ -104,6 +105,9 @@ public class Forum_Detailed extends AppCompatActivity {
             binding.txtCommentContent1.setText(forumCommentContent1);
             binding.txtCommentName2.setText(forumCommentName2);
             binding.txtCommentContent2.setText(forumCommentContent2);
+        } else {
+            // Không có dữ liệu được tìm thấy, thực hiện xử lý khi không có dữ liệu
+            Log.d("Forum_Detailed", "No data found for forumId: " + forumId);
         }
         cursor.close();
     }

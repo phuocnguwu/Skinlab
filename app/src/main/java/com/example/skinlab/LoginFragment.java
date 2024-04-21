@@ -93,7 +93,7 @@ public class LoginFragment extends Fragment {
                 }
             }
 
-            private void saveLoginStatus(boolean isLoggedIn, String loggedInPhone) {
+            public void saveLoginStatus(boolean isLoggedIn, String loggedInPhone) {
                 SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("login_pref", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean("isLoggedIn", isLoggedIn);
