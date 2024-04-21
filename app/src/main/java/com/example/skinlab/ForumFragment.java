@@ -122,7 +122,13 @@ public class ForumFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         addEvents();
+//        loadDb();
+    }
+
+    @Override
+    public void onResume() {
         loadDb();
+        super.onResume();
     }
 
     private void loadDb() {
@@ -146,6 +152,21 @@ public class ForumFragment extends Fragment {
         binding.lvReview.setAdapter(adapter);
     }
 
+    private void deleteReviewFromDatabase(Forum selectedForum) {
+        SQLiteDatabase db = requireContext().openOrCreateDatabase(DB_NAME, MODE_PRIVATE, null);
+
+        String selection = COLUMN_FORUM_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(selectedForum.getFr_id()) };
+        int rowsDeleted = db.delete(TBL_NAME, selection, selectionArgs);
+        db.close();
+
+        if (rowsDeleted > 0) {
+            Log.d("DELETE", "Review deleted successfully");
+        } else {
+            Log.d("DELETE", "Failed to delete review");
+        }
+    }
+
 
     private void addEvents() {
         binding.btnAddReview.setOnClickListener(new View.OnClickListener() {
@@ -153,6 +174,20 @@ public class ForumFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(requireActivity(), Forum_AddReview_Main.class);
                 startActivity(intent);
+            }
+        });
+        binding.lvReview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Forum selectedForum = forums.get(position);
+
+                deleteReviewFromDatabase(selectedForum);
+
+                forums.remove(position);
+                adapter.notifyDataSetChanged();
+
+                Toast.makeText(getContext(), "Review deleted", Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
         binding.btnclickback.setOnClickListener(new View.OnClickListener() {
