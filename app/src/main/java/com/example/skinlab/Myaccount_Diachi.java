@@ -61,6 +61,8 @@ public class Myaccount_Diachi extends AppCompatActivity {
                     String phone = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_PHONE));
                     String address1 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS));
                     String address2 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS2));
+                    String name2ForAddress2 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_NAME2FORADDRESS2));
+                    String phone2ForAddress2 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_PHONE2FORADDRESS2));
 
                     // Kiểm tra xem cả address1 và address2 đều có giá trị
                     if (address1 != null && !address1.isEmpty()) {
@@ -69,7 +71,7 @@ public class Myaccount_Diachi extends AppCompatActivity {
                     }
                     // Nếu address2 cũng có giá trị, thêm một địa chỉ mới với address2
                     if (address2 != null && !address2.isEmpty()) {
-                        Address address2Item = new Address(name, phone, address2, null);
+                        Address address2Item = new Address(name2ForAddress2, phone2ForAddress2, address2, null);
                         addresses.add(address2Item);
                     }
                 } while (cursor.moveToNext());

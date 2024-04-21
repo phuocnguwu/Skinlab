@@ -21,6 +21,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USER_DOB = "user_DOB";
     public static final String COLUMN_USER_ADDRESS = "user_address";
     public static final String COLUMN_USER_ADDRESS2 = "user_address2";
+    public static final String COLUMN_USER_NAME2FORADDRESS2 = "user_name2foraddress2";
+    public static final String COLUMN_USER_PHONE2FORADDRESS2 = "user_phone2foraddress2";
+
+
     public static final String COLUMN_USER_SKINTYPE = "user_skin";
 
 
