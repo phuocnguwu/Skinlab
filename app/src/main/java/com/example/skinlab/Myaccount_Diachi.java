@@ -120,7 +120,7 @@ public class Myaccount_Diachi extends AppCompatActivity {
         binding.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Myaccount_Diachi.this,Myaccount_adddiachi.class);
+                Intent intent = new Intent(Myaccount_Diachi.this, Myaccount_adddiachi.class);
                 startActivity(intent);
             }
         });

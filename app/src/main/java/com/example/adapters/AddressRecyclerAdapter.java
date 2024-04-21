@@ -1,9 +1,11 @@
 package com.example.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.models.Address;
+import com.example.skinlab.Myaccount_Editdiachi;
 import com.example.skinlab.R;
 
 import java.util.List;
@@ -32,11 +35,19 @@ public class AddressRecyclerAdapter extends RecyclerView.Adapter<AddressRecycler
 
     @Override
     public void onBindViewHolder( AddressRecyclerAdapter.ViewHolder holder, int position) {
+
         Address address = addressList.get(position);
         holder.txtName.setText(address.getName());
         holder.txtphone.setText(address.getPhone());
         holder.txtaddress.setText(address.getAddress());
-
+        holder.imbtnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Myaccount_Editdiachi.class);
+                intent.putExtra("selectedAddress", address);
+                context.startActivity(intent);
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -44,11 +55,14 @@ public class AddressRecyclerAdapter extends RecyclerView.Adapter<AddressRecycler
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView  txtName, txtphone, txtaddress;
+        ImageButton imbtnEdit;
         public ViewHolder( View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txtUserName);
             txtphone = itemView.findViewById(R.id.txtSdt);
             txtaddress = itemView.findViewById(R.id.txtDiachicuthe);
+            imbtnEdit = itemView.findViewById(R.id.btnedit);
+
         }
     }
 }
