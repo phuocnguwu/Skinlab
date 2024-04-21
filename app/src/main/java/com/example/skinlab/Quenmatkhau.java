@@ -21,12 +21,15 @@ public class Quenmatkhau extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityQuenmatkhauBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        addEvents();
 
         dbHelper = new DatabaseHelper(this);
         txtSdtcuaban = findViewById(R.id.txtSdtcuaban);
 
-        Button btnguimaxacnhan = findViewById(R.id.btnguimaxacnhan);
-        btnguimaxacnhan.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void addEvents() {
+        binding.btnguimaxacnhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 kiemTraSoDienThoai();
@@ -34,47 +37,21 @@ public class Quenmatkhau extends AppCompatActivity {
         });
     }
 
-//    private void kiemTraSoDienThoai() {
-//        String soDienThoai = txtSdtcuaban.getText().toString().trim();
-//        if (soDienThoai.isEmpty()) {
-//            Toast.makeText(this, "Vui lòng nhập số điện thoại", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        // Kiểm tra xem số điện thoại có trong cơ sở dữ liệu không
-//        if (dbHelper.checkSoDienThoaiTonTai(soDienThoai)) {
-//            // Số điện thoại đã tồn tại trong cơ sở dữ liệu, chuyển đến màn hình nhập OTP
-//            // Truyền số điện thoại qua intent để sử dụng trong màn hình nhập OTP nếu cần
-//            intent.putExtra("soDienThoai", soDienThoai);
-//            startActivity(intent);
-//        } else {
-//            // Số điện thoại không tồn tại trong cơ sở dữ liệu
-//            Toast.makeText(this, "Số điện thoại chưa được đăng ký", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-private void kiemTraSoDienThoai() {
-    String soDienThoai = txtSdtcuaban.getText().toString().trim();
-    if (soDienThoai.isEmpty()) {
-        Toast.makeText(this, "Vui lòng nhập số điện thoại", Toast.LENGTH_SHORT).show();
-        return;
+    private void kiemTraSoDienThoai() {
+        String soDienThoai = txtSdtcuaban.getText().toString().trim();
+        if (soDienThoai.isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập số điện thoại", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // Kiểm tra xem số điện thoại có trong cơ sở dữ liệu không
+        if (dbHelper.checkSoDienThoaiTonTai(soDienThoai)) {
+            Intent intent = new Intent(Quenmatkhau.this, Quenmatkhau_nhapOTP.class);
+            intent.putExtra("soDienThoai", soDienThoai);
+            startActivity(intent);
+        } else {
+            // Số điện thoại không tồn tại trong cơ sở dữ liệu
+            Toast.makeText(this, "Số điện thoại chưa được đăng ký", Toast.LENGTH_SHORT).show();
+        }
     }
-
-    // Kiểm tra xem số điện thoại có trong cơ sở dữ liệu không
-    if (dbHelper.checkSoDienThoaiTonTai(soDienThoai)) {
-        // Số điện thoại đã tồn tại trong cơ sở dữ liệu, chuyển đến màn hình nhập OTP
-//        Intent intent = new Intent(Quenmatkhau.this, Quenmatkhau_Matkhaumoi.class);
-//        // Truyền số điện thoại qua intent để sử dụng trong trang Quenmatkhau_Matkhaumoi
-//
-//        intent.putExtra("soDienThoai", soDienThoai);
-//        startActivity(intent);
-        // Chuyển sang trang Quenmatkhau_nhapOTP và truyền số điện thoại
-        Intent intent = new Intent(Quenmatkhau.this, Quenmatkhau_nhapOTP.class);
-        intent.putExtra("soDienThoai", soDienThoai);
-        startActivity(intent);
-    } else {
-        // Số điện thoại không tồn tại trong cơ sở dữ liệu
-        Toast.makeText(this, "Số điện thoại chưa được đăng ký", Toast.LENGTH_SHORT).show();
-    }
-}
 
 }

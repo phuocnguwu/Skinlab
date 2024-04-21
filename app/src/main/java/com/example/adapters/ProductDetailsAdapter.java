@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +46,7 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<ProductDetailsAd
         holder.txtProductBrand.setText(products.get(position).getPd_brand());
         holder.txtProductName.setText(products.get(position).getPd_name());
         holder.txtProductDes.setText(products.get(position).getPd_des());
+        holder.txtId.setText(products.get(position).getPd_id());
 
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator('.'); // Dấu chấm làm dấu phân tách hàng nghìn
@@ -56,6 +58,7 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<ProductDetailsAd
         String formattedPrice2 = decimalFormat.format(products.get(position).getPd_price2());
         holder.txtProductPrice.setText(formattedPrice + " đ");
         holder.txtProductPrice2.setText(formattedPrice2 + " đ");
+
 
         // Khi click 1 item
         final int itemPosition = position;
@@ -81,13 +84,14 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<ProductDetailsAd
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imvProduct;
-        TextView txtProductName, txtProductPrice, txtProductBrand, txtProductPrice2, txtProductDes, txtProductFeedback;
+        TextView txtProductName, txtProductPrice, txtProductBrand, txtProductPrice2, txtProductDes, txtProductFeedback, txtId;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imvProduct = itemView.findViewById(R.id.imvProduct);
             txtProductName = itemView.findViewById(R.id.txtProductName);
             txtProductPrice = itemView.findViewById(R.id.txtProductPrice);
+            txtId = itemView.findViewById(R.id.txtId);
         }
     }
 }
