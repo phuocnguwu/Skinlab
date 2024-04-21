@@ -41,19 +41,40 @@ public class Signup extends AppCompatActivity {
                 }
             }
 
-
-
-            private boolean isInputValid() {
-                String hoTen = binding.edtHoten.getText().toString().trim();
-                String sdt = binding.edtSdt.getText().toString().trim();
-                String email = binding.edtEmail.getText().toString().trim();
-                String matKhau = binding.edtMatkhau.getText().toString().trim();
-                String dob = binding.edtDOB.getText().toString().trim();
-                String gioiTinh = binding.edtGioitinh.getText().toString().trim();
-
-                // Kiểm tra xem các trường thông tin có rỗng không
-                return !hoTen.isEmpty() && !sdt.isEmpty() && !email.isEmpty() && !matKhau.isEmpty() && !dob.isEmpty() && !gioiTinh.isEmpty();
-            }
+//            private boolean isInputValid() {
+//                String hoTen = binding.edtHoten.getText().toString().trim();
+//                String sdt = binding.edtSdt.getText().toString().trim();
+//                String email = binding.edtEmail.getText().toString().trim();
+//                String matKhau = binding.edtMatkhau.getText().toString().trim();
+//                String dob = binding.edtDOB.getText().toString().trim();
+//                String gioiTinh = binding.edtGioitinh.getText().toString().trim();
+//
+//                // Kiểm tra xem các trường thông tin có rỗng không
+//                if (hoTen.isEmpty() || sdt.isEmpty() || email.isEmpty() || matKhau.isEmpty() || dob.isEmpty() || gioiTinh.isEmpty()) {
+//                    return false;
+//                }
+//                // Kiểm tra định dạng số điện thoại
+//                if (!isValidPhoneNumber(sdt)) {
+//                    return false;
+//                }
+//
+//                // Kiểm tra email
+//                if (!isValidEmail(email)) {
+//                    return false;
+//                }
+//
+//                // Kiểm tra mật khẩu
+//                if (matKhau.length() < 6 || !isValidPassword(matKhau)) {
+//                    return false;
+//                }
+//
+//                // Kiểm tra định dạng ngày sinh
+//                if (!isValidDOB(dob)) {
+//                    return false;
+//                }
+//
+//                return true;
+//            }
 
             private void showSuccessDialog() {
                 String hoTen = binding.edtHoten.getText().toString().trim();
@@ -91,6 +112,86 @@ public class Signup extends AppCompatActivity {
 
             }
 
+            private boolean isValidPhoneNumber(String phoneNumber) {
+                // Kiểm tra số điện thoại bắt đầu từ số 0 và có từ 10 đến 13 ký tự
+                if (!phoneNumber.matches("^0[0-9]{9,12}$")) {
+                    showToast("Số điện thoại sai định dạng");
+                    return false;
+                }
+                if (databaseHelper.checkSoDienThoaiTonTai(phoneNumber)) {
+                    showToast("Số điện thoại đã được đăng ký");
+                    return false;
+                }
+                return true;
+            }
+
+            private boolean isValidEmail(String email) {
+                // Kiểm tra định dạng email
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    showToast("Email sai định dạng");
+                    return false;
+                }
+                if (databaseHelper.checkEmailTonTai(email)) {
+                    showToast("Email đã được đăng ký");
+                    return false;
+                }
+                return true;
+            }
+            private boolean isValidPassword(String password) {
+                // Kiểm tra mật khẩu có ít nhất 6 ký tự và chứa ít nhất một ký tự đặc biệt
+                if (password.length() < 6) {
+                    showToast("Mật khẩu phải dài hơn 6 ký tự");
+                    return false;
+                }
+                if (!password.matches(".*[!@#$%^&*()_+{}:<>?|\\[\\]\\\\;'\\/,.].*")) {
+                    showToast("Mật khẩu phải có ít nhất 1 ký tự đặc biệt");
+                    return false;
+                }
+                return true;
+            }
+
+            private boolean isValidDOB(String dob) {
+                // Kiểm tra định dạng ngày sinh theo mẫu dd/mm/yyyy
+                if (!dob.matches("^\\d{2}/\\d{2}/\\d{4}$")) {
+                    showToast("Ngày sinh sai định dạng");
+                    return false;
+                }
+                return true;
+            }
+
+            private boolean isInputValid() {
+                String hoTen = binding.edtHoten.getText().toString().trim();
+                String sdt = binding.edtSdt.getText().toString().trim();
+                String email = binding.edtEmail.getText().toString().trim();
+                String matKhau = binding.edtMatkhau.getText().toString().trim();
+                String dob = binding.edtDOB.getText().toString().trim();
+                String gioiTinh = binding.edtGioitinh.getText().toString().trim();
+
+                // Kiểm tra xem các trường thông tin có rỗng không
+                if (hoTen.isEmpty() || sdt.isEmpty() || email.isEmpty() || matKhau.isEmpty() || dob.isEmpty() || gioiTinh.isEmpty()) {
+                    showToast("Vui lòng điền đầy đủ thông tin");
+                    return false;
+                }
+                // Kiểm tra định dạng số điện thoại
+                if (!isValidPhoneNumber(sdt)) {
+                    return false;
+                }
+
+                // Kiểm tra email
+                if (!isValidEmail(email)) {
+                    return false;
+                }
+
+                // Kiểm tra mật khẩu
+                if (matKhau.length() < 6 || !isValidPassword(matKhau)) {
+                    return false;
+                }
+                // Kiểm tra định dạng ngày sinh
+                if (!isValidDOB(dob)) {
+                    return false;
+                }
+                return true;
+            }
 
             private void showToast(String message) {
                 Toast.makeText(Signup.this, message, Toast.LENGTH_SHORT).show();
