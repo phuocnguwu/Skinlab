@@ -76,8 +76,6 @@ public class Forum_AddReview_Main extends AppCompatActivity {
     public static final String COLUMN_USER_SKINTYPE = "user_skin";
     public static final String COLUMN_USER_NAME = "user_name";
     public static final String COLUMN_USER_AVA = "user_avatar";
-
-
     public static final String COLUMN_USER_PASSWORD = "user_password";
 
 
@@ -134,7 +132,6 @@ public class Forum_AddReview_Main extends AppCompatActivity {
                     String forumTitle = binding.edtAddTitle.getText().toString();
                     String forumContent = binding.edtAddContent.getText().toString();
                     int forumRating = Integer.parseInt(binding.edtRating.getText().toString());
-
                     String currentDateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
                     // Insert user details into the forum
