@@ -165,11 +165,10 @@ public class ForumFragment extends Fragment {
         binding.lvReview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Forum selectedForumId = forums.get(position);
+                Forum selectedForum = forums.get(position);
                 Intent intent = new Intent(requireActivity(), Forum_Detailed.class);
-                SharedPreferences.Editor editor = getActivity().getSharedPreferences("SelectedForum", Context.MODE_PRIVATE).edit();
-                editor.putInt("forum_id", selectedForumId.getFr_id());
-                editor.apply();
+                intent.putExtra("forum_id", selectedForum.getFr_id());
+                startActivity(intent);
 
                 startActivity(intent);
             }

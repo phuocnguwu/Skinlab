@@ -66,7 +66,7 @@ public class Forum_Detailed extends AppCompatActivity {
 
     private void loadDataDetails (int forumId){
         Cursor cursor = db.rawQuery("SELECT * FROM " + TBL_NAME + " WHERE " + COLUMN_FORUM_ID + " = " + forumId, null);
-        int forumNameIndex = cursor.getColumnIndex(COLUMN_FORUM_NAME);
+        int forumNameIndex = cursor.getColumnIndex("forum_name");
         int forumAvatarIndex = cursor.getColumnIndex(COLUMN_FORUM_AVATAR);
         int forumRatingIndex = cursor.getColumnIndex(COLUMN_FORUM_RATING);
         int forumDateIndex = cursor.getColumnIndex(COLUMN_FORUM_DATE);
@@ -104,7 +104,7 @@ public class Forum_Detailed extends AppCompatActivity {
             binding.txtCommentContent1.setText(forumCommentContent1);
             binding.txtCommentName2.setText(forumCommentName2);
             binding.txtCommentContent2.setText(forumCommentContent2);
-        } while (cursor.moveToNext());
+        }
         cursor.close();
     }
 

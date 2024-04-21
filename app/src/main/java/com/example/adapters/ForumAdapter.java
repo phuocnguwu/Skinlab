@@ -74,16 +74,16 @@ public class ForumAdapter extends BaseAdapter {
 
 
         //Binding data
-//        Forum f = forums.get(position);
-//
-//        holder.txtUserName.setText(f.getFr_username());
-//        holder.txtDate.setText(f.getFr_date());
-//        holder.txtRating.setText(String.valueOf(f.getFr_rating()));
-//        holder.txtReviewTitle.setText(f.getFr_reviewtitle());
-//        holder.txtReviewContent.setText(f.getFr_reviewcontent());
-//        byte[] data_avatar = f.getFr_avatar();
-//        Bitmap bitmap = BitmapFactory.decodeByteArray(data_avatar, 0, data_avatar.length);
-//        holder.imvAvatar.setImageBitmap(bitmap);
+        Forum f = forums.get(position);
+
+        holder.txtUserName.setText(f.getFr_username());
+        holder.txtDate.setText(f.getFr_date());
+        holder.txtRating.setText(String.valueOf(f.getFr_rating()));
+        holder.txtReviewTitle.setText(f.getFr_reviewtitle());
+        holder.txtReviewContent.setText(f.getFr_reviewcontent());
+        byte[] data_avatar = f.getFr_avatar();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(data_avatar, 0, data_avatar.length);
+        holder.imvAvatar.setImageBitmap(bitmap);
 //
 //        byte[] data_contentimg = f.getFr_contentimg();
 //        Bitmap data_contentimg = BitmapFactory.decodeByteArray(data_contentimg, 0, data_contentimg.length);
