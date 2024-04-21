@@ -21,12 +21,15 @@ public class Quenmatkhau extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityQuenmatkhauBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        addEvents();
 
         dbHelper = new DatabaseHelper(this);
         txtSdtcuaban = findViewById(R.id.txtSdtcuaban);
 
-        Button btnguimaxacnhan = findViewById(R.id.btnguimaxacnhan);
-        btnguimaxacnhan.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void addEvents() {
+        binding.btnguimaxacnhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 kiemTraSoDienThoai();
@@ -40,12 +43,9 @@ public class Quenmatkhau extends AppCompatActivity {
             Toast.makeText(this, "Vui lòng nhập số điện thoại", Toast.LENGTH_SHORT).show();
             return;
         }
-
         // Kiểm tra xem số điện thoại có trong cơ sở dữ liệu không
         if (dbHelper.checkSoDienThoaiTonTai(soDienThoai)) {
-            // Số điện thoại đã tồn tại trong cơ sở dữ liệu, chuyển đến màn hình nhập OTP
             Intent intent = new Intent(Quenmatkhau.this, Quenmatkhau_nhapOTP.class);
-            // Truyền số điện thoại qua intent để sử dụng trong màn hình nhập OTP nếu cần
             intent.putExtra("soDienThoai", soDienThoai);
             startActivity(intent);
         } else {
@@ -53,4 +53,5 @@ public class Quenmatkhau extends AppCompatActivity {
             Toast.makeText(this, "Số điện thoại chưa được đăng ký", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
