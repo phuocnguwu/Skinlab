@@ -90,6 +90,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(USER, values, COLUMN_USER_PHONE + " = ?", new String[]{phone});
         db.close();
     }
+    public void updateUserAdress(String phone, String newName, String newEmail, String newPhone, String newGender, String newDOB, String newAddress) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        // Chỉ cập nhật các cột có giá trị không rỗng
+        if (newName != null) {
+            values.put(COLUMN_USER_NAME, newName);
+        }
+        if (newEmail != null) {
+            values.put(COLUMN_USER_EMAIL, newEmail);
+        }
+        if (newPhone != null) {
+            values.put(COLUMN_USER_PHONE, newPhone);
+        }
+        if (newGender != null) {
+            values.put(COLUMN_USER_GENDER, newGender);
+        }
+        if (newDOB != null) {
+            values.put(COLUMN_USER_DOB, newDOB);
+        }
+        if (newAddress != null) {
+            values.put(COLUMN_USER_ADDRESS, newAddress);
+        }
+
+        // Cập nhật thông tin người dùng
+        db.update(USER, values, COLUMN_USER_PHONE + " = ?", new String[]{phone});
+        db.close();
+    }
 
 
 }

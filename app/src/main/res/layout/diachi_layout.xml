@@ -35,6 +35,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
+                    android:id="@+id/btnedit"
                     android:layout_width="16dp"
                     android:layout_height="17dp"
                     android:src="@drawable/edit"

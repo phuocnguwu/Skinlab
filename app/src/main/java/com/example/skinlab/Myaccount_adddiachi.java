@@ -36,14 +36,12 @@ public class Myaccount_adddiachi extends AppCompatActivity {
         binding.btnupdatediachi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 showAlerDialog();
-                addInfo();
 
             }
 
-            private void addInfo() {
 
-            }
 
             private void showAlerDialog() {
                 ActivityDialogSaveBinding dialogsaveBinding = ActivityDialogSaveBinding.inflate(LayoutInflater.from(Myaccount_adddiachi.this));
