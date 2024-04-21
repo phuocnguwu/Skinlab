@@ -76,8 +76,6 @@ public class Forum_AddReview_Main extends AppCompatActivity {
     public static final String COLUMN_USER_SKINTYPE = "user_skin";
     public static final String COLUMN_USER_NAME = "user_name";
     public static final String COLUMN_USER_AVA = "user_avatar";
-
-
     public static final String COLUMN_USER_PASSWORD = "user_password";
 
 
