@@ -85,7 +85,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/txtFilter_Cate"
+            android:id="@+id/txtFilter_Brand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Theo thương hiệu"
@@ -110,7 +110,7 @@
                 android:id="@+id/checkboxBrand_Laneige"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Laneige "/>
+                android:text="Laneige"/>
 
         </LinearLayout>
 
@@ -120,10 +120,10 @@
             android:orientation="horizontal">
             <CheckBox
                 android:layout_weight="5"
-                android:id="@+id/checkboxBrand_DHC"
+                android:id="@+id/checkboxBrand_AHC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DHC"/>
+                android:text="AHC"/>
             <CheckBox
                 android:layout_weight="5"
                 android:id="@+id/checkboxBrand_Klairs"

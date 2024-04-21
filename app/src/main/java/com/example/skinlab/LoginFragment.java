@@ -108,6 +108,14 @@ public class LoginFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        binding.textViewForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), Quenmatkhau.class);
+                startActivity(intent);
+
+            }
+        });
     }
 }
 
