@@ -25,6 +25,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         this.context = context;
         this.appointmentList = appointmentList;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
