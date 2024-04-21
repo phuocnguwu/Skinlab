@@ -120,4 +120,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public boolean checkSoDienThoaiTonTai(String soDienThoai) {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String[] columns = {COLUMN_USER_PHONE};
+            String selection = COLUMN_USER_PHONE + " = ?";
+            String[] selectionArgs = {soDienThoai};
+            Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
+            int count = cursor.getCount();
+            cursor.close();
+            return count > 0;
+        }
+    public void updateMatKhau(String phone, String newPassword) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_PASSWORD, newPassword);
+        String[] selectionArgs = {phone};
+
+        // Cập nhật mật khẩu mới
+        db.update(USER, values, COLUMN_USER_PHONE + " = ?", new String[]{phone});
+        db.close();
+    }
+
+
+
 }
