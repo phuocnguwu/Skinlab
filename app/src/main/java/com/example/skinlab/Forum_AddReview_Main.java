@@ -20,11 +20,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -73,6 +75,8 @@ public class Forum_AddReview_Main extends AppCompatActivity {
     public static final String COLUMN_USER_DOB = "user_DOB";
     public static final String COLUMN_USER_ADDRESS = "user_address";
     public static final String COLUMN_USER_ADDRESS2 = "user_address2";
+    public static final String COLUMN_USER_NAME2FORADDRESS2 = "user_name2foraddress2";
+    public static final String COLUMN_USER_PHONE2FORADDRESS2 = "user_phone2foraddress2";
     public static final String COLUMN_USER_SKINTYPE = "user_skin";
     public static final String COLUMN_USER_NAME = "user_name";
     public static final String COLUMN_USER_AVA = "user_avatar";
@@ -122,20 +126,43 @@ public class Forum_AddReview_Main extends AppCompatActivity {
         binding.btnSendReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BitmapDrawable drawable = (BitmapDrawable) binding.imvContentImg.getDrawable();
-                if (drawable != null) {
+//                BitmapDrawable drawable = (BitmapDrawable) binding.imvContentImg.getDrawable();
+//                if (drawable != null) {
+//                    Bitmap bitmap = drawable.getBitmap();
+//                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+//                    byte[] forumImage = stream.toByteArray();
+//
+//                    String forumTitle = binding.edtAddTitle.getText().toString();
+//                    String forumContent = binding.edtAddContent.getText().toString();
+//                    int forumRating = Integer.parseInt(binding.edtRating.getText().toString());
+//                    String currentDateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+//
+//                    Cursor userCursor = db.rawQuery("SELECT " + COLUMN_USER_NAME + ", " + COLUMN_USER_AVA + " FROM " + USER, null);
+//                    String userName = "";
+//                    byte[] userAvatar = null;
+//                    if (userCursor.moveToFirst()) {
+//                        int userNameIndex = userCursor.getColumnIndex(COLUMN_USER_NAME);
+//                        int userAvatarIndex = userCursor.getColumnIndex(COLUMN_USER_AVA);
+//                        userName = userCursor.getString(userNameIndex);
+//                        userAvatar = userCursor.getBlob(userAvatarIndex);
+//
+//                    }
+//                    userCursor.close();
+                    BitmapDrawable drawable = (BitmapDrawable) binding.imvContentImg.getDrawable();
                     Bitmap bitmap = drawable.getBitmap();
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     byte[] forumImage = stream.toByteArray();
-
                     String forumTitle = binding.edtAddTitle.getText().toString();
                     String forumContent = binding.edtAddContent.getText().toString();
                     int forumRating = Integer.parseInt(binding.edtRating.getText().toString());
+
+                    // Lấy thời gian hiện tại
                     String currentDateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
-                    // Insert user details into the forum
-                    Cursor userCursor = db.rawQuery("SELECT " + COLUMN_USER_NAME + ", " + COLUMN_USER_AVA + " FROM " + USER, null);
+                    // Lấy thông tin tên người dùng và avatar
+                    Cursor userCursor = db.rawQuery("SELECT " + COLUMN_USER_NAME + ", " +COLUMN_USER_AVA + " FROM " + USER, null);
                     String userName = "";
                     byte[] userAvatar = new byte[0];
                     int userNameIndex = userCursor.getColumnIndex(COLUMN_USER_NAME);
@@ -143,12 +170,14 @@ public class Forum_AddReview_Main extends AppCompatActivity {
                     if (userCursor.moveToFirst()) {
                         userName = userCursor.getString(userNameIndex);
                         userAvatar = userCursor.getBlob(userAvatarIndex);
+                        Bitmap userAvatarBitmap = BitmapFactory.decodeByteArray(userAvatar, 0, userAvatar.length);
                     }
                     userCursor.close();
 
+
                     ContentValues values = new ContentValues();
-                    values.put(COLUMN_FORUM_AVATAR, userAvatar);
                     values.put(COLUMN_FORUM_NAME, userName);
+                    values.put(COLUMN_FORUM_AVATAR, userAvatar);
                     values.put(COLUMN_FORUM_TITLE, forumTitle);
                     values.put(COLUMN_FORUM_CONTENT, forumContent);
                     values.put(COLUMN_FORUM_CONTENT_IMG, forumImage);
@@ -165,17 +194,15 @@ public class Forum_AddReview_Main extends AppCompatActivity {
                     } else {
                         Toast.makeText(Forum_AddReview_Main.this, "Failed to add review!", Toast.LENGTH_SHORT).show();
                     }
+                    Log.d("UserData", "User name: " + userName);
+                    Log.d("UserData", "User avatar size: " + userAvatar.length);
                     finish();
-                } else {
-                    // Handle the case when no image is selected
-                    Toast.makeText(Forum_AddReview_Main.this, "Please select an image", Toast.LENGTH_SHORT).show();
-                }
             }
 
         });
     }
     private void showAlerDialog() {
-        if (!isFinishing()) { // Kiểm tra xem Activity có đang hoạt động hay không
+        if (!isFinishing()) {
             ActivityForumDialogSendBinding forumdialogsendBinding = ActivityForumDialogSendBinding.inflate(LayoutInflater.from(Forum_AddReview_Main.this));
             AlertDialog.Builder builder = new AlertDialog.Builder(Forum_AddReview_Main.this)
                     .setView(forumdialogsendBinding.getRoot())
