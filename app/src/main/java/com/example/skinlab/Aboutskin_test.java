@@ -60,6 +60,7 @@ public class Aboutskin_test extends AppCompatActivity {
 
         addEvents();
         loadQuestion();
+        isAllQuestionsAnswered();
     }
 
     private void loadQuestion() {
@@ -102,15 +103,38 @@ public class Aboutskin_test extends AppCompatActivity {
         binding.lvTest.setAdapter(adapter);
     }
 
+    private boolean isAllQuestionsAnswered() {
+        for (Question question : questionList) {
+            if (!question.isCheckedA() && !question.isCheckedB() && !question.isCheckedC() && !question.isCheckedD()) {
+                return false; // Nếu có câu hỏi nào chưa được trả lời, trả về false
+            }
+        }
+        return true; // Nếu tất cả các câu hỏi đã được trả lời, trả về true
+    }
+
     private void addEvents() {
         binding.btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Aboutskin_test.this, Aboutskin_result.class);
-                startActivity(intent);
+                if (isAllQuestionsAnswered()) {
+                    Intent intent = new Intent(Aboutskin_test.this, Aboutskin_result.class);
+                    startActivity(intent);
+                } else {
+                    // Hiển thị hộp thoại cảnh báo nếu các câu hỏi chưa được trả lời đầy đủ
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Aboutskin_test.this);
+                    builder.setMessage("Vui lòng trả lời đầy đủ");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.show();
+                }
             }
         });
     }
+
 
 
 
