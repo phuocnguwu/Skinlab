@@ -74,7 +74,6 @@ public class Aboutskin_lichhen extends AppCompatActivity {
                         String Address = cursor.getString(columnIndexAddress);
                         String Date = cursor.getString(columnIndexDate);
 
-                        // Tạo đối tượng Product từ dữ liệu truy vấn
                         Appointment appointment = new Appointment(Name, Phone, Address, Date);
                         appointments.add(appointment);
                     }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.models.Question;
@@ -38,7 +39,7 @@ public class QuestionAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.testquestion_layout, parent, false);
@@ -54,7 +55,7 @@ public class QuestionAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Question question = quesList.get(position);
+        final Question question = quesList.get(position);
         holder.txtSTT.setText(question.getQuesNumber());
         holder.txtQuestion.setText(question.getQuesContent());
         holder.radA.setText(question.getQuesA());
@@ -62,8 +63,62 @@ public class QuestionAdapter extends BaseAdapter {
         holder.radC.setText(question.getQuesC());
         holder.radD.setText(question.getQuesD());
 
+        // Set trạng thái cho RadioButton dựa trên trạng thái lưu trữ trong đối tượng Question
+        holder.radA.setChecked(question.isCheckedA());
+        holder.radB.setChecked(question.isCheckedB());
+        holder.radC.setChecked(question.isCheckedC());
+        holder.radD.setChecked(question.isCheckedD());
+
+        // Xử lý sự kiện khi RadioButton được chọn
+        holder.radA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                question.setCheckedA(true);
+                question.setCheckedB(false);
+                question.setCheckedC(false);
+                question.setCheckedD(false);
+                notifyDataSetChanged(); // Cập nhật lại ListView
+            }
+        });
+
+        holder.radB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                question.setCheckedA(false);
+                question.setCheckedB(true);
+                question.setCheckedC(false);
+                question.setCheckedD(false);
+                notifyDataSetChanged(); // Cập nhật lại ListView
+            }
+        });
+
+        holder.radC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                question.setCheckedA(false);
+                question.setCheckedB(false);
+                question.setCheckedC(true);
+                question.setCheckedD(false);
+                notifyDataSetChanged(); // Cập nhật lại ListView
+            }
+        });
+
+        holder.radD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                question.setCheckedA(false);
+                question.setCheckedB(false);
+                question.setCheckedC(false);
+                question.setCheckedD(true);
+                notifyDataSetChanged(); // Cập nhật lại ListView
+            }
+        });
+
         return convertView;
     }
+
+
+
 
     static class ViewHolder {
         TextView txtSTT, txtQuestion;
