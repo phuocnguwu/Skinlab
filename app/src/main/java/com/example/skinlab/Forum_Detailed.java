@@ -14,7 +14,9 @@ import android.view.View;
 
 import com.example.adapters.ForumAdapter;
 import com.example.models.Forum;
+import com.example.models.Product;
 import com.example.skinlab.databinding.ActivityForumDetailedBinding;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,7 +27,6 @@ public class Forum_Detailed extends AppCompatActivity {
     public static final String DB_NAME = "Skinlab.db";
     public static final String DB_FOLDER = "databases";
 
-    Context context;
 
     public static SQLiteDatabase db = null;
 
@@ -52,7 +53,6 @@ public class Forum_Detailed extends AppCompatActivity {
 
         db = openOrCreateDatabase("Skinlab.db", MODE_PRIVATE, null);
 
-        // Lấy ID của bài đăng được chọn từ Intent
         int selectedForumId = getIntent().getIntExtra("forum_id", -1);
         Log.d("Forum_Detailed", "Selected Forum ID: " + selectedForumId);
 

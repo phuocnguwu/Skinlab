@@ -10,8 +10,15 @@ public class Forum implements Serializable {
     int fr_rating;
     String fr_reviewtitle;
     String fr_reviewcontent;
+//    byte[] fr_contentimg;
+//    String fr_content;
+//    String fr_comment_name1;
+//    String fr_comment_content1;
+//    String fr_comment_name2;
+//    String fr_comment_content2;
 
     //Constructor
+
 
     public Forum(int fr_id, byte[] fr_avatar, String fr_username, String fr_date, int fr_rating, String fr_reviewtitle, String fr_reviewcontent) {
         this.fr_id = fr_id;

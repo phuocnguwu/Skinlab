@@ -60,6 +60,12 @@ public class ForumAdapter extends BaseAdapter {
             holder.txtRating = view.findViewById(R.id.txtRating);
             holder.txtReviewTitle = view.findViewById(R.id.txtReviewTitle);
             holder.txtReviewContent = view.findViewById(R.id.txtReviewContent);
+//            holder.imvContentImg = view.findViewById(R.id.imvContentImg);
+//            holder.txtReviewContent = view.findViewById(R.id.txtReviewContent);
+//            holder.txtCommentName1 = view.findViewById(R.id.txtCommentName1);
+//            holder.txtCommentContent1 = view.findViewById(R.id.txtCommentContent1);
+//            holder.txtCommentName2 = view.findViewById(R.id.txtCommentName2);
+//            holder.txtCommentContent2 = view.findViewById(R.id.txtCommentContent2);
 
             view.setTag(holder);
         }else {
@@ -68,23 +74,27 @@ public class ForumAdapter extends BaseAdapter {
 
 
         //Binding data
-        Forum f = forums.get(position);
-
-        holder.txtUserName.setText(f.getFr_username());
-        holder.txtDate.setText(f.getFr_date());
-        holder.txtRating.setText(String.valueOf(f.getFr_rating()));
-        holder.txtReviewTitle.setText(f.getFr_reviewtitle());
-        holder.txtReviewContent.setText(f.getFr_reviewcontent());
-        byte[] data = f.getFr_avatar();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-        holder.imvAvatar.setImageBitmap(bitmap);
+//        Forum f = forums.get(position);
+//
+//        holder.txtUserName.setText(f.getFr_username());
+//        holder.txtDate.setText(f.getFr_date());
+//        holder.txtRating.setText(String.valueOf(f.getFr_rating()));
+//        holder.txtReviewTitle.setText(f.getFr_reviewtitle());
+//        holder.txtReviewContent.setText(f.getFr_reviewcontent());
+//        byte[] data_avatar = f.getFr_avatar();
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(data_avatar, 0, data_avatar.length);
+//        holder.imvAvatar.setImageBitmap(bitmap);
+//
+//        byte[] data_contentimg = f.getFr_contentimg();
+//        Bitmap data_contentimg = BitmapFactory.decodeByteArray(data_contentimg, 0, data_contentimg.length);
+//        holder.imvAvatar.setImageBitmap(bitmap);
 
         return view;
     }
 
 
     public static class ViewHolder{
-        ImageView imvAvatar;
-        TextView txtUserName, txtDate, txtRating, txtReviewTitle, txtReviewContent;
+        ImageView imvAvatar, imvContentImg;
+        TextView txtUserName, txtDate, txtRating, txtReviewTitle, txtReviewContent, txtContent, txtCommentName1, txtCommentContent1, txtCommentName2, txtCommentContent2;
     }
 }
