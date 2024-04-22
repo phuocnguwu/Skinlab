@@ -293,11 +293,6 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
         String newGioiTinh = binding.edtGioitinh.getText().toString();
         String newNgaySinh = binding.edtngaysinh.getText().toString();
         Uri newAvatarUri = getImageUriFromImageView(binding.imvavatar);
-        if (!newHoTen.equals(getUserEmail(newEmail)) || !newSdt.equals(getUserPhone(newSdt))) {
-            // Hiển thị thông báo cho người dùng
-            showToast("Bạn không thể thay đổi tên và số điện thoại.");
-            return;
-        }
         // Kiểm tra các điều kiện
         if (!isValidPhoneNumber(newSdt)) {
             // Số điện thoại không hợp lệ
@@ -338,13 +333,20 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
             return null;
         }
     }
-
     private Uri getImageUri(Bitmap bitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null);
-        return Uri.parse(path);
+
+        if (path != null) {
+            return Uri.parse(path);
+        } else {
+            // Xử lý trường hợp không thể chèn hình ảnh vào MediaStore, có thể trả về Uri mặc định hoặc null.
+            return null; // hoặc trả về Uri mặc định hoặc thực hiện hành động khác tùy thuộc vào logic của ứng dụng.
+        }
     }
+
+
 
     private void updateUserInDatabase(String hoTen, String sdt, String email, String gioiTinh, String ngaySinh, Uri avatarUri) {
         // Get the writable database
