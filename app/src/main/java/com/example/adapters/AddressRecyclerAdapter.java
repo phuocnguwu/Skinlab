@@ -49,11 +49,9 @@ private void deleteAddress(ViewHolder holder) {
             Address address = addressList.get(position);
             if (position == 0) {
                 // Xóa address1 và cập nhật user_address thành null
-                databaseHelper.deleteAddress(loggedInPhone, 1);
                 databaseHelper.updateAddressFields(loggedInPhone, null, null, null, 1);
             } else {
                 // Xóa address2 và cập nhật user_name2foraddress2, user_phone2foraddress2, và user_address2 thành null
-                databaseHelper.deleteAddress(loggedInPhone, 2);
                 databaseHelper.updateAddressFields(loggedInPhone, null, null, null, 2);
             }
             addressList.remove(position); // Xóa địa chỉ khỏi danh sách

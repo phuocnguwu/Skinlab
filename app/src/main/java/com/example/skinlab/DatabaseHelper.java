@@ -252,18 +252,7 @@ public boolean checkLogin(String emailPhone, String password) {
     }
 
 
-    public void deleteAddress(String loggedInPhone, int addressNumber) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String addressColumn;
-        if (addressNumber == 1) {
-            addressColumn = DatabaseHelper.COLUMN_USER_ADDRESS;
-        } else {
-            addressColumn = DatabaseHelper.COLUMN_USER_ADDRESS2;
-        }
-        db.execSQL("UPDATE " + DatabaseHelper.USER + " SET " + addressColumn + " = NULL WHERE " +
-                DatabaseHelper.COLUMN_USER_PHONE + " = ?", new String[]{loggedInPhone});
-        db.close();
-    }
+
 
 
 public void updateAddressFields(String phone, String name, String phone2, String address, int addressNumber) {
