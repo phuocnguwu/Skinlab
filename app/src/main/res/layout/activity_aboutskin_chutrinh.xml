@@ -102,8 +102,10 @@
             app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/txtGoiy" />
 
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutTaytrang"
+            android:id="@+id/layoutSrm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -125,51 +127,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txtTaytrang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tẩy trang"
-                android:textColor="@color/black"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtBuoc1" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvTaytrang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtTaytrang" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutSrm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutTaytrang">
-
-
-            <TextView
-                android:id="@+id/txtBuoc2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:text="Bước 2"
-                android:textStyle="italic"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/txtSrm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -180,7 +137,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtBuoc2" />
+                app:layout_constraintTop_toBottomOf="@+id/txtBuoc1" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvSuaruamat"
@@ -203,12 +160,12 @@
 
 
             <TextView
-                android:id="@+id/txtBuoc3"
+                android:id="@+id/txtBuoc2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:text="Bước 3"
+                android:text="Bước 2"
                 android:textStyle="italic"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -226,7 +183,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtBuoc3" />
+                app:layout_constraintTop_toBottomOf="@+id/txtBuoc2" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvToner"
@@ -249,12 +206,12 @@
 
 
             <TextView
-                android:id="@+id/txtBuoc4"
+                android:id="@+id/txtBuoc3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:text="Bước 4"
+                android:text="Bước 3"
                 android:textStyle="italic"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -272,7 +229,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtBuoc4" />
+                app:layout_constraintTop_toBottomOf="@+id/txtBuoc3" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvSerum"
@@ -294,12 +251,12 @@
 
 
             <TextView
-                android:id="@+id/txtBuoc5"
+                android:id="@+id/txtBuoc4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:text="Bước 5"
+                android:text="Bước 4"
                 android:textStyle="italic"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -317,7 +274,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtBuoc5" />
+                app:layout_constraintTop_toBottomOf="@+id/txtBuoc4" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvKem"

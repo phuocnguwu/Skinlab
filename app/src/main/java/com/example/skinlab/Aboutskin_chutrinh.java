@@ -54,7 +54,7 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
             db = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
             loadDb(userSkinType, "Sữa rửa mặt", binding.rcvSuaruamat);
             loadDb(userSkinType, "Nước dưỡng", binding.rcvToner);
-//            loadDb(userSkinType, "Tinh chất", binding.rcvSerum);
+            loadDb(userSkinType, "Tinh chất", binding.rcvSerum);
             loadDb(userSkinType, "Kem dưỡng", binding.rcvKem);
         }
 
@@ -65,7 +65,7 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
         int userId = -1; // Giả sử user_id không tồn tại hoặc có lỗi
 
         // Mở kết nối đến cơ sở dữ liệu
-        db = openOrCreateDatabase("Skinlab.db", MODE_PRIVATE, null);
+        db = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
 
         // Truy vấn cơ sở dữ liệu để lấy user_id
         Cursor cursor = db.query(USER, new String[]{COLUMN_USER_ID}, null, null, null, null, null);
@@ -74,13 +74,12 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
             userId = cursor.getInt(userIdIndex);
             cursor.close();
         }
-        db.close();
 
         return userId;
     }
     private String getUserSkinType(int userId) {
         String skinType = null;
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
+        db = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
         String[] columns = {COLUMN_USER_SKINTYPE};
         String selection = COLUMN_USER_ID + " = ?";
         String[] selectionArgs = {String.valueOf(userId)}; // Chuyển đổi user_id thành chuỗi
@@ -137,12 +136,15 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
             while (cursor.moveToNext());
             cursor.close();
         }
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
+        db.close();
 
         // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
         adapter = new ProductAdapter(this, products);
         recyclerView.setAdapter(adapter); // Đặt adapter cho RecyclerView
+
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
+
 
 
         adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
