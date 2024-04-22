@@ -46,7 +46,6 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
     boolean OpenCam;
     DatabaseHelper databaseHelper;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +101,6 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
             binding.edtsdt.setText(userPhone);
             binding.edtGioitinh.setText(userGender);
             binding.edtngaysinh.setText(userDOB);
-
 
 
         }
@@ -168,6 +166,7 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
         }
         return avatarUrl;
     }
+
     private String getUserPhone(String loggedInPhone) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         String userPhone = "";
@@ -187,6 +186,7 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
         }
         return userPhone;
     }
+
     private String getUserName(String loggedInPhone) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         String userName = "";
@@ -206,6 +206,7 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
         }
         return userName;
     }
+
     private String getUserEmail(String loggedInPhone) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         String userEmail = "";
@@ -321,10 +322,35 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
         String newGioiTinh = binding.edtGioitinh.getText().toString();
         String newNgaySinh = binding.edtngaysinh.getText().toString();
         Uri newAvatarUri = getImageUriFromImageView(binding.imvavatar);
+        // Kiểm tra các điều kiện
+        if (!isValidPhoneNumber(newSdt)) {
+            // Số điện thoại không hợp lệ
+            showToast("Số điện thoại không hợp lệ. Vui lòng nhập lại.");
+            return;
+        }
+
+        if (!isValidEmail(newEmail)) {
+            // Email không hợp lệ
+            showToast("Email không hợp lệ. Vui lòng nhập lại.");
+            return;
+        }
+
         updateUserInDatabase(newHoTen, newSdt, newEmail, newGioiTinh, newNgaySinh, newAvatarUri);
         showToast("Thông tin đã được cập nhật");
         // Gọi phương thức onUpdateUserInfo để thông báo rằng thông tin đã được cập nhật
         onUpdateUserInfo(newHoTen, newAvatarUri);
+
+    }
+
+    // Phương thức kiểm tra số điện thoại hợp lệ
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        return phoneNumber.startsWith("0") && phoneNumber.length() == 10;
+    }
+
+    // Phương thức kiểm tra email hợp lệ
+    private boolean isValidEmail(String email) {
+        // Đây là một kiểm tra đơn giản, bạn có thể thêm các điều kiện kiểm tra khác nếu cần
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private Uri getImageUriFromImageView(ImageView imageView) {
@@ -343,6 +369,7 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
         String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "Title", null);
         return Uri.parse(path);
     }
+
     private void updateUserInDatabase(String hoTen, String sdt, String email, String gioiTinh, String ngaySinh, Uri avatarUri) {
         // Get the writable database
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
@@ -379,7 +406,6 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
             // Update failed, show an error message to the user if needed
         }
     }
-
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
