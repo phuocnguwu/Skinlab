@@ -1,7 +1,5 @@
 package com.example.models;
 
-import android.widget.Adapter;
-
 import java.io.Serializable;
 
 public class Product implements Serializable {
@@ -16,9 +14,15 @@ public class Product implements Serializable {
     String pd_des;
     String pd_skintype;
 
+    private int quantity;
 
+    public int getQuantity() {
+        return quantity;
+    }
 
-
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     public Product(String pd_photo, String pd_id, String pd_name, int pd_price, int pd_price2, String pd_brand, String pd_cate, String pd_des, String pd_skintype) {
         this.pd_id = pd_id;
