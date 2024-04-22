@@ -1,0 +1,9 @@
+<!-- round_corner_4.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="20dp" />
+    <solid android:color="@android:color/white" /> <!-- Màu nền, bạn có thể thay đổi màu ở đây -->
+    <stroke
+        android:width="2dp"
+        android:color="@android:color/white" /> <!-- Màu viền, bạn có thể thay đổi màu ở đây -->
+</shape>
