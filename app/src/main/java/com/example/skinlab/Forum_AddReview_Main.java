@@ -115,8 +115,7 @@ public class Forum_AddReview_Main extends AppCompatActivity {
         binding.btnclickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Forum_AddReview_Main.this, ForumFragment.class);
-                startActivity(intent);
+                finish();
             }
         });
         binding.imvAvatar.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +129,12 @@ public class Forum_AddReview_Main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showBottomSheet1();
+            }
+        });
+        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
         binding.btnSendReview.setOnClickListener(new View.OnClickListener() {

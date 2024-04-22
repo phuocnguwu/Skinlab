@@ -116,8 +116,7 @@ public class Forum_Detailed extends AppCompatActivity {
         binding.btnclickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Forum_Detailed.this, ForumFragment.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
