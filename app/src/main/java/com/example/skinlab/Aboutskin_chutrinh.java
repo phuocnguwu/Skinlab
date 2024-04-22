@@ -113,11 +113,11 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
                 int columnIndexCate = cursor.getColumnIndex(COLUMN_PD_CATE);
                 int columnIndexDes = cursor.getColumnIndex(COLUMN_PD_DES);
                 int columnIndexPhoto = cursor.getColumnIndex(COLUMN_PD_PHOTO);
-                int columnIndexSkiptype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
+                int columnIndexSkintype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
 
                 if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
                         columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
-                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkiptype != -1) {
+                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkintype != -1) {
 
                     String pdId = cursor.getString(columnIndexId);
                     String pdName = cursor.getString(columnIndexName);
@@ -127,7 +127,7 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
                     String pdCate = cursor.getString(columnIndexCate);
                     String pdDes = cursor.getString(columnIndexDes);
                     String pdPhoto = cursor.getString(columnIndexPhoto);
-                    String pdSkintype = cursor.getString(columnIndexSkiptype);
+                    String pdSkintype = cursor.getString(columnIndexSkintype);
 
                     Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
                     products.add(product);
@@ -139,10 +139,9 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
         }
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         recyclerView.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
-        ArrayList<Product> suitableProducts = new ArrayList<>(products.subList(0, Math.min(products.size(), 6)));
 
         // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
-        adapter = new ProductAdapter(this, suitableProducts);
+        adapter = new ProductAdapter(this, products);
         recyclerView.setAdapter(adapter); // Đặt adapter cho RecyclerView
 
 
