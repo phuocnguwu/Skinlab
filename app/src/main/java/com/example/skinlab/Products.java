@@ -26,6 +26,7 @@ import com.example.models.Product;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Products extends AppCompatActivity {
@@ -59,16 +60,6 @@ public class Products extends AppCompatActivity {
         binding = ActivityProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Khởi tạo đối tượng Set để lưu trạng thái các thương hiệu được chọn
-//        Set<String> selectedBrands = new HashSet<>();
-
-        // Gọi hàm saveCheckBoxState() cho từng CheckBox
-//        saveCheckBoxState("Innisfree", binding.checkboxBrandInnisfree, selectedBrands);
-//        saveCheckBoxState("Laneige", binding.checkboxBrandLaneige, selectedBrands);
-//        saveCheckBoxState("DHC", binding.checkboxBrandDHC, selectedBrands);
-//        saveCheckBoxState("Klairs", binding.checkboxBrandKlairs, selectedBrands);
-
-
         Intent intent = getIntent();
         if (intent !=null) {
             showAllProducts = intent.getBooleanExtra("showAllProducts", false);
@@ -79,86 +70,51 @@ public class Products extends AppCompatActivity {
         addEvents();
 
 
+
     }
 
     private void applyFilters() {
-        // Lọc theo danh mục
-        StringBuilder categorySelection = new StringBuilder();
 
+        List<String> conditions = new ArrayList<>();
+
+        // Lọc theo danh mục
         if (!selectedCategories.isEmpty()) {
-            categorySelection.append(COLUMN_PD_CATE).append(" IN (");
-            for (int i = 0; i < selectedCategories.size(); i++) {
-                categorySelection.append("'").append(selectedCategories.get(i)).append("'");
-                if (i < selectedCategories.size() - 1) {
-                    categorySelection.append(", ");
-                }
-            }
-            categorySelection.append(")");
+            conditions.add(COLUMN_PD_CATE + " IN (" + buildInCondition(selectedCategories) + ")");
         }
 
         // Lọc theo thương hiệu
-        StringBuilder brandSelection = new StringBuilder();
         if (!selectedBrands.isEmpty()) {
-            brandSelection.append(COLUMN_PD_BRAND).append(" IN (");
-            for (int i = 0; i < selectedBrands.size(); i++) {
-                brandSelection.append("'").append(selectedBrands.get(i)).append("'");
-                if (i < selectedBrands.size() - 1) {
-                    brandSelection.append(", ");
-                }
-            }
-            brandSelection.append(")");
+            conditions.add(COLUMN_PD_BRAND + " IN (" + buildInCondition(selectedBrands) + ")");
         }
 
         // Lọc theo khoảng giá
-        StringBuilder priceSelection = new StringBuilder();
         if (!selectedPriceRanges.isEmpty()) {
-            priceSelection.append("(");
-            for (int i = 0; i < selectedPriceRanges.size(); i++) {
-                int priceRange = selectedPriceRanges.get(i);
+            List<String> priceConditions = new ArrayList<>();
+            for (Integer priceRange : selectedPriceRanges) {
                 switch (priceRange) {
                     case 1:
-                        priceSelection.append(COLUMN_PD_PRICE).append(" < 200000");
+                        priceConditions.add(COLUMN_PD_PRICE + " < 200000");
                         break;
                     case 2:
-                        priceSelection.append(COLUMN_PD_PRICE).append(" BETWEEN 200000 AND 500000");
+                        priceConditions.add(COLUMN_PD_PRICE + " BETWEEN 200000 AND 500000");
                         break;
                     case 3:
-                        priceSelection.append(COLUMN_PD_PRICE).append(" BETWEEN 500000 AND 750000");
+                        priceConditions.add(COLUMN_PD_PRICE + " BETWEEN 500000 AND 750000");
                         break;
                     case 4:
-                        priceSelection.append(COLUMN_PD_PRICE).append(" > 750000");
+                        priceConditions.add(COLUMN_PD_PRICE + " > 750000");
                         break;
                 }
-                if (i < selectedPriceRanges.size() - 1) {
-                    priceSelection.append(" OR ");
-                }
             }
-            priceSelection.append(")");
+            if (!priceConditions.isEmpty()) {
+                conditions.add("(" + String.join(" OR ", priceConditions) + ")");
+            }
         }
-        String pselection = priceSelection.toString();
-
-// Kiểm tra xem selection có được xây dựng đúng không bằng cách in ra
-        Log.d("Price Selection", pselection);
 
         // Xây dựng câu truy vấn
-        StringBuilder selection = new StringBuilder();
-        boolean isFirst = true;
-        if (categorySelection.length() > 0) {
-            selection.append(categorySelection);
-            isFirst = false;
-        }
-        if (brandSelection.length() > 0) {
-            if (!isFirst) {
-                selection.append(" AND ");
-            }
-            selection.append(brandSelection);
-            isFirst = false;
-        }
-        if (priceSelection.length() > 0) {
-            if (!isFirst) {
-                selection.append(" AND ");
-            }
-            selection.append(priceSelection);
+        String selection = "";
+        if (!conditions.isEmpty()) {
+            selection = String.join(" AND ", conditions);
         }
 
         // Thực hiện truy vấn
@@ -166,6 +122,7 @@ public class Products extends AppCompatActivity {
         if (selection.length() > 0) {
             cursor = db.query(TBL_NAME, null, selection.toString(), null, null, null, null);
         } else {
+//            cursor = null;
             cursor = db.query(TBL_NAME, null, null, null, null, null, null);
         }
 
@@ -203,10 +160,22 @@ public class Products extends AppCompatActivity {
                 }
             } while (cursor.moveToNext());
             cursor.close();
-
-            // Cập nhật RecyclerView
+            adapter.notifyDataSetChanged();
+        }else{
+            products.clear();
             adapter.notifyDataSetChanged();
         }
+
+    }
+    private String buildInCondition(List<String> values) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < values.size(); i++) {
+            builder.append("'").append(values.get(i)).append("'");
+            if (i < values.size() - 1) {
+                builder.append(", ");
+            }
+        }
+        return builder.toString();
     }
 
     private void loadDb() {
@@ -332,7 +301,7 @@ public class Products extends AppCompatActivity {
         binding.imvCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Products.this, Donhang_dathang.class);
+                Intent intent = new Intent(Products.this, Giohang_Fragment.class);
                 startActivity(intent);
             }
         });
@@ -341,14 +310,21 @@ public class Products extends AppCompatActivity {
             public void onClick(View v) { showFilterSheet();}
 
             private void showFilterSheet() {
+                SharedPreferences sharedPreferences = getSharedPreferences("checkbox_states", Context.MODE_PRIVATE);
+
+                selectedCategories.clear();
+                selectedBrands.clear();
+                selectedPriceRanges.clear();
 
                 Dialog dialog = new Dialog(Products.this);
                 dialog.setContentView(R.layout.filter_dialog);
+
 
                 // Xử lý các lựa chọn
                 // Cate
                 CheckBox checkboxCate1 = dialog.findViewById(R.id.checkboxCate_SRM);
                 checkboxCate1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxCate_SRM",checkboxCate1, sharedPreferences );
                     if (isChecked) {
                         selectedCategories.add("Sữa rửa mặt");
                     } else {
@@ -357,6 +333,7 @@ public class Products extends AppCompatActivity {
                 });
                 CheckBox checkboxCate2 = dialog.findViewById(R.id.checkboxCate_ND);
                 checkboxCate2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxCate_ND",checkboxCate2, sharedPreferences );
                     if (isChecked) {
                         selectedCategories.add("Nước dưỡng");
                     } else {
@@ -365,6 +342,7 @@ public class Products extends AppCompatActivity {
                 });
                 CheckBox checkboxCate3 = dialog.findViewById(R.id.checkboxCate_KD);
                 checkboxCate3.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxCate_KD",checkboxCate3, sharedPreferences );
                     if (isChecked) {
                         selectedCategories.add("Kem dưỡng");
                     } else {
@@ -373,6 +351,7 @@ public class Products extends AppCompatActivity {
                 });
                 CheckBox checkboxCate4 = dialog.findViewById(R.id.checkboxCate_MN);
                 checkboxCate4.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxCate_MN",checkboxCate4, sharedPreferences );
                     if (isChecked) {
                         selectedCategories.add("Mặt nạ");
                     } else {
@@ -381,6 +360,7 @@ public class Products extends AppCompatActivity {
                 });
                 CheckBox checkboxCate5 = dialog.findViewById(R.id.checkboxCate_TC);
                 checkboxCate5.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxCate_TC",checkboxCate5, sharedPreferences );
                     if (isChecked) {
                         selectedCategories.add("Tinh chất");
                     } else {
@@ -391,6 +371,7 @@ public class Products extends AppCompatActivity {
                 //Brands
                 CheckBox checkboxBrand1 = dialog.findViewById(R.id.checkboxBrand_Innisfree);
                 checkboxBrand1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxBrand_Innisfree",checkboxBrand1, sharedPreferences );
                     if (isChecked) {
                             selectedBrands.add("INNISFREE");
                     } else {
@@ -399,6 +380,7 @@ public class Products extends AppCompatActivity {
                 });
                 CheckBox checkboxBrand2 = dialog.findViewById(R.id.checkboxBrand_Laneige);
                 checkboxBrand2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxBrand_Laneige",checkboxBrand2, sharedPreferences );
                     if (isChecked) {
                         selectedBrands.add("Laneige");
                     } else {
@@ -407,6 +389,7 @@ public class Products extends AppCompatActivity {
                 });
                 CheckBox checkboxBrand3 = dialog.findViewById(R.id.checkboxBrand_AHC);
                 checkboxBrand3.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxBrand_AHC",checkboxBrand3, sharedPreferences );
                     if (isChecked) {
                         selectedBrands.add("AHC");
                     } else {
@@ -415,6 +398,7 @@ public class Products extends AppCompatActivity {
                 });
                 CheckBox checkboxBrand4 = dialog.findViewById(R.id.checkboxBrand_Klairs);
                 checkboxBrand4.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxBrand_Klairs",checkboxBrand4, sharedPreferences );
                     if (isChecked) {
                         selectedBrands.add("Klairs");
                     } else {
@@ -425,6 +409,7 @@ public class Products extends AppCompatActivity {
                 //Price
                 CheckBox checkboxPrice250 = dialog.findViewById(R.id.checkboxPrice_250);
                 checkboxPrice250.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxPrice_250",checkboxPrice250, sharedPreferences );
                     if (isChecked) {
                         selectedPriceRanges.add(1); // Giá dưới 200,000 đ
                     } else {
@@ -434,6 +419,7 @@ public class Products extends AppCompatActivity {
 
                 CheckBox checkboxPrice500 = dialog.findViewById(R.id.checkboxPrice_500);
                 checkboxPrice500.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxPrice_500",checkboxPrice500, sharedPreferences );
                     if (isChecked) {
                         selectedPriceRanges.add(2); // Giá từ 200,000 đ đến 500,000 đ
                     } else {
@@ -443,6 +429,7 @@ public class Products extends AppCompatActivity {
 
                 CheckBox checkboxPrice750 = dialog.findViewById(R.id.checkboxPrice_750);
                 checkboxPrice750.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxPrice_750",checkboxPrice750, sharedPreferences );
                     if (isChecked) {
                         selectedPriceRanges.add(3); // Giá từ 500,000 đ đến 750,000 đ
                     } else {
@@ -452,6 +439,7 @@ public class Products extends AppCompatActivity {
 
                 CheckBox checkboxPrice1000 = dialog.findViewById(R.id.checkboxPrice_1000);
                 checkboxPrice1000.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    saveCheckBoxState("checkboxPrice_1000",checkboxPrice1000, sharedPreferences );
                     if (isChecked) {
                         selectedPriceRanges.add(4); // Giá trên 750,000 đ
                     } else {
@@ -459,7 +447,20 @@ public class Products extends AppCompatActivity {
                     }
                 });
 
-
+                // Khôi phục trạng thái của các checkbox trước khi hiển thị dialog
+                restoreCheckBoxState("checkboxCate_SRM", checkboxCate1, sharedPreferences);
+                restoreCheckBoxState("checkboxCate_ND", checkboxCate2, sharedPreferences);
+                restoreCheckBoxState("checkboxCate_KD", checkboxCate3, sharedPreferences);
+                restoreCheckBoxState("checkboxCate_MN", checkboxCate4, sharedPreferences);
+                restoreCheckBoxState("checkboxCate_TC", checkboxCate5, sharedPreferences);
+                restoreCheckBoxState("checkboxBrand_Innisfree", checkboxBrand1, sharedPreferences);
+                restoreCheckBoxState("checkboxBrand_Laneige", checkboxBrand2, sharedPreferences);
+                restoreCheckBoxState("checkboxBrand_AHC", checkboxBrand3, sharedPreferences);
+                restoreCheckBoxState("checkboxBrand_Klairs", checkboxBrand4, sharedPreferences);
+                restoreCheckBoxState("checkboxPrice_250", checkboxPrice250, sharedPreferences);
+                restoreCheckBoxState("checkboxPrice_500", checkboxPrice500, sharedPreferences);
+                restoreCheckBoxState("checkboxPrice_750", checkboxPrice750, sharedPreferences);
+                restoreCheckBoxState("checkboxPrice_1000", checkboxPrice1000, sharedPreferences);
 
 
                 Button btnDefault = dialog.findViewById(R.id.btnFilter_Default);
@@ -470,8 +471,38 @@ public class Products extends AppCompatActivity {
                         selectedCategories.clear();
                         selectedBrands.clear();
                         selectedPriceRanges.clear();
+
+                        // Đặt lại trạng thái của các checkbox trong dialog
+                        CheckBox checkboxCate_SRM = dialog.findViewById(R.id.checkboxCate_SRM);
+                        CheckBox checkboxCate_ND = dialog.findViewById(R.id.checkboxCate_ND);
+                        CheckBox checkboxCate_KD = dialog.findViewById(R.id.checkboxCate_KD);
+                        CheckBox checkboxCate_MN = dialog.findViewById(R.id.checkboxCate_MN);
+                        CheckBox checkboxCate_TC = dialog.findViewById(R.id.checkboxCate_TC);
+                        CheckBox checkboxBrand_Innisfree = dialog.findViewById(R.id.checkboxBrand_Innisfree);
+                        CheckBox checkboxBrand_Laneige = dialog.findViewById(R.id.checkboxBrand_Laneige);
+                        CheckBox checkboxBrand_AHC = dialog.findViewById(R.id.checkboxBrand_AHC);
+                        CheckBox checkboxBrand_Klairs = dialog.findViewById(R.id.checkboxBrand_Klairs);
+                        CheckBox checkboxPrice_250 = dialog.findViewById(R.id.checkboxPrice_250);
+                        CheckBox checkboxPrice_500 = dialog.findViewById(R.id.checkboxPrice_500);
+                        CheckBox checkboxPrice_750 = dialog.findViewById(R.id.checkboxPrice_750);
+                        CheckBox checkboxPrice_1000 = dialog.findViewById(R.id.checkboxPrice_1000);
+
+                        checkboxCate_SRM.setChecked(false);
+                        checkboxCate_ND.setChecked(false);
+                        checkboxCate_KD.setChecked(false);
+                        checkboxCate_MN.setChecked(false);
+                        checkboxCate_TC.setChecked(false);
+                        checkboxBrand_Innisfree.setChecked(false);
+                        checkboxBrand_Laneige.setChecked(false);
+                        checkboxBrand_AHC.setChecked(false);
+                        checkboxBrand_Klairs.setChecked(false);
+                        checkboxPrice_250.setChecked(false);
+                        checkboxPrice_500.setChecked(false);
+                        checkboxPrice_750.setChecked(false);
+                        checkboxPrice_1000.setChecked(false);
+
 //                        loadDb();
-                        dialog.dismiss();
+//                        dialog.dismiss();
                     }
                 });
 
@@ -483,6 +514,9 @@ public class Products extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
+
+
 
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
@@ -496,28 +530,43 @@ public class Products extends AppCompatActivity {
                 dialog.getWindow().setWindowAnimations(R.style.FilterAnimation);
                 dialog.getWindow().setGravity(Gravity.RIGHT);
                 dialog.show();
-    }
 
-        });
 
-    }
-    private void saveCheckBoxState(String key, CheckBox checkBox, Set<String> selectedSet) {
-        SharedPreferences sharedPreferences = getSharedPreferences("FilterPreferences", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                selectedSet.add(key);
-            } else {
-                selectedSet.remove(key);
             }
-            editor.putStringSet("selectedBrands", new HashSet<>(selectedSet));
-            editor.apply();
+
         });
 
-        // Khôi phục trạng thái đã lưu từ SharedPreferences
-        Set<String> savedSelectedSet = sharedPreferences.getStringSet("selectedBrands", new HashSet<>());
-        checkBox.setChecked(savedSelectedSet.contains(key));
+    }
+    private void saveCheckBoxState(String key, CheckBox checkBox, SharedPreferences sharedPreferences) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, checkBox.isChecked());
+        editor.apply();
+    }
+
+    private void restoreCheckBoxState(String key, CheckBox checkBox, SharedPreferences sharedPreferences) {
+        boolean isChecked = sharedPreferences.getBoolean(key, false); // Giá trị mặc định là false nếu chưa lưu trạng thái
+        checkBox.setChecked(isChecked);
+
+        if (!isChecked) {
+            selectedCategories.remove(checkBox.getText().toString()); // Xóa khỏi danh sách nếu không được chọn
+            selectedBrands.remove(checkBox.getText().toString()); // Xóa khỏi danh sách nếu không được chọn
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Xóa tất cả các bộ lọc đã chọn
+        selectedCategories.clear();
+        selectedBrands.clear();
+        selectedPriceRanges.clear();
+
+        // Đặt trạng thái của các checkbox về mặc định
+        SharedPreferences sharedPreferences = getSharedPreferences("checkbox_states", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear(); // Xóa tất cả trạng thái checkbox đã lưu
+        editor.apply();
     }
 
 }
