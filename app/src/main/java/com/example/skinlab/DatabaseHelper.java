@@ -255,38 +255,63 @@ public boolean checkLogin(String emailPhone, String password) {
 
 
 
+//public void updateAddressFields(String phone, String name, String phone2, String address, int addressNumber) {
+//    SQLiteDatabase db = this.getWritableDatabase();
+//    String addressColumn = null;
+//
+//    if (addressNumber == 1) {
+//        // Nếu là địa chỉ 1, cập nhật user_address thành null
+//        addressColumn = COLUMN_USER_ADDRESS;
+//    } else if (addressNumber == 2) {
+//        // Nếu là địa chỉ 2, cập nhật các trường của địa chỉ 2 thành null
+//        addressColumn = COLUMN_USER_ADDRESS2;
+//    }
+//
+//    // Xây dựng câu lệnh SQL
+//    String sqlQuery;
+//    if (addressColumn.equals(COLUMN_USER_ADDRESS)) {
+//        // Nếu cột được chọn là COLUMN_USER_ADDRESS, cập nhật chỉ user_address
+//        sqlQuery = "UPDATE " + USER + " SET " + COLUMN_USER_ADDRESS + " = NULL " +
+//                "WHERE " + COLUMN_USER_PHONE + " = ?";
+//    } else if (addressColumn.equals(COLUMN_USER_ADDRESS2)) {
+//        // Nếu cột được chọn là COLUMN_USER_ADDRESS2, cập nhật user_name2foraddress2, user_phone2foraddress2, và user_address2
+//        sqlQuery = "UPDATE " + USER + " SET " + COLUMN_USER_NAME2FORADDRESS2 + " = NULL, " +
+//                COLUMN_USER_PHONE2FORADDRESS2 + " = NULL, " + COLUMN_USER_ADDRESS2 + " = NULL " +
+//                "WHERE " + COLUMN_USER_PHONE + " = ? ";
+//    } else {
+//        // Trường hợp cột không được xác định, không thực hiện gì cả
+//        return;
+//    }
+//
+//    // Thực thi câu lệnh SQL
+//    db.execSQL(sqlQuery, new String[]{phone});
+//
+//    // Đóng kết nối tới database
+//    db.close();
+//}
 public void updateAddressFields(String phone, String name, String phone2, String address, int addressNumber) {
     SQLiteDatabase db = this.getWritableDatabase();
     String addressColumn = null;
 
     if (addressNumber == 1) {
-        // Nếu là địa chỉ 1, cập nhật user_address thành null
         addressColumn = COLUMN_USER_ADDRESS;
     } else if (addressNumber == 2) {
-        // Nếu là địa chỉ 2, cập nhật các trường của địa chỉ 2 thành null
         addressColumn = COLUMN_USER_ADDRESS2;
     }
 
-    // Xây dựng câu lệnh SQL
-    String sqlQuery;
-    if (addressColumn.equals(COLUMN_USER_ADDRESS)) {
-        // Nếu cột được chọn là COLUMN_USER_ADDRESS, cập nhật chỉ user_address
-        sqlQuery = "UPDATE " + USER + " SET " + COLUMN_USER_ADDRESS + " = NULL " +
-                "WHERE " + COLUMN_USER_PHONE + " = ?";
-    } else if (addressColumn.equals(COLUMN_USER_ADDRESS2)) {
-        // Nếu cột được chọn là COLUMN_USER_ADDRESS2, cập nhật user_name2foraddress2, user_phone2foraddress2, và user_address2
+        String sqlQuery = ""; // Khởi tạo sqlQuery với giá trị mặc định
+
+    if (addressColumn.equals(COLUMN_USER_ADDRESS2)) {
         sqlQuery = "UPDATE " + USER + " SET " + COLUMN_USER_NAME2FORADDRESS2 + " = NULL, " +
                 COLUMN_USER_PHONE2FORADDRESS2 + " = NULL, " + COLUMN_USER_ADDRESS2 + " = NULL " +
-                "WHERE " + COLUMN_USER_PHONE + " = ? ";
-    } else {
-        // Trường hợp cột không được xác định, không thực hiện gì cả
+                "WHERE " + COLUMN_USER_PHONE + " = ?";
+    } else if (addressColumn.equals(COLUMN_USER_ADDRESS)) {
+                    sqlQuery = "UPDATE " + USER + " SET " + COLUMN_USER_ADDRESS + " = NULL " +
+                    "WHERE " + COLUMN_USER_PHONE + " = ?";
+        db.close();
         return;
     }
-
-    // Thực thi câu lệnh SQL
     db.execSQL(sqlQuery, new String[]{phone});
-
-    // Đóng kết nối tới database
     db.close();
 }
 
