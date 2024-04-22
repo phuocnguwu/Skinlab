@@ -1,5 +1,7 @@
 package com.example.skinlab;
 
+import static java.lang.Integer.parseInt;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -58,6 +60,14 @@ public class Giohang_Fragment extends Fragment {
         View view = binding.getRoot();
         lvGiohang = view.findViewById(R.id.lvGiohang);
         gioHangAdapter = new GioHangAdapter(getContext(), R.layout.giohang_item, gioHangItemList);
+        gioHangAdapter = new GioHangAdapter(getContext(), R.layout.giohang_item, gioHangItemList);
+        gioHangAdapter.setTotalPriceListener(new GioHangAdapter.TotalPriceListener() {
+            @Override
+            public void onTotalPriceChanged(int totalPrice) {
+                // Cập nhật giá trị tổng giá vào txtTotalPrice ở đây
+                binding.txtTotalPrice.setText(String.valueOf(totalPrice));
+            }
+        });
         lvGiohang.setAdapter(gioHangAdapter);
         loadCartFromSharedPreferences(); // Load cart data from SharedPreferences
         return view;
@@ -105,8 +115,8 @@ public class Giohang_Fragment extends Fragment {
         // Lấy thông tin từ các phần tử của mảng
         String pd_id = parts[0];
         String pd_name = parts[1];
-        int pd_price = Integer.parseInt(parts[2]);
-        int pd_price2 = Integer.parseInt(parts[3]);
+        int pd_price = parseInt(parts[2]);
+        int pd_price2 = parseInt(parts[3]);
         String pd_cate = parts[4];
         String pd_brand = parts[5];
         String pd_photo = parts[6];
@@ -117,7 +127,19 @@ public class Giohang_Fragment extends Fragment {
         product = new Product(pd_id, pd_name, pd_price, pd_price2, pd_cate, pd_brand, pd_photo, pd_des);
         Log.d("product test", "product: " + product);
 
+        binding.txtTotalPrice.setText(String.valueOf(calculateTotalPrice()));
+
         return product;
+    }
+
+
+    private int calculateTotalPrice() {
+        int totalPrice = 0;
+        for (Product product : gioHangItemList) {
+            totalPrice += product.getPd_price() * product.getQuantity();
+        }
+        binding.txtTotalPrice.setText(String.valueOf(totalPrice));
+        return totalPrice;
     }
 
 
