@@ -54,15 +54,16 @@ public class Forum_Detailed extends AppCompatActivity {
 
         db = openOrCreateDatabase("Skinlab.db", MODE_PRIVATE, null);
 
-        int selectedForumId = getIntent().getIntExtra("forum_id", -1);
-        Log.d("Forum_Detailed", "Selected Forum ID: " + selectedForumId);
+        addEvents();
 
+    }
+
+    protected void onResume() {
+        int selectedForumId = getIntent().getIntExtra("forum_id", -1);
         if (selectedForumId != -1) {
             loadDataDetails(selectedForumId);
         }
-//        loadDb();
-
-        addEvents();
+        super.onResume();
     }
 
     private void loadDataDetails (int forumId){
