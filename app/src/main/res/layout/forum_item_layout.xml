@@ -6,7 +6,8 @@
     android:padding="10dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/llbiglayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
@@ -15,9 +16,11 @@
         android:background="@drawable/border">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/llsubinfo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:weightSum="10"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -25,18 +28,20 @@
                 android:id="@+id/imvAvatar"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginEnd="10dp"
+                android:layout_weight="2"
                 android:src="@drawable/ic_launcher_background" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_weight="6">
 
                 <TextView
                     android:id="@+id/txtUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="16sp"
                     android:text="Jenny Wilson" />
 
                 <TextView
@@ -47,24 +52,24 @@
             </LinearLayout>
 
             <TextView
+                android:layout_weight=".5"
                 android:id="@+id/txtRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="90dp"
                 android:text="4.8"
-                android:textSize="18sp"/>
+                android:textSize="16sp"/>
 
             <ImageView
-                android:layout_width="26dp"
-                android:layout_height="21dp"
+                android:layout_width="24dp"
+                android:layout_height="18dp"
                 android:src="@drawable/star"
-                android:layout_marginStart="5dp"/>
+                android:layout_weight=".5" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rating"
-                android:textSize="18sp"
-                android:layout_marginStart="5dp"/>
+                android:textSize="16sp"
+                android:layout_weight="1"/>
 
 
         </LinearLayout>
@@ -73,10 +78,11 @@
             android:id="@+id/txtReviewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="Tiêu đề bài đánh giá 0001"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/llsubinfo"/>
 
         <TextView
             android:id="@+id/txtReviewContent"
@@ -85,7 +91,8 @@
             android:text="Nội dung bài đánh giá"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtReviewTitle"/>
 
     </LinearLayout>
 

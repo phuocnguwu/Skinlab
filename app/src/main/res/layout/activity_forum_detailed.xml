@@ -21,38 +21,40 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtReviewTitle"
+            android:id="@+id/textviewTieude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Chi tiết chủ đề 000011"
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="Forum"
+            android:textSize="30sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+                android:id="@+id/llInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="90dp"
                 android:orientation="horizontal"
+                android:weightSum="10"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textviewTieude">
         
                 <ImageView
                     android:id="@+id/imvAvatar"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_weight="2"
                     android:src="@drawable/ic_launcher_background" />
         
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_weight="6">
         
                     <TextView
                         android:id="@+id/txtUserName"
@@ -72,103 +74,105 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="110dp"
                     android:text="Rating"
-                    android:textSize="18sp" />
+                    android:textSize="16sp"
+                    android:layout_weight="1"/>
                 <TextView
                     android:id="@+id/txtRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:text="4.8"
-                    android:textSize="18sp" />
+                    android:textSize="16sp"
+                    android:layout_weight=".5"/>
         
                 <ImageView
-                    android:layout_width="26dp"
-                    android:layout_height="21dp"
-                    android:layout_marginStart="5dp"
-                    android:src="@drawable/star" />
+                    android:layout_width="24dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/star"
+                    android:layout_weight=".5"/>
         </LinearLayout>
-        
-        <TextView
-            android:id="@+id/txtContent"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="180dp"
-            android:text="Mỹ phẩm ngày nay có tác động tích cực
+            android:layout_marginTop="160dp"
+            android:orientation="vertical"
+            android:weightSum="10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llInfo">
+            <TextView
+                android:id="@+id/txtReviewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Forum"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_weight=".5"/>
+
+            <TextView
+                android:id="@+id/txtContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:layout_marginTop="15dp"
+                android:text="Mỹ phẩm ngày nay có tác động tích cực
             đến hành vi của khách hàng và trong đó sản phẩm thuần chay,.."
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="16sp" />
 
-        <ImageView
-            android:id="@+id/imvContentImg"
-            android:layout_width="180dp"
-            android:layout_height="188dp"
-            android:layout_marginStart="104dp"
-            android:layout_marginTop="280dp"
-            android:src="@drawable/ic_launcher_background"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imvContentImg"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_launcher_background"
+                android:layout_weight="2.5"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="540dp"
-            android:text="Bình luận"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <TextView
-            android:id="@+id/txtCommentName1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="580dp"
-            android:layout_marginStart="10dp"
-            android:text="Thảo Nhi"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <TextView
-            android:id="@+id/txtCommentContent1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="600dp"
-            android:layout_marginStart="10dp"
-            android:text="Tui ưng cái bài review này ghê, có tâm và có tầm"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <TextView
-            android:id="@+id/txtCommentName2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="640dp"
-            android:layout_marginStart="10dp"
-            android:text="Ngọc Vy"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <TextView
-            android:id="@+id/txtCommentContent2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="660dp"
-            android:layout_marginStart="10dp"
-            android:text="Tui ưng cái bài review này ghê, có tâm và có tầm"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textviewbinhluan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Bình luận"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_weight=".5"/>
+            <TextView
+                android:id="@+id/txtCommentName1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Thảo Nhi"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight=".5"/>
+            <TextView
+                android:id="@+id/txtCommentContent1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Tui ưng cái bài review này ghê, có tâm và có tầm"
+                android:textSize="16sp"
+                android:layout_weight=".5"/>
+            <TextView
+                android:id="@+id/txtCommentName2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Ngọc Vy"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="0.5"/>
+            <TextView
+                android:id="@+id/txtCommentContent2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Tui ưng cái bài review này ghê, có tâm và có tầm"
+                android:textSize="16sp"
+                android:layout_weight="0.5"/>
+
+        </LinearLayout>
 
 
     
