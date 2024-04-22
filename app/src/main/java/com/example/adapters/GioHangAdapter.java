@@ -1,6 +1,7 @@
 package com.example.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class GioHangAdapter extends ArrayAdapter<Product> {
     private Context mContext;
     private int mResource;
+    Product item;
 
     public GioHangAdapter(Context context, int resource, ArrayList<Product> objects) {
         super(context, resource, objects);
@@ -47,6 +49,8 @@ public class GioHangAdapter extends ArrayAdapter<Product> {
         TextView txtProductPrice = listItemView.findViewById(R.id.txtProductprice);
 
         // Đặt giá trị cho các view
+        Log.d("item info", "item: " + item);
+        Log.d("item info", "item: " + item.getPd_name());
         Picasso.get().load(item.getPd_photo()).into(imgProduct);
         txtProductName.setText(item.getPd_name());
         txtProductQuantity.setText("Số lượng:");

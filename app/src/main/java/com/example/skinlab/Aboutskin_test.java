@@ -117,7 +117,10 @@ public class Aboutskin_test extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isAllQuestionsAnswered()) {
+                    int totalScore = calculateTotalScore();
                     Intent intent = new Intent(Aboutskin_test.this, Aboutskin_result.class);
+                    // Truyền điểm sang màn hình kết quả
+                    intent.putExtra("TOTAL_SCORE", totalScore);
                     startActivity(intent);
                 } else {
                     // Hiển thị hộp thoại cảnh báo nếu các câu hỏi chưa được trả lời đầy đủ
@@ -133,6 +136,24 @@ public class Aboutskin_test extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private int calculateTotalScore() {
+        int totalScore = 0;
+        for (Question question : questionList) {
+            if (question.isCheckedA()) {
+                // Nếu radA được chọn, tổng điểm tăng thêm 1
+                totalScore += 1;
+            } else if (question.isCheckedB()) {
+                // Tương tự cho các trường hợp còn lại
+                totalScore += 2;
+            } else if (question.isCheckedC()) {
+                totalScore += 3;
+            } else if (question.isCheckedD()) {
+                totalScore += 4;
+            }
+        }
+        return totalScore;
     }
 
 
