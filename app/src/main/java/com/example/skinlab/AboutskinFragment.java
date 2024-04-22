@@ -1,6 +1,8 @@
 package com.example.skinlab;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -52,6 +54,8 @@ public class AboutskinFragment extends Fragment {
     FragmentAboutskinBinding binding;
     ProductAdapter adapter;
     ArrayList<Product> products;
+    DatabaseHelper dbHelper;
+
     public static final String DB_NAME = "Skinlab.db";
     public static SQLiteDatabase db = null;
     public static final String TBL_NAME = "product";
@@ -98,6 +102,7 @@ public class AboutskinFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         addEvents();
         loadDb();
+//        updateDb();
     }
 
     private void loadDb() {
@@ -115,11 +120,11 @@ public class AboutskinFragment extends Fragment {
                 int columnIndexCate = cursor.getColumnIndex(COLUMN_PD_CATE);
                 int columnIndexDes = cursor.getColumnIndex(COLUMN_PD_DES);
                 int columnIndexPhoto = cursor.getColumnIndex(COLUMN_PD_PHOTO);
-                int columnIndexSkiptype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
+                int columnIndexSkintype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
 
                 if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
                         columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
-                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkiptype != -1) {
+                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkintype != -1) {
 
                     String pdId = cursor.getString(columnIndexId);
                     String pdName = cursor.getString(columnIndexName);
@@ -163,6 +168,36 @@ public class AboutskinFragment extends Fragment {
             }
         });
     }
+
+//    private void updateDb(){
+//        String loggedInPhone = getLoggedInPhone();
+//        // Kiểm tra xem có đăng nhập hay không
+//        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+//            // Tạo đối tượng DatabaseHelper để truy vấn cơ sở dữ liệu
+//            DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
+//
+//            // Truy vấn cơ sở dữ liệu để lấy thông tin user_skin của người dùng đã đăng nhập
+//            String userSkinType = dbHelper.getUserSkin(loggedInPhone);
+//
+//            // Kiểm tra nếu dữ liệu user_skin không rỗng, thì hiển thị lên TextView
+//            if (!userSkinType.isEmpty()) {
+//                binding.txtTinhtrangda.setText(userSkinType);
+//            } else {
+//                // Nếu dữ liệu user_skin rỗng, hiển thị "Không có"
+//                binding.txtTinhtrangda.setText("Không có");
+//
+//                dbHelper.updateUserSkin(loggedInPhone, "Không có");
+//            }
+//        }
+//    }
+//
+//    private String getLoggedInPhone() {
+//        // Sử dụng requireContext() để lấy Context của Fragment
+//        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+//        return sharedPreferences.getString("loggedInPhone", "");
+//    }
+//
+
 
     private void addEvents() {
         binding.btnTest.setOnClickListener(new View.OnClickListener() {
