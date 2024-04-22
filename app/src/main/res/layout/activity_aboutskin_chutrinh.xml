@@ -19,7 +19,6 @@
             app:layout_constraintTop_toTopOf="parent" >
 
             <TextView
-                android:id="@+id/txtTinhtrangcontent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tình trạng da hiện tại:"
@@ -39,10 +38,10 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/blue"
-                android:layout_marginTop="30sp"
+                android:layout_marginTop="70sp"
                 android:layout_marginStart="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/txtTinhtrangcontent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -139,7 +138,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtBuoc1" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lvTaytrang"
+                android:id="@+id/rcvTaytrang"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -184,7 +183,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtBuoc2" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lvSrm"
+                android:id="@+id/rcvSuaruamat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -230,7 +229,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtBuoc3" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lvToner"
+                android:id="@+id/rcvToner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -276,7 +275,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtBuoc4" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lvSerum"
+                android:id="@+id/rcvSerum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -321,7 +320,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtBuoc5" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lvKem"
+                android:id="@+id/rcvKem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
