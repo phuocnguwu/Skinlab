@@ -1,3 +1,4 @@
+
 package com.example.skinlab;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -5,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -15,18 +17,13 @@ import android.widget.Toast;
 import com.example.adapters.AddressRecyclerAdapter;
 import com.example.models.Address;
 import com.example.skinlab.databinding.ActivityMyaccountDiachiBinding;
-import com.example.skinlab.databinding.FragmentMyAccountBinding;
 
 import java.util.ArrayList;
-import android.content.SharedPreferences;
 
 public class Myaccount_Diachi extends AppCompatActivity {
     ActivityMyaccountDiachiBinding binding;
-//    Databases db;
-    AddressRecyclerAdapter adapter;
     ArrayList<Address> addresses;
     DatabaseHelper databaseHelper;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,23 +31,16 @@ public class Myaccount_Diachi extends AppCompatActivity {
         binding = ActivityMyaccountDiachiBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         addEvents();
-        createDb();
         databaseHelper = new DatabaseHelper(this);
-
-
     }
 
-    private void createDb() {
-//        db = new Databases(this,Databases.DB_NAME, null, Databases.DB_VERSION);
-//        db.createAddressSampleData(Myaccount_Diachi.this);
-    }
     @Override
     protected void onResume() {
         super.onResume();
         loadUserAddresses();
     }
 
-    private void loadUserAddresses() {
+    public void loadUserAddresses() {
         String loggedInPhone = getLoggedInPhone();
         if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
             addresses = new ArrayList<>();
@@ -95,47 +85,60 @@ public class Myaccount_Diachi extends AppCompatActivity {
         }
     }
 
-
-
-
     private void displayAddresses() {
-            AddressRecyclerAdapter adapter = new AddressRecyclerAdapter(this, addresses);
-            binding.rcvdiachi.setLayoutManager(new LinearLayoutManager(this));
-            binding.rcvdiachi.setAdapter(adapter);
-        }
+        AddressRecyclerAdapter adapter = new AddressRecyclerAdapter(this, addresses, databaseHelper);
+        binding.rcvdiachi.setLayoutManager(new LinearLayoutManager(this));
+        binding.rcvdiachi.setAdapter(adapter);
+    }
 
-
-    private String getLoggedInPhone() {
+    public String getLoggedInPhone() {
         SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
         return sharedPreferences.getString("loggedInPhone", "");
     }
-
 
     private void addEvents() {
         binding.btnclickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-
             }
         });
         binding.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Myaccount_Diachi.this, Myaccount_adddiachi.class);
-                // Kiểm tra xem người dùng đã có địa chỉ hay chưa
-                String loggedInPhone = getLoggedInPhone();
-                if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
-                    boolean hasAddress = hasAddress(loggedInPhone);
-                    // Truyền dữ liệu nếu người dùng chưa có địa chỉ
-                    if (!hasAddress) {
-                        String userName = getUserName(loggedInPhone);
-                        String userPhone = getUserPhone(loggedInPhone);
-                        intent.putExtra("userName", userName);
-                        intent.putExtra("userPhone", userPhone);
+//                Intent intent = new Intent(Myaccount_Diachi.this, Myaccount_adddiachi.class);
+//                // Kiểm tra xem người dùng đã có địa chỉ hay chưa
+//                String loggedInPhone = getLoggedInPhone();
+//                if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+//                    boolean hasAddress = hasAddress(loggedInPhone);
+//                    // Truyền dữ liệu nếu người dùng chưa có địa chỉ
+//                    if (!hasAddress) {
+//                        String userName = getUserName(loggedInPhone);
+//                        String userPhone = getUserPhone(loggedInPhone);
+//                        intent.putExtra("userName", userName);
+//                        intent.putExtra("userPhone", userPhone);
+//                    }
+//                }
+//                startActivity(intent);
+                if (addresses.size() >= 2) {
+                    // Hiển thị Toast nếu số lượng địa chỉ đã đạt tối đa
+                    Toast.makeText(Myaccount_Diachi.this, "Chỉ được tối đa 2 địa chỉ", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(Myaccount_Diachi.this, Myaccount_adddiachi.class);
+                    // Kiểm tra xem người dùng đã có địa chỉ hay chưa
+                    String loggedInPhone = getLoggedInPhone();
+                    if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+                        boolean hasAddress = hasAddress(loggedInPhone);
+                        // Truyền dữ liệu nếu người dùng chưa có địa chỉ
+                        if (!hasAddress) {
+                            String userName = getUserName(loggedInPhone);
+                            String userPhone = getUserPhone(loggedInPhone);
+                            intent.putExtra("userName", userName);
+                            intent.putExtra("userPhone", userPhone);
+                        }
                     }
+                    startActivity(intent);
                 }
-                startActivity(intent);
             }
 
             private String getUserPhone(String loggedInPhone) {
@@ -158,7 +161,7 @@ public class Myaccount_Diachi extends AppCompatActivity {
                 return userPhone;
             }
 
-            public String getUserName(String loggedInPhone) {
+            private String getUserName(String loggedInPhone) {
                 SQLiteDatabase db = databaseHelper.getReadableDatabase();
                 String userName = "";
 
@@ -177,7 +180,6 @@ public class Myaccount_Diachi extends AppCompatActivity {
                 }
                 return userName;
             }
-
 
             private boolean hasAddress(String loggedInPhone) {
                 SQLiteDatabase db = databaseHelper.getReadableDatabase();
