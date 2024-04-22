@@ -57,49 +57,8 @@ public class Aboutskin_result extends AppCompatActivity {
 
         loadDb();
         addEvents();
-//        updateDb();
-//
+        updateDb();
 
-
-//        Intent intent = getIntent();
-//        if (intent != null && intent.hasExtra("TOTAL_SCORE")) {
-//            int totalScore = intent.getIntExtra("TOTAL_SCORE", 0);
-//            // Hiển thị kết quả dựa trên tổng điểm nhận được
-//            // Ví dụ: Hiển thị "Da dầu" nếu điểm từ 20 đến 40
-//            if (totalScore > 20 && totalScore <= 40) {
-//                binding.txtDa.setText("Da dầu");
-//            } else if (totalScore >= 10 && totalScore <= 20) {
-//                binding.txtDa.setText("Da khô"); // Hiển thị "Da khô" nếu điểm từ 10 đến 20
-//            }
-//        }
-
-        dbHelper = new DatabaseHelper(this);
-
-        // Kiểm tra xem người dùng có đăng nhập không
-        String loggedInPhone = getLoggedInPhone(); // Lấy user_phone từ SharedPreferences
-
-        // Kiểm tra xem có đăng nhập hay không
-        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
-            // Nếu có đăng nhập, kiểm tra totalScore và cập nhật user_skin tương ứng
-            int totalScore = getIntent().getIntExtra("TOTAL_SCORE", 0);
-            if (totalScore > 20 && totalScore <= 40) {
-                // Update user_skin thành "Da dầu"
-                dbHelper.updateUserSkin(loggedInPhone, "Da dầu");
-                binding.txtDa.setText("Da dầu");
-            } else if (totalScore >= 10 && totalScore <= 20) {
-                // Update user_skin thành "Da khô"
-                dbHelper.updateUserSkin(loggedInPhone, "Da khô");
-                binding.txtDa.setText("Da khô");
-            }
-        } else {
-            // Nếu không đăng nhập, chỉ setText cho txtDa dựa trên totalScore
-            int totalScore = getIntent().getIntExtra("TOTAL_SCORE", 0);
-            if (totalScore > 20 && totalScore <= 40) {
-                binding.txtDa.setText("Da dầu");
-            } else if (totalScore >= 10 && totalScore <= 20) {
-                binding.txtDa.setText("Da khô");
-            }
-        }
 
     }
 
@@ -167,22 +126,37 @@ public class Aboutskin_result extends AppCompatActivity {
         });
     }
 
-//    private void updateDb() {
-//        String loggedInPhone = getLoggedInPhone();
-//        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
-//            Intent intent = getIntent();
-//            if (intent != null && intent.hasExtra("TOTAL_SCORE")) {
-//                int totalScore = intent.getIntExtra("TOTAL_SCORE", 0);
-//                if (totalScore > 20 && totalScore <= 40) {
-//                    dbHelper.updateUserSkinType("Da dầu");
-//                } else if (totalScore >= 10 && totalScore <= 20) {
-//                    dbHelper.updateUserSkinType("Da khô");
-//                }
-//            }
-//        }
-//    }
-//
 
+    private void updateDb(){
+        dbHelper = new DatabaseHelper(this);
+
+        // Kiểm tra xem người dùng có đăng nhập không
+        String loggedInPhone = getLoggedInPhone(); // Lấy user_phone từ SharedPreferences
+
+        // Kiểm tra xem có đăng nhập hay không
+        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+            // Nếu có đăng nhập, kiểm tra totalScore và cập nhật user_skin tương ứng
+            int totalScore = getIntent().getIntExtra("TOTAL_SCORE", 0);
+            if (totalScore > 20 && totalScore <= 40) {
+                // Update user_skin thành "Da dầu"
+                dbHelper.updateUserSkin(loggedInPhone, "Da dầu");
+                binding.txtDa.setText("Da dầu");
+            } else if (totalScore >= 10 && totalScore <= 20) {
+                // Update user_skin thành "Da khô"
+                dbHelper.updateUserSkin(loggedInPhone, "Da khô");
+                binding.txtDa.setText("Da khô");
+            }
+        } else {
+            // Nếu không đăng nhập, chỉ setText cho txtDa dựa trên totalScore
+            int totalScore = getIntent().getIntExtra("TOTAL_SCORE", 0);
+            if (totalScore > 20 && totalScore <= 40) {
+                binding.txtDa.setText("Da dầu");
+            } else if (totalScore >= 10 && totalScore <= 20) {
+                binding.txtDa.setText("Da khô");
+            }
+        }
+
+    }
     private String getLoggedInPhone() {
         SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
         return sharedPreferences.getString("loggedInPhone", "");
