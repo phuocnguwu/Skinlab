@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.adapters.ProductAdapter;
@@ -62,6 +63,7 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
 
     // Phương thức để lấy loại da từ database của người dùng
     private int getUserId() {
+        Log.d("getUserId", "Start getting user ID");
         int userId = -1; // Giả sử user_id không tồn tại hoặc có lỗi
 
         // Mở kết nối đến cơ sở dữ liệu
@@ -74,10 +76,11 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
             userId = cursor.getInt(userIdIndex);
             cursor.close();
         }
-
+        Log.d("getUserId", "Finish getting user ID: " + userId);
         return userId;
     }
     private String getUserSkinType(int userId) {
+        Log.d("getUserSkinType", "Start getting user skin type for userId: " + userId);
         String skinType = null;
         db = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
         String[] columns = {COLUMN_USER_SKINTYPE};
@@ -90,6 +93,8 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
             skinType = cursor.getString(userSkinTypeIndex);
             cursor.close();
         }
+        Log.d("getUserSkinType", "Finish getting user skin type: " + skinType);
+
         return skinType;
     }
 
@@ -137,6 +142,7 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
             cursor.close();
         }
         db.close();
+        Log.d("LoadDb", "Finish loading database: " + products.size());
 
         // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
         adapter = new ProductAdapter(this, products);
