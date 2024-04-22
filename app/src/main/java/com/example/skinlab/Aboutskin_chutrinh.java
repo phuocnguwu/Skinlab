@@ -110,16 +110,24 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
 
         String userSkinType = dbHelper.getUserSkinType(getLoggedInPhone());
         ArrayList<Product> suaruamat = filterProductsBySkinType(products, "Sữa rửa mặt", userSkinType);
-        binding.rcvSuaruamat.setAdapter(new ProductAdapter(this, suaruamat));
+//        binding.rcvSuaruamat.setAdapter(new ProductAdapter(this, suaruamat));
+        adapter = new ProductAdapter(this,suaruamat);
+        binding.rcvSuaruamat.setAdapter(adapter);
 
         ArrayList<Product> toner = filterProductsBySkinType(products, "Nước dưỡng", userSkinType);
-        binding.rcvToner.setAdapter(new ProductAdapter(this, toner));
+//        binding.rcvToner.setAdapter(new ProductAdapter(this, toner));
+        adapter = new ProductAdapter(this,toner);
+        binding.rcvToner.setAdapter(adapter);
 
         ArrayList<Product> serum = filterProductsBySkinType(products, "Tinh chất", userSkinType);
-        binding.rcvSerum.setAdapter(new ProductAdapter(this, serum));
+//        binding.rcvSerum.setAdapter(new ProductAdapter(this, serum));
+        adapter = new ProductAdapter(this, serum);
+        binding.rcvSerum.setAdapter(adapter);
 
         ArrayList<Product> kem = filterProductsBySkinType(products, "Kem dưỡng", userSkinType);
-        binding.rcvKem.setAdapter(new ProductAdapter(this, kem));
+//        binding.rcvKem.setAdapter(new ProductAdapter(this, kem));
+        adapter = new ProductAdapter(this,kem);
+        binding.rcvKem.setAdapter(adapter);
 
         Log.d("loadDb", "Sữa rửa mặt size: " + suaruamat.size());
         Log.d("loadDb", "Toner size: " + toner.size());
@@ -137,14 +145,14 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
         binding.rcvSerum.setLayoutManager(layoutManagerSerum);
         binding.rcvKem.setLayoutManager(layoutManagerKem);
 
-//        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(Product product) {
-//                Intent intent = new Intent(Aboutskin_chutrinh.this, Product_Details.class);
-//                intent.putExtra("selectedProduct", product);
-//                startActivity(intent);
-//            }
-//        });
+        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                Intent intent = new Intent(Aboutskin_chutrinh.this, Product_Details.class);
+                intent.putExtra("selectedProduct", product);
+                startActivity(intent);
+            }
+        });
     }
 
     private ArrayList<Product> filterProductsBySkinType(ArrayList<Product> products, String category, String userSkinType) {
@@ -155,11 +163,7 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
                 filteredProducts.add(product);
             }
         }
-        for (Product product : filteredProducts) {
-            Log.d("Filtered Product", "Product Name: " + product.getPd_name() + ", Category: " + product.getPd_cate() + ", Skin Type: " + product.getPd_skintype());
-        }
 
-        Log.d("filterProductsBySkinType", "category: " + category + ", userSkinType: " + userSkinType + ", products size: " + products.size());
         return filteredProducts;
     }
 
