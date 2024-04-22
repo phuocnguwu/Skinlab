@@ -293,6 +293,11 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
         String newGioiTinh = binding.edtGioitinh.getText().toString();
         String newNgaySinh = binding.edtngaysinh.getText().toString();
         Uri newAvatarUri = getImageUriFromImageView(binding.imvavatar);
+        if (!newHoTen.equals(getUserEmail(newEmail)) || !newSdt.equals(getUserPhone(newSdt))) {
+            // Hiển thị thông báo cho người dùng
+            showToast("Bạn không thể thay đổi tên và số điện thoại.");
+            return;
+        }
         // Kiểm tra các điều kiện
         if (!isValidPhoneNumber(newSdt)) {
             // Số điện thoại không hợp lệ
