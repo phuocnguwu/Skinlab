@@ -44,9 +44,6 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
     public static final String COLUMN_PD_PHOTO = "pd_photo";
     public static final String COLUMN_PD_DES = "pd_des";
     public static final String COLUMN_PD_SKINTYPE = "pd_skintype";
-    public static final String USER = "user";
-    public static final String COLUMN_USER_ID = "user_id";
-    public static final String COLUMN_USER_SKINTYPE = "user_skin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,75 +51,24 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
         binding = ActivityAboutskinChutrinhBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        addEvents();
-        int userId = getUserId(); // Lấy user_id của người dùng
-        String userSkinType = getUserSkinType(userId); // Lấy loại da của người dùng
-        if (userSkinType != null) {
-            // Mở kết nối database ở đây
-            db = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
-            loadDb(userSkinType, "Sữa rửa mặt", binding.rcvSuaruamat);
-            loadDb(userSkinType, "Nước dưỡng", binding.rcvToner);
-            loadDb(userSkinType, "Tinh chất", binding.rcvSerum);
-            loadDb(userSkinType, "Kem dưỡng", binding.rcvKem);
-        }
-
         dbHelper = new DatabaseHelper(this);
+
+        loadDb();
+        addEvents();
 
 
     }
 
     @Override
     public void onResume() {
-        super.onResume();
         updateDb();
+        super.onResume();
     }
-
-    // Phương thức để lấy loại da từ database của người dùng
-    private int getUserId() {
-        Log.d("getUserId", "Start getting user ID");
-        int userId = -1; // Giả sử user_id không tồn tại hoặc có lỗi
-
-        // Mở kết nối đến cơ sở dữ liệu
+    private void loadDb() {
         db = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
-
-        // Truy vấn cơ sở dữ liệu để lấy user_id
-        Cursor cursor = db.query(USER, new String[]{COLUMN_USER_ID}, null, null, null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            int userIdIndex = cursor.getColumnIndex(COLUMN_USER_ID);
-            userId = cursor.getInt(userIdIndex);
-            cursor.close();
-        }
-        Log.d("getUserId", "Finish getting user ID: " + userId);
-        return userId;
-    }
-    private String getUserSkinType(int userId) {
-        Log.d("getUserSkinType", "Start getting user skin type for userId: " + userId);
-        String skinType = null;
-        db = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
-        String[] columns = {COLUMN_USER_SKINTYPE};
-        String selection = COLUMN_USER_ID + " = ?";
-        String[] selectionArgs = {String.valueOf(userId)}; // Chuyển đổi user_id thành chuỗi
-
-        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            int userSkinTypeIndex = cursor.getColumnIndex(COLUMN_USER_SKINTYPE);
-            skinType = cursor.getString(userSkinTypeIndex);
-            cursor.close();
-        }
-        Log.d("getUserSkinType", "Finish getting user skin type: " + skinType);
-
-        return skinType;
-    }
-
-    private void loadDb(String skinType, String category, RecyclerView recyclerView) {
-
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
         products = new ArrayList<>();
 
-        String selection = COLUMN_PD_SKINTYPE + " = ? AND " + COLUMN_PD_CATE + " = ?";
-        String[] selectionArgs = {skinType, category};
-
-        Cursor cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
+        Cursor cursor = db.query(TBL_NAME, null, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 int columnIndexId = cursor.getColumnIndex(COLUMN_PD_ID);
@@ -149,34 +95,72 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
                     String pdPhoto = cursor.getString(columnIndexPhoto);
                     String pdSkintype = cursor.getString(columnIndexSkintype);
 
+                    Log.d("Database Values", "pdId: " + pdId + ", pdName: " + pdName + ", pdPrice: " + pdPrice + ", pdPrice2: " + pdPrice2 +
+                            ", pdBrand: " + pdBrand + ", pdCate: " + pdCate + ", pdDes: " + pdDes + ", pdPhoto: " + pdPhoto +
+                            ", pdSkintype: " + pdSkintype);
+//
+//                    // Tạo đối tượng Product từ dữ liệu truy vấn
                     Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
                     products.add(product);
-
                 }
             }
-            while (cursor.moveToNext());
+            while (cursor.moveToNext()) ;
             cursor.close();
         }
-        db.close();
-        Log.d("LoadDb", "Finish loading database: " + products.size());
 
-        // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
-        adapter = new ProductAdapter(this, products);
-        recyclerView.setAdapter(adapter); // Đặt adapter cho RecyclerView
+        String userSkinType = dbHelper.getUserSkinType(getLoggedInPhone());
+        ArrayList<Product> suaruamat = filterProductsBySkinType(products, "Sữa rửa mặt", userSkinType);
+        binding.rcvSuaruamat.setAdapter(new ProductAdapter(this, suaruamat));
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
-        recyclerView.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
+        ArrayList<Product> toner = filterProductsBySkinType(products, "Nước dưỡng", userSkinType);
+        binding.rcvToner.setAdapter(new ProductAdapter(this, toner));
+
+        ArrayList<Product> serum = filterProductsBySkinType(products, "Tinh chất", userSkinType);
+        binding.rcvSerum.setAdapter(new ProductAdapter(this, serum));
+
+        ArrayList<Product> kem = filterProductsBySkinType(products, "Kem dưỡng", userSkinType);
+        binding.rcvKem.setAdapter(new ProductAdapter(this, kem));
+
+        Log.d("loadDb", "Sữa rửa mặt size: " + suaruamat.size());
+        Log.d("loadDb", "Toner size: " + toner.size());
+        Log.d("loadDb", "Serum size: " + serum.size());
+        Log.d("loadDb", "Kem dưỡng size: " + kem.size());
 
 
+        GridLayoutManager layoutManagerSuaruamat = new GridLayoutManager(this, 3);
+        GridLayoutManager layoutManagerToner = new GridLayoutManager(this, 3);
+        GridLayoutManager layoutManagerSerum = new GridLayoutManager(this, 3);
+        GridLayoutManager layoutManagerKem = new GridLayoutManager(this, 3);
 
-        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Product product) {
-                Intent intent = new Intent(Aboutskin_chutrinh.this, Product_Details.class);
-                intent.putExtra("selectedProduct", product);
-                startActivity(intent);
+        binding.rcvSuaruamat.setLayoutManager(layoutManagerSuaruamat);
+        binding.rcvToner.setLayoutManager(layoutManagerToner);
+        binding.rcvSerum.setLayoutManager(layoutManagerSerum);
+        binding.rcvKem.setLayoutManager(layoutManagerKem);
+
+//        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(Product product) {
+//                Intent intent = new Intent(Aboutskin_chutrinh.this, Product_Details.class);
+//                intent.putExtra("selectedProduct", product);
+//                startActivity(intent);
+//            }
+//        });
+    }
+
+    private ArrayList<Product> filterProductsBySkinType(ArrayList<Product> products, String category, String userSkinType) {
+        ArrayList<Product> filteredProducts = new ArrayList<>();
+        for (Product product : products) {
+            // Lọc sản phẩm theo category và userSkinType
+            if (product.getPd_cate().equalsIgnoreCase(category) && product.getPd_skintype().equalsIgnoreCase(userSkinType)) {
+                filteredProducts.add(product);
             }
-        });
+        }
+        for (Product product : filteredProducts) {
+            Log.d("Filtered Product", "Product Name: " + product.getPd_name() + ", Category: " + product.getPd_cate() + ", Skin Type: " + product.getPd_skintype());
+        }
+
+        Log.d("filterProductsBySkinType", "category: " + category + ", userSkinType: " + userSkinType + ", products size: " + products.size());
+        return filteredProducts;
     }
 
 
@@ -219,4 +203,5 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
             }
         });
     }
+
 }
