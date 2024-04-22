@@ -551,6 +551,29 @@ public class Products extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Xóa tất cả các bộ lọc đã chọn
+        selectedCategories.clear();
+        selectedBrands.clear();
+        selectedPriceRanges.clear();
+
+        // Đặt trạng thái của các checkbox về mặc định
+        SharedPreferences sharedPreferences = getSharedPreferences("checkbox_states", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear(); // Xóa tất cả trạng thái checkbox đã lưu
+        editor.apply();
+    }
+
+    private void clearCheckBoxStates() {
+        SharedPreferences sharedPreferences = getSharedPreferences("checkbox_states", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
 

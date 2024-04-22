@@ -23,11 +23,14 @@ public class Aboutskin_result extends AppCompatActivity {
     ProductAdapter adapter;
     ArrayList<Product> products;
 
+    String userSkintype;
+
     DatabaseHelper dbHelper;
 
     public static final String DB_NAME = "Skinlab.db";
 
     public static SQLiteDatabase db = null;
+
     public static final String TBL_NAME = "product";
     public static final String COLUMN_PD_ID = "pd_id";
     public static final String COLUMN_PD_NAME = "pd_name";
@@ -53,9 +56,15 @@ public class Aboutskin_result extends AppCompatActivity {
         binding = ActivityAboutskinResultBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Intent intent = getIntent();
+        if (intent !=null) {
+            userSkintype = intent.getStringExtra("userSkintype");
+        }
+
+        updateDb();
         loadDb();
         addEvents();
-        updateDb();
+
 
 
     }
@@ -64,7 +73,23 @@ public class Aboutskin_result extends AppCompatActivity {
         db = SQLiteDatabase.openDatabase(this.getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
         products = new ArrayList<>();
 
-        Cursor cursor = db.query(TBL_NAME, null, null, null, null, null, null);
+        Intent intent = getIntent();
+        String userSkintype = intent.getStringExtra("userSkintype");
+        if (userSkintype == null) {
+            userSkintype = "";
+        }
+
+        Cursor cursor;
+
+        if (userSkintype != null && !userSkintype.isEmpty()) {
+            String selection = COLUMN_PD_SKINTYPE + " LIKE ?";
+            String[] selectionArgs = { "%" + userSkintype + "%" };
+            cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
+        } else {
+            cursor = null;
+        }
+
+//        Cursor cursor = db.query(TBL_NAME, null, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 int columnIndexId = cursor.getColumnIndex(COLUMN_PD_ID);
@@ -169,6 +194,8 @@ public class Aboutskin_result extends AppCompatActivity {
                 // Update user_skin thành "Da dầu"
                 dbHelper.updateUserSkin(loggedInPhone, "Da dầu");
                 binding.txtDa.setText("Da dầu");
+                Intent intent = new Intent(this, Aboutskin_result.class);
+                intent.putExtra("userSkintype", "Da dầu");
                 // Truy vấn dữ liệu từ bảng ABOUTSKIN_DACDIEM cho "Da dầu"
                 Cursor cursor = dbHelper.getSkinDataByType("Da dầu");
                 if (cursor != null && cursor.moveToFirst()) {
@@ -184,6 +211,8 @@ public class Aboutskin_result extends AppCompatActivity {
                 // Update user_skin thành "Da khô"
                 dbHelper.updateUserSkin(loggedInPhone, "Da khô");
                 binding.txtDa.setText("Da khô");
+                Intent intent = new Intent(this, Aboutskin_result.class);
+                intent.putExtra("userSkintype", "Da khô");
                 // Truy vấn dữ liệu từ bảng ABOUTSKIN_DACDIEM cho "Da khô"
                 Cursor cursor = dbHelper.getSkinDataByType("Da khô");
                 if (cursor != null && cursor.moveToFirst()) {
@@ -201,8 +230,12 @@ public class Aboutskin_result extends AppCompatActivity {
             int totalScore = getIntent().getIntExtra("TOTAL_SCORE", 0);
             if (totalScore > 20 && totalScore <= 40) {
                 binding.txtDa.setText("Da dầu");
+                Intent intent = new Intent(this, Aboutskin_result.class);
+                intent.putExtra("userSkintype", "Da dầu");
             } else if (totalScore >= 10 && totalScore <= 20) {
                 binding.txtDa.setText("Da khô");
+                Intent intent = new Intent(this, Aboutskin_result.class);
+                intent.putExtra("userSkintype", "Da khô");
             }
         }
     }

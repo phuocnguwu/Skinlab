@@ -76,6 +76,9 @@
             android:name=".Aboutskin_lichhen"
             android:exported="false" />
         <activity
+            android:name=".Aboutskin_datlich"
+            android:exported="false" />
+        <activity
             android:name=".Myaccount_Profile"
             android:exported="false" />
         <activity
