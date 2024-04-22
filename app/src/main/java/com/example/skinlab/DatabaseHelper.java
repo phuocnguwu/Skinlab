@@ -1,3 +1,4 @@
+
 package com.example.skinlab;
 
 import android.annotation.SuppressLint;
@@ -25,7 +26,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USER_NAME2FORADDRESS2 = "user_name2foraddress2";
     public static final String COLUMN_USER_PHONE2FORADDRESS2 = "user_phone2foraddress2";
 
-    public static final String TBL_SKIN = "ABOUTSKIN_DACDIEM";
+
+        public static final String TBL_SKIN = "ABOUTSKIN_DACDIEM";
     public static final String COLUMN_DACDIEM1 = "skin_dacdiem1";
     public static final String COLUMN_DACDIEM2 = "skin_dacdiem2";
     public static final String COLUMN_DACDIEM3 = "skin_dacdiem3";
@@ -81,16 +83,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-public boolean checkLogin(String emailPhone, String password) {
-    SQLiteDatabase db = this.getReadableDatabase();
-    String[] columns = {COLUMN_USER_ID, COLUMN_USER_PHONE, COLUMN_USER_EMAIL};
-    String selection = "(" + COLUMN_USER_PHONE + " = ? OR " + COLUMN_USER_EMAIL + " = ?) AND " + COLUMN_USER_PASSWORD + " = ?";
-    String[] selectionArgs = {emailPhone, emailPhone, password};
-    Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
-    int count = cursor.getCount();
-    cursor.close();
-    return count > 0;
-}
+    public boolean checkLogin(String emailPhone, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_USER_ID, COLUMN_USER_PHONE, COLUMN_USER_EMAIL};
+        String selection = "(" + COLUMN_USER_PHONE + " = ? OR " + COLUMN_USER_EMAIL + " = ?) AND " + COLUMN_USER_PASSWORD + " = ?";
+        String[] selectionArgs = {emailPhone, emailPhone, password};
+        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count > 0;
+    }
 
 
     public void saveUserToDatabase(Account user) {
@@ -152,15 +154,15 @@ public boolean checkLogin(String emailPhone, String password) {
 
 
     public boolean checkSoDienThoaiTonTai(String soDienThoai) {
-            SQLiteDatabase db = this.getReadableDatabase();
-            String[] columns = {COLUMN_USER_PHONE};
-            String selection = COLUMN_USER_PHONE + " = ?";
-            String[] selectionArgs = {soDienThoai};
-            Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
-            int count = cursor.getCount();
-            cursor.close();
-            return count > 0;
-        }
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_USER_PHONE};
+        String selection = COLUMN_USER_PHONE + " = ?";
+        String[] selectionArgs = {soDienThoai};
+        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count > 0;
+    }
     public void updateMatKhau(String phone, String newPassword) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -243,14 +245,6 @@ public boolean checkLogin(String emailPhone, String password) {
         return userSkinType;
     }
 
-    public Cursor getSkinDataByType(String skinType) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_DACDIEM1, COLUMN_DACDIEM2, COLUMN_DACDIEM3, COLUMN_MOTA1, COLUMN_MOTA2};
-        String selection = COLUMN_USERSKIN + " = ?";
-        String[] selectionArgs = {skinType};
-        return db.query(TBL_SKIN, columns, selection, selectionArgs, null, null, null);
-    }
-
 
     public void deleteAddress(String loggedInPhone, int addressNumber) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -266,40 +260,47 @@ public boolean checkLogin(String emailPhone, String password) {
     }
 
 
-public void updateAddressFields(String phone, String name, String phone2, String address, int addressNumber) {
-    SQLiteDatabase db = this.getWritableDatabase();
-    String addressColumn = null;
+    public void updateAddressFields(String phone, String name, String phone2, String address, int addressNumber) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String addressColumn = null;
 
-    if (addressNumber == 1) {
-        // Nếu là địa chỉ 1, cập nhật user_address thành null
-        addressColumn = COLUMN_USER_ADDRESS;
-    } else if (addressNumber == 2) {
-        // Nếu là địa chỉ 2, cập nhật các trường của địa chỉ 2 thành null
-        addressColumn = COLUMN_USER_ADDRESS2;
+        if (addressNumber == 1) {
+            // Nếu là địa chỉ 1, cập nhật user_address thành null
+            addressColumn = COLUMN_USER_ADDRESS;
+        } else if (addressNumber == 2) {
+            // Nếu là địa chỉ 2, cập nhật các trường của địa chỉ 2 thành null
+            addressColumn = COLUMN_USER_ADDRESS2;
+        }
+
+        // Xây dựng câu lệnh SQL
+        String sqlQuery;
+        if (addressColumn.equals(COLUMN_USER_ADDRESS)) {
+            // Nếu cột được chọn là COLUMN_USER_ADDRESS, cập nhật chỉ user_address
+            sqlQuery = "UPDATE " + USER + " SET " + COLUMN_USER_ADDRESS + " = NULL " +
+                    "WHERE " + COLUMN_USER_PHONE + " = ?";
+        } else if (addressColumn.equals(COLUMN_USER_ADDRESS2)) {
+            // Nếu cột được chọn là COLUMN_USER_ADDRESS2, cập nhật user_name2foraddress2, user_phone2foraddress2, và user_address2
+            sqlQuery = "UPDATE " + USER + " SET " + COLUMN_USER_NAME2FORADDRESS2 + " = NULL, " +
+                    COLUMN_USER_PHONE2FORADDRESS2 + " = NULL, " + COLUMN_USER_ADDRESS2 + " = NULL " +
+                    "WHERE " + COLUMN_USER_PHONE + " = ? ";
+        } else {
+            // Trường hợp cột không được xác định, không thực hiện gì cả
+            return;
+        }
+
+        // Thực thi câu lệnh SQL
+        db.execSQL(sqlQuery, new String[]{phone});
+
+        // Đóng kết nối tới database
+        db.close();
     }
-
-    // Xây dựng câu lệnh SQL
-    String sqlQuery;
-    if (addressColumn.equals(COLUMN_USER_ADDRESS)) {
-        // Nếu cột được chọn là COLUMN_USER_ADDRESS, cập nhật chỉ user_address
-        sqlQuery = "UPDATE " + USER + " SET " + COLUMN_USER_ADDRESS + " = NULL " +
-                "WHERE " + COLUMN_USER_PHONE + " = ?";
-    } else if (addressColumn.equals(COLUMN_USER_ADDRESS2)) {
-        // Nếu cột được chọn là COLUMN_USER_ADDRESS2, cập nhật user_name2foraddress2, user_phone2foraddress2, và user_address2
-        sqlQuery = "UPDATE " + USER + " SET " + COLUMN_USER_NAME2FORADDRESS2 + " = NULL, " +
-                COLUMN_USER_PHONE2FORADDRESS2 + " = NULL, " + COLUMN_USER_ADDRESS2 + " = NULL " +
-                "WHERE " + COLUMN_USER_PHONE + " = ? ";
-    } else {
-        // Trường hợp cột không được xác định, không thực hiện gì cả
-        return;
+        public Cursor getSkinDataByType(String skinType) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_DACDIEM1, COLUMN_DACDIEM2, COLUMN_DACDIEM3, COLUMN_MOTA1, COLUMN_MOTA2};
+        String selection = COLUMN_USERSKIN + " = ?";
+        String[] selectionArgs = {skinType};
+        return db.query(TBL_SKIN, columns, selection, selectionArgs, null, null, null);
     }
-
-    // Thực thi câu lệnh SQL
-    db.execSQL(sqlQuery, new String[]{phone});
-
-    // Đóng kết nối tới database
-    db.close();
-}
 
 
 

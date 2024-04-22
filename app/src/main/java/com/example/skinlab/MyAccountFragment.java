@@ -234,6 +234,9 @@ public class MyAccountFragment extends Fragment {
         });
 
     }
+
+ 
+
     public void updateUserInfo(String hoTen, Uri avatarUri) {
         binding.txtHotenprofile.setText(hoTen);
         if (avatarUri != null) {

@@ -40,30 +40,30 @@ public class AddressRecyclerAdapter extends RecyclerView.Adapter<AddressRecycler
     }
 
 
-private void deleteAddress(ViewHolder holder) {
-    int position = holder.getAdapterPosition();
-    if (position != RecyclerView.NO_POSITION) {
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        String loggedInPhone = getLoggedInPhone();
-        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
-            Address address = addressList.get(position);
-            if (position == 0) {
-                // Xóa address1 và cập nhật user_address thành null
-                databaseHelper.deleteAddress(loggedInPhone, 1);
-                databaseHelper.updateAddressFields(loggedInPhone, null, null, null, 1);
+    private void deleteAddress(ViewHolder holder) {
+        int position = holder.getAdapterPosition();
+        if (position != RecyclerView.NO_POSITION) {
+            SQLiteDatabase db = databaseHelper.getWritableDatabase();
+            String loggedInPhone = getLoggedInPhone();
+            if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+                Address address = addressList.get(position);
+                if (position == 0) {
+                    // Xóa address1 và cập nhật user_address thành null
+                    databaseHelper.deleteAddress(loggedInPhone, 1);
+                    databaseHelper.updateAddressFields(loggedInPhone, null, null, null, 1);
+                } else {
+                    // Xóa address2 và cập nhật user_name2foraddress2, user_phone2foraddress2, và user_address2 thành null
+                    databaseHelper.deleteAddress(loggedInPhone, 2);
+                    databaseHelper.updateAddressFields(loggedInPhone, null, null, null, 2);
+                }
+                addressList.remove(position); // Xóa địa chỉ khỏi danh sách
+                notifyItemRemoved(position); // Cập nhật RecyclerView
+                db.close();
             } else {
-                // Xóa address2 và cập nhật user_name2foraddress2, user_phone2foraddress2, và user_address2 thành null
-                databaseHelper.deleteAddress(loggedInPhone, 2);
-                databaseHelper.updateAddressFields(loggedInPhone, null, null, null, 2);
+                Toast.makeText(context, "Người dùng chưa đăng nhập", Toast.LENGTH_SHORT).show();
             }
-            addressList.remove(position); // Xóa địa chỉ khỏi danh sách
-            notifyItemRemoved(position); // Cập nhật RecyclerView
-            db.close();
-        } else {
-            Toast.makeText(context, "Người dùng chưa đăng nhập", Toast.LENGTH_SHORT).show();
         }
     }
-}
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {

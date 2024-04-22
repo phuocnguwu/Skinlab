@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="29dp"
         android:text="Nhập mã xác thực"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="44dp"
         android:text="Nhập mã OTP"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_address" />
 
@@ -104,10 +104,10 @@
         android:id="@+id/btntieptuc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#8AB0F9"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#000000"
         android:text="Tiếp"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/otpContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

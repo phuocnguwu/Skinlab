@@ -107,19 +107,26 @@
 //}
 package com.example.skinlab;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.skinlab.databinding.ActivityDialogSaveBinding;
 import com.example.skinlab.databinding.ActivityQuenmatkhauMatkhaumoiBinding;
 
 public class Quenmatkhau_Matkhaumoi extends AppCompatActivity {
@@ -146,7 +153,10 @@ public class Quenmatkhau_Matkhaumoi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveUserNewPassword();
+
             }
+
+
         });
     }
 
@@ -171,10 +181,35 @@ public class Quenmatkhau_Matkhaumoi extends AppCompatActivity {
             showToast("Mật khẩu phải có ít nhất 1 ký tự đặc biệt");
             return;
         }
+        showSuccessDialog();
 
         // Cập nhật mật khẩu mới cho người dùng trong cơ sở dữ liệu
         updateUserPasswordInDatabase(loggedInPhone, newPassword);
         showToast("Mật khẩu đã được cập nhật");
+    }
+
+    private void showSuccessDialog() {
+        ActivityDialogSaveBinding dialogsaveBinding = ActivityDialogSaveBinding.inflate(LayoutInflater.from(Quenmatkhau_Matkhaumoi.this));
+        AlertDialog.Builder builder = new AlertDialog.Builder(Quenmatkhau_Matkhaumoi.this)
+                .setView(dialogsaveBinding.getRoot())
+                .setCancelable(true);
+
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setLayout(200, 200);
+        dialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                navigateToLoginFragment();
+            }
+
+            private void navigateToLoginFragment() {
+                Intent intent = new Intent(Quenmatkhau_Matkhaumoi.this, MainActivity_containtFragment.class);
+                startActivity(intent);
+            }
+        }, 1000);
     }
 
     private boolean isValidPassword(String password) {

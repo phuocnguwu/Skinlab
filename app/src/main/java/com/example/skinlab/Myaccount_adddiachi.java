@@ -1,3 +1,4 @@
+
 package com.example.skinlab;
 
 import androidx.appcompat.app.AlertDialog;
@@ -50,17 +51,17 @@ public class Myaccount_adddiachi extends AppCompatActivity {
     }
 
     private void getDataFromIntent() {
-            // Kiểm tra xem Intent có dữ liệu từ Myaccount_Profile không
-            Intent intent = getIntent();
-            if (intent != null && intent.hasExtra("fromProfile")) {
-                // Nếu có, lấy dữ liệu từ Intent và đặt vào các trường tương ứng
-                String hoTen = intent.getStringExtra("hoTen");
-                String sdt = intent.getStringExtra("sdt");
-                // Đặt dữ liệu vào các trường
-                binding.txtHoten.setText(hoTen);
-                binding.txtsdt.setText(sdt);
-            }
+        // Kiểm tra xem Intent có dữ liệu từ Myaccount_Profile không
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("fromProfile")) {
+            // Nếu có, lấy dữ liệu từ Intent và đặt vào các trường tương ứng
+            String hoTen = intent.getStringExtra("hoTen");
+            String sdt = intent.getStringExtra("sdt");
+            // Đặt dữ liệu vào các trường
+            binding.txtHoten.setText(hoTen);
+            binding.txtsdt.setText(sdt);
         }
+    }
 
 
     private void addEvents() {
@@ -99,20 +100,20 @@ public class Myaccount_adddiachi extends AppCompatActivity {
             }
 
             private boolean hasAddress(String loggedInPhone) {
-                    SQLiteDatabase db = databaseHelper.getReadableDatabase();
-                    Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.USER +
-                            " WHERE " + DatabaseHelper.COLUMN_USER_PHONE + " = ?", new String[]{loggedInPhone});
-                    boolean hasAddress = false;
-                    if (cursor.moveToFirst()) {
-                        String address1 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS));
-                        if (address1 != null && !address1.isEmpty()) {
-                            hasAddress = true;
-                        }
+                SQLiteDatabase db = databaseHelper.getReadableDatabase();
+                Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.USER +
+                        " WHERE " + DatabaseHelper.COLUMN_USER_PHONE + " = ?", new String[]{loggedInPhone});
+                boolean hasAddress = false;
+                if (cursor.moveToFirst()) {
+                    String address1 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS));
+                    if (address1 != null && !address1.isEmpty()) {
+                        hasAddress = true;
                     }
-                    cursor.close();
-                    db.close();
-                    return hasAddress;
                 }
+                cursor.close();
+                db.close();
+                return hasAddress;
+            }
 
 
             private void addAddress2(String userName, String userPhone, String address, String loggedInPhone) {
