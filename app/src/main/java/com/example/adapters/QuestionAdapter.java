@@ -4,58 +4,39 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.models.Question;
 import com.example.skinlab.R;
 
 import java.util.List;
 
-public class QuestionAdapter extends BaseAdapter {
-    Context context;
-    List<Question> quesList;
+public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder> {
+
+    private Context context;
+    private List<Question> quesList;
+    private int totalScore;
 
     public QuestionAdapter(Context context, List<Question> quesList) {
         this.context = context;
         this.quesList = quesList;
+        this.totalScore = 0;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.testquestion_layout, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public int getCount() {
-        return quesList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return quesList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.testquestion_layout, parent, false);
-            holder = new ViewHolder();
-            holder.txtSTT = convertView.findViewById(R.id.txtSTT);
-            holder.txtQuestion = convertView.findViewById(R.id.txtQuestion);
-            holder.radA = convertView.findViewById(R.id.radA);
-            holder.radB = convertView.findViewById(R.id.radB);
-            holder.radC = convertView.findViewById(R.id.radC);
-            holder.radD = convertView.findViewById(R.id.radD);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-
-        final Question question = quesList.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Question question = quesList.get(position);
         holder.txtSTT.setText(question.getQuesNumber());
         holder.txtQuestion.setText(question.getQuesContent());
         holder.radA.setText(question.getQuesA());
@@ -77,7 +58,8 @@ public class QuestionAdapter extends BaseAdapter {
                 question.setCheckedB(false);
                 question.setCheckedC(false);
                 question.setCheckedD(false);
-                notifyDataSetChanged(); // Cập nhật lại ListView
+                totalScore += 1;
+                notifyDataSetChanged(); // Cập nhật lại RecyclerView
             }
         });
 
@@ -88,7 +70,8 @@ public class QuestionAdapter extends BaseAdapter {
                 question.setCheckedB(true);
                 question.setCheckedC(false);
                 question.setCheckedD(false);
-                notifyDataSetChanged(); // Cập nhật lại ListView
+                totalScore += 2;
+                notifyDataSetChanged(); // Cập nhật lại RecyclerView
             }
         });
 
@@ -99,7 +82,8 @@ public class QuestionAdapter extends BaseAdapter {
                 question.setCheckedB(false);
                 question.setCheckedC(true);
                 question.setCheckedD(false);
-                notifyDataSetChanged(); // Cập nhật lại ListView
+                totalScore += 3;
+                notifyDataSetChanged(); // Cập nhật lại RecyclerView
             }
         });
 
@@ -110,18 +94,29 @@ public class QuestionAdapter extends BaseAdapter {
                 question.setCheckedB(false);
                 question.setCheckedC(false);
                 question.setCheckedD(true);
-                notifyDataSetChanged(); // Cập nhật lại ListView
+                totalScore += 4;
+                notifyDataSetChanged(); // Cập nhật lại RecyclerView
             }
         });
-
-        return convertView;
     }
 
+    @Override
+    public int getItemCount() {
+        return quesList.size();
+    }
 
-
-
-    static class ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtSTT, txtQuestion;
         RadioButton radA, radB, radC, radD;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            txtSTT = itemView.findViewById(R.id.txtSTT);
+            txtQuestion = itemView.findViewById(R.id.txtQuestion);
+            radA = itemView.findViewById(R.id.radA);
+            radB = itemView.findViewById(R.id.radB);
+            radC = itemView.findViewById(R.id.radC);
+            radD = itemView.findViewById(R.id.radD);
+        }
     }
 }

@@ -19,7 +19,6 @@
             app:layout_constraintTop_toTopOf="parent" >
 
             <TextView
-                android:id="@+id/txtTinhtrangcontent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tình trạng da hiện tại:"
@@ -39,10 +38,10 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/blue"
-                android:layout_marginTop="30sp"
+                android:layout_marginTop="70sp"
                 android:layout_marginStart="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/txtTinhtrangcontent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -53,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ECF96E"
-            android:text="Kiểm tra lại  >"
+            android:text="Kiểm tra  >"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -103,8 +102,10 @@
             app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/txtGoiy" />
 
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutTaytrang"
+            android:id="@+id/layoutSrm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -126,51 +127,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txtTaytrang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tẩy trang"
-                android:textColor="@color/black"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtBuoc1" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lvTaytrang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtTaytrang" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutSrm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutTaytrang">
-
-
-            <TextView
-                android:id="@+id/txtBuoc2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:text="Bước 2"
-                android:textStyle="italic"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/txtSrm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -181,10 +137,10 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtBuoc2" />
+                app:layout_constraintTop_toBottomOf="@+id/txtBuoc1" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lvSrm"
+                android:id="@+id/rcvSuaruamat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -204,12 +160,12 @@
 
 
             <TextView
-                android:id="@+id/txtBuoc3"
+                android:id="@+id/txtBuoc2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:text="Bước 3"
+                android:text="Bước 2"
                 android:textStyle="italic"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -227,10 +183,10 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtBuoc3" />
+                app:layout_constraintTop_toBottomOf="@+id/txtBuoc2" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lvToner"
+                android:id="@+id/rcvToner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -250,12 +206,12 @@
 
 
             <TextView
-                android:id="@+id/txtBuoc4"
+                android:id="@+id/txtBuoc3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:text="Bước 4"
+                android:text="Bước 3"
                 android:textStyle="italic"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -273,10 +229,10 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtBuoc4" />
+                app:layout_constraintTop_toBottomOf="@+id/txtBuoc3" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lvSerum"
+                android:id="@+id/rcvSerum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -295,12 +251,12 @@
 
 
             <TextView
-                android:id="@+id/txtBuoc5"
+                android:id="@+id/txtBuoc4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:text="Bước 5"
+                android:text="Bước 4"
                 android:textStyle="italic"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -318,10 +274,10 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtBuoc5" />
+                app:layout_constraintTop_toBottomOf="@+id/txtBuoc4" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/lvKem"
+                android:id="@+id/rcvKem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

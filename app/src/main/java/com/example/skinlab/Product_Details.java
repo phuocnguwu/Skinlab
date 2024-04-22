@@ -7,7 +7,10 @@ import static java.security.AccessController.getContext;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -30,7 +33,9 @@ import com.example.skinlab.databinding.ActivityProductDetailsDialogAddtocartBind
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Product_Details extends AppCompatActivity {
     ActivityProductDetailsBinding binding;
@@ -142,6 +147,7 @@ public class Product_Details extends AppCompatActivity {
     }
 
     private void addEvents() {
+
         binding.imvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,48 +165,21 @@ public class Product_Details extends AppCompatActivity {
         binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Tạo Intent để chuyển dữ liệu sang Giohang_Fragment
-//              Giohang_Fragment giohangFragment = Giohang_Fragment.newInstance(new Bundle());
-//              giohangFragment.addToCart(selectedProduct, Product_Details.this); // Truyền context từ Activity hiện tại
-//              getSupportFragmentManager().beginTransaction().replace(R.id.containerLayout, giohangFragment).commit();
-//
-//              giohangFragment = (Giohang_Fragment) getSupportFragmentManager().findFragmentById(R.id.containerLayout);
-
-//                Giohang_Fragment giohangFragment = new Giohang_Fragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("selectedProduct", selectedProduct);
-//                Log.d("Product_Details", "selectedProduct: " + selectedProduct);
-//                Log.d("Product_Details", "selectedProduct: ID = " + selectedProduct.getPd_id());
-//                Log.d("Product_Details", "selectedProduct: Name = " + selectedProduct.getPd_name());
-//                Log.d("Product_Details", "selectedProduct: Price = " + selectedProduct.getPd_price());
-//                giohangFragment.setArguments(bundle);
-//                Log.d("Product_Details", "selectedProduct: Price = " + bundle);
-
-                Intent intent = new Intent(Product_Details.this, MainActivity_containtFragment.class);
-                intent.putExtra("selectedProduct", selectedProduct);
-                startActivity(intent);
-
-                // Tạo Intent để chuyển dữ liệu sang MainActivity_containtFragment
 //                Intent intent = new Intent(Product_Details.this, MainActivity_containtFragment.class);
-//                // Truyền selectedProduct qua Intent
 //                intent.putExtra("selectedProduct", selectedProduct);
-//                Log.d("Product_Details", "selectedProduct: " + selectedProduct);
-//                Log.d("Product_Details", "selectedProduct: ID = " + selectedProduct.getPd_id());
-//                Log.d("Product_Details", "selectedProduct: Name = " + selectedProduct.getPd_name());
-//                Log.d("Product_Details", "selectedProduct: Price = " + selectedProduct.getPd_price());
-//                // Chuyển sang MainActivity_containtFragment
 //                startActivity(intent);
 
-                // Kiểm tra nếu giohangFragment không null và selectedProduct đã được khởi tạo
-//              if (giohangFragment != null && selectedProduct != null) {
-//              // Gọi phương thức addToCart() của Giohang_Fragment và truyền vào selectedProduct
-//                 giohangFragment.addToCart(selectedProduct);
-//              } else {
-//              // Xử lý trường hợp Giohang_Fragment không được tìm thấy hoặc selectedProduct không tồn tại
-//                 Log.e("Product_Details", "Giohang_Fragment is null or selectedProduct is null");
-//              }
+                SharedPreferences sharedPreferences = getSharedPreferences("cart_prefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Set<String> productSet = sharedPreferences.getStringSet("cart_items", new HashSet<String>());
+                Log.d("Product", "Product " + selectedProduct);
+                productSet.add(convertProductToString(selectedProduct));
+                editor.putStringSet("cart_items", productSet);
+                editor.apply();
 
-
+                // Mở MainActivity_containtFragment
+                Intent intent = new Intent(Product_Details.this, MainActivity_containtFragment.class);
+                startActivity(intent);
 
                 ActivityProductDetailsDialogAddtocartBinding DialogAddtocartBinding = ActivityProductDetailsDialogAddtocartBinding.inflate(LayoutInflater.from(Product_Details.this));
                 AlertDialog.Builder builder = new AlertDialog.Builder(Product_Details.this)
@@ -218,20 +197,6 @@ public class Product_Details extends AppCompatActivity {
                 }, 1000);
 
             }
-
-
-
-//            public void onClick(AdapterView<?> parent, View view, int position, long id) {
-//                // Truy cập phần tử từ Adapter, không phải từ AdapterView
-//                Product product;
-//                product = products.get(position);
-//
-//                // Kiểm tra xem Fragment có thực hiện ProductInterface không
-//                if (view.getContext() instanceof ProductInterface) {
-//                    ProductInterface productInterface = (ProductInterface) view.getContext();
-//                    productInterface.onClickItem(product);
-//                }
-//            }
         });
 
         binding.txtProductFeedback.setOnClickListener(new View.OnClickListener() {
@@ -241,6 +206,23 @@ public class Product_Details extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private String convertProductToString(Product product) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        // Thêm các trường thông tin của sản phẩm vào chuỗi
+        stringBuilder.append(product.getPd_id()).append(","); // pd_id
+        stringBuilder.append(product.getPd_name()).append(","); // pd_name
+        stringBuilder.append(product.getPd_price()).append(","); // pd_price
+        stringBuilder.append(product.getPd_price2()).append(","); // pd_price2
+        stringBuilder.append(product.getPd_cate()).append(","); // pd_cate
+        stringBuilder.append(product.getPd_brand()).append(","); // pd_brand
+        stringBuilder.append(product.getPd_photo()).append(","); // pd_photo
+        stringBuilder.append(product.getPd_des()).append(","); // pd_des
+
+        // Trả về chuỗi kết quả
+        return stringBuilder.toString();
     }
 
 

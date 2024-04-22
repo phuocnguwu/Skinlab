@@ -49,6 +49,12 @@ public class Aboutskin_lichhen extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateDb();
+    }
+
     private void loadLichhen() {
         String loggedInPhone = getLoggedInPhone();
         if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
@@ -84,6 +90,26 @@ public class Aboutskin_lichhen extends AppCompatActivity {
             AppointmentAdapter adapter = new AppointmentAdapter(this, appointments); // Sử dụng constructor với Context
             binding.rcvlichhen.setLayoutManager(new LinearLayoutManager(this));
             binding.rcvlichhen.setAdapter(adapter);
+        }
+
+    }
+
+    private void updateDb(){
+        String loggedInPhone = getLoggedInPhone(); // Lấy user_phone từ SharedPreferences
+        String userSkinType = databaseHelper.getUserSkinType(loggedInPhone);
+
+// Kiểm tra xem có đăng nhập hay không
+        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+            if (userSkinType != null && !userSkinType.isEmpty()) {
+                // Hiển thị dữ liệu từ cột user_skin nếu có
+                binding.txtTinhtrangda.setText(userSkinType);
+            } else {
+                // Hiển thị "Không có" nếu cột user_skin trống hoặc dữ liệu là null
+                binding.txtTinhtrangda.setText("Không có");
+            }
+        } else {
+            // Hiển thị "Không có" nếu không có đăng nhập
+            binding.txtTinhtrangda.setText("Không có");
         }
 
     }

@@ -1,6 +1,8 @@
 package com.example.skinlab;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -52,6 +54,8 @@ public class AboutskinFragment extends Fragment {
     FragmentAboutskinBinding binding;
     ProductAdapter adapter;
     ArrayList<Product> products;
+    DatabaseHelper dbHelper;
+
     public static final String DB_NAME = "Skinlab.db";
     public static SQLiteDatabase db = null;
     public static final String TBL_NAME = "product";
@@ -96,9 +100,19 @@ public class AboutskinFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        dbHelper = new DatabaseHelper(requireContext());
+
         addEvents();
         loadDb();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateDb();
+    }
+
 
     private void loadDb() {
         db = SQLiteDatabase.openDatabase(requireContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
@@ -115,11 +129,11 @@ public class AboutskinFragment extends Fragment {
                 int columnIndexCate = cursor.getColumnIndex(COLUMN_PD_CATE);
                 int columnIndexDes = cursor.getColumnIndex(COLUMN_PD_DES);
                 int columnIndexPhoto = cursor.getColumnIndex(COLUMN_PD_PHOTO);
-                int columnIndexSkiptype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
+                int columnIndexSkintype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
 
                 if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
                         columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
-                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkiptype != -1) {
+                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkintype != -1) {
 
                     String pdId = cursor.getString(columnIndexId);
                     String pdName = cursor.getString(columnIndexName);
@@ -163,6 +177,34 @@ public class AboutskinFragment extends Fragment {
             }
         });
     }
+
+    private void updateDb(){
+        String loggedInPhone = getLoggedInPhone(); // Lấy user_phone từ SharedPreferences
+        String userSkinType = dbHelper.getUserSkinType(loggedInPhone);
+
+// Kiểm tra xem có đăng nhập hay không
+        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+            if (userSkinType != null && !userSkinType.isEmpty()) {
+                // Hiển thị dữ liệu từ cột user_skin nếu có
+                binding.txtTinhtrangda.setText(userSkinType);
+            } else {
+                // Hiển thị "Không có" nếu cột user_skin trống hoặc dữ liệu là null
+                binding.txtTinhtrangda.setText("Không có");
+            }
+        } else {
+            // Hiển thị "Không có" nếu không có đăng nhập
+            binding.txtTinhtrangda.setText("Không có");
+        }
+
+    }
+
+    private String getLoggedInPhone() {
+        // Sử dụng requireContext() để lấy Context của Fragment
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("loggedInPhone", "");
+    }
+
+
 
     private void addEvents() {
         binding.btnTest.setOnClickListener(new View.OnClickListener() {

@@ -15,20 +15,33 @@ import android.view.View;
 import com.example.models.Product;
 import com.example.skinlab.databinding.ActivityMainContaintFragmentBinding;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class MainActivity_containtFragment extends AppCompatActivity {
     ActivityMainContaintFragmentBinding binding;
     private boolean isLoggedIn = false;
 
     Product selectedProduct;
 
+    //Giohang_Fragment giohangFragment;
+    Giohang_Fragment giohangFragment = new Giohang_Fragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainContaintFragmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        addEvents();
         isLoggedIn = readLoginStatus();
         replaceFragment(new Homepage());
+
+        // Kiểm tra xem có dữ liệu sản phẩm trong SharedPreferences không
+        SharedPreferences sharedPreferences = getSharedPreferences("cart_prefs", Context.MODE_PRIVATE);
+        Set<String> productSet = sharedPreferences.getStringSet("cart_items", new HashSet<String>());
+        Log.d("Main", "Set String: " + productSet);
+
+
+        addEvents();
     }
 
 //    protected void onStart() {
@@ -37,29 +50,20 @@ public class MainActivity_containtFragment extends AppCompatActivity {
 //        return;
 //    }
 
-    protected void onResumeFragments() {
-        super.onResumeFragments();
-//        // Kiểm tra xem có dữ liệu trong Bundle không
-//        Bundle bundle = getArguments();
-//        if (bundle != null && bundle.containsKey("selectedProduct")) {
-//            selectedProduct = (Product) bundle.getSerializable("selectedProduct");
-//            Log.d("Product_Details", "selectedProduct: Price1 = " + selectedProduct);
-//        } else {
-//            Log.d("Product_Details", "vãi lồn");
-//            replaceFragment(new Giohang_Fragment());
-//        }
-        Product selectedProduct = (Product) getIntent().getSerializableExtra("selectedProduct");
-
-        Giohang_Fragment giohangFragment = new Giohang_Fragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("selectedProduct", selectedProduct);
-        giohangFragment.setArguments(bundle);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.containerLayout, giohangFragment)
-                .commit();
-//        replaceFragment(new Homepage());
-    }
+//    protected void onResume() {
+//        super.onResume();
+//        Product selectedProduct = (Product) getIntent().getSerializableExtra("selectedProduct");
+//
+//        //Giohang_Fragment giohangFragment = new Giohang_Fragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("selectedProduct", selectedProduct);
+//        giohangFragment.setArguments(bundle);
+//
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(R.id.containerLayout, giohangFragment)
+//                .commit();
+////        replaceFragment(new Homepage());
+//    }
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
@@ -85,6 +89,35 @@ public class MainActivity_containtFragment extends AppCompatActivity {
     private void checkLoginAndReplaceFragment() {
         isLoggedIn = readLoginStatus();
     }
+
+//    public void updateCartInSharedPreferences(Product product) {
+//        Log.d("Main","chạy đc cái update r");
+//        SharedPreferences sharedPreferences = getSharedPreferences("cart_prefs", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        Set<String> productSet = sharedPreferences.getStringSet("cart_items", new HashSet<String>());
+//        // Convert product to string and add to productSet
+//        productSet.add(convertProductToString(product));
+//        editor.putStringSet("cart_items", productSet);
+//        Log.d("sp main", "cíu" + productSet);
+//        editor.apply();
+//    }
+
+//    private String convertProductToString(Product product) {
+//        StringBuilder stringBuilder = new StringBuilder();
+//
+//        // Thêm các trường thông tin của sản phẩm vào chuỗi
+//        stringBuilder.append(product.getPd_id()).append(","); // pd_id
+//        stringBuilder.append(product.getPd_name()).append(","); // pd_name
+//        stringBuilder.append(product.getPd_price()).append(","); // pd_price
+//        stringBuilder.append(product.getPd_price2()).append(","); // pd_price2
+//        stringBuilder.append(product.getPd_cate()).append(","); // pd_cate
+//        stringBuilder.append(product.getPd_brand()).append(","); // pd_brand
+//        stringBuilder.append(product.getPd_photo()).append(","); // pd_photo
+//        stringBuilder.append(product.getPd_des()).append(","); // pd_des
+//
+//        // Trả về chuỗi kết quả
+//        return stringBuilder.toString();
+//    }
 
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
