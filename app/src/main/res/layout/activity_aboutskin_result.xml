@@ -41,27 +41,29 @@
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:src="@drawable/round_corner"
+        android:src="@drawable/result_bg"
+        android:background="@drawable/round_corner_4"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/txtDa" />
+
 
     <TextView
         android:id="@+id/txtDa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tình trạng da: "
-        android:textSize="20sp"
+        android:text="Tình trạng da "
+        android:textSize="26sp"
         android:textStyle="bold"
         android:textColor="#8AB0F9"
-        android:layout_marginStart="30sp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
 
 
@@ -77,8 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đặc điểm"
-            android:textColor="#000000"
-            android:textSize="18sp"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
@@ -89,7 +91,7 @@
             android:id="@+id/txtDacdiem1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_corner"
+            android:background="@drawable/round_corner_3"
             android:padding="5dp"
             android:text="Đặc điểm"
             android:textSize="16sp"
@@ -102,7 +104,7 @@
             android:id="@+id/txtDacdiem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/round_corner"
+            android:background="@drawable/round_corner_2"
             android:padding="5dp"
             android:text="Đặc điểm nè elm coi nè"
             android:textSize="16sp"
@@ -126,7 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/round_corner"
+            android:background="@drawable/round_corner_3"
             android:padding="5dp"
             android:text="Đặc điểm nè elm coi nè"
             android:textSize="16sp"
@@ -146,6 +148,7 @@
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
@@ -155,6 +158,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
         android:justificationMode="inter_word"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
         android:textSize="16sp"
@@ -169,7 +173,7 @@
         android:text="Sản phẩm gợi ý"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#000000"
+        android:textColor="@color/blue"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
