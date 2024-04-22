@@ -52,7 +52,7 @@ public class MyAccountFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-        private String mParam1;
+    private String mParam1;
 
     private String mParam2;
     @Override
@@ -81,7 +81,7 @@ public class MyAccountFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-    
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -177,7 +177,7 @@ public class MyAccountFragment extends Fragment {
             }
         });
 
-                binding.morongdonhang.setOnClickListener(new View.OnClickListener() {
+        binding.morongdonhang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(requireActivity(), Donhang_dathang.class);

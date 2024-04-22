@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.models.Account;
 
@@ -52,16 +53,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean checkLogin(String emailPhone, String password) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_USER_ID, COLUMN_USER_PHONE}; // Thêm COLUMN_USER_PHONE vào đây
-        String selection = COLUMN_USER_PHONE + " = ? AND " + COLUMN_USER_PASSWORD + " = ?";
-        String[] selectionArgs = {emailPhone, password};
-        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
-        int count = cursor.getCount();
-        cursor.close();
-        return count > 0;
-    }
+//    public boolean checkLogin(String emailPhone, String password) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        String[] columns = {COLUMN_USER_ID, COLUMN_USER_PHONE}; // Thêm COLUMN_USER_PHONE vào đây
+//        String selection = COLUMN_USER_PHONE + " = ? AND " + COLUMN_USER_PASSWORD + " = ?";
+//        String[] selectionArgs = {emailPhone, password};
+//        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
+//        int count = cursor.getCount();
+//        cursor.close();
+//        return count > 0;
+//    }
+//public boolean checkLogin(String emailPhone, String password) {
+//    SQLiteDatabase db = this.getReadableDatabase();
+//    String[] columns = {COLUMN_USER_ID, COLUMN_USER_PHONE, COLUMN_USER_EMAIL}; // Thêm cột email vào danh sách cột
+//    String selection = COLUMN_USER_PHONE + " = ? OR " + COLUMN_USER_EMAIL + " = ?"; // Sử dụng OR để kiểm tra cả số điện thoại và email
+//    String[] selectionArgs = {emailPhone, emailPhone}; // Dùng emailPhone cho cả số điện thoại và email
+//    Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
+//            int count = cursor.getCount();
+//        cursor.close();
+//        return count > 0;
+////    cursor.close();
+////    return false; // Trả về false nếu không tìm thấy số điện thoại hoặc email hoặc mật khẩu không khớp
+//}
+public boolean checkLogin(String emailPhone, String password) {
+    SQLiteDatabase db = this.getReadableDatabase();
+    String[] columns = {COLUMN_USER_ID, COLUMN_USER_PHONE, COLUMN_USER_EMAIL};
+    String selection = "(" + COLUMN_USER_PHONE + " = ? OR " + COLUMN_USER_EMAIL + " = ?) AND " + COLUMN_USER_PASSWORD + " = ?";
+    String[] selectionArgs = {emailPhone, emailPhone, password};
+    Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
+    int count = cursor.getCount();
+    cursor.close();
+    return count > 0;
+}
+
+
     public void saveUserToDatabase(Account user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -140,7 +165,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(USER, values, COLUMN_USER_PHONE + " = ?", new String[]{phone});
         db.close();
     }
+    public boolean checkEmailTonTai(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_USER_EMAIL};
+        String selection = COLUMN_USER_EMAIL + " = ?";
+        String[] selectionArgs = {email};
+        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count > 0;
+    }
 
+    public String getUserPhone(String emailPhone) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String userPhone = "";
+
+        String[] columns = {COLUMN_USER_PHONE};
+        String selection = COLUMN_USER_PHONE + " = ? OR " + COLUMN_USER_EMAIL + " = ?";
+        String[] selectionArgs = {emailPhone, emailPhone};
+
+        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int userPhoneColumnIndex = cursor.getColumnIndex(COLUMN_USER_PHONE);
+            if (userPhoneColumnIndex != -1) {
+                userPhone = cursor.getString(userPhoneColumnIndex);
+            } else {
+                Log.e("Error", "Column 'user_phone' does not exist in the result set");
+            }
+            cursor.close();
+        } else {
+            Log.e("Error", "No data found in the result set");
+        }
+
+        return userPhone;
+    }
 
 
 }
