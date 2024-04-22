@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:hint="Nhập số lượng"
+
         app:layout_constraintStart_toEndOf="@+id/imgProduct"
         app:layout_constraintTop_toBottomOf="@+id/txtProductquantity" />
 
