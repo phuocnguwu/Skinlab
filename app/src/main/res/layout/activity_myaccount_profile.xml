@@ -28,7 +28,7 @@
         android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="Hồ sơ"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +62,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Nguyễn Vũ Mai Thanh"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imvavatar" />
 
@@ -73,7 +73,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="28dp"
         android:text="Họ và tên"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtHotenprofile" />
 
@@ -87,7 +87,7 @@
         android:text="Nguyễn Vũ Mai Thanh"
         android:background="@drawable/roundcorner_edittext"
         android:padding="8dp"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtHoten"
@@ -100,7 +100,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="32dp"
         android:text="Số điện thoại"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtHoten" />
 
@@ -114,7 +114,7 @@
         android:background="@drawable/roundcorner_edittext"
         android:text="0942058065"
         android:padding="8dp"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtsdt"
@@ -127,7 +127,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="32dp"
         android:text="Email"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtsdt" />
 
@@ -140,7 +140,7 @@
         android:layout_marginStart="36dp"
         android:background="@drawable/roundcorner_edittext"
         android:padding="8dp"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:text="nguyenvumaithanh003@gmail.com"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -154,26 +154,9 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="32dp"
         android:text="Ngày sinh"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
-
-<!--    <EditText-->
-<!--        android:id="@+id/txtngaysinh"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginEnd="36dp"-->
-<!--        android:layout_marginStart="36dp"-->
-<!--        android:background="@drawable/roundcorner_edittext"-->
-<!--        android:padding="8dp"-->
-<!--        android:textSize="20sp"-->
-<!--        android:text="09/10/2003"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/textView8"-->
-<!--        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />-->
-
     <TextView
         android:id="@+id/txtGioitinh"
         android:layout_width="wrap_content"
@@ -181,11 +164,9 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="32dp"
         android:text="Giới tính"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtngaysinh" />
-
-
     <EditText
         android:id="@+id/edtngaysinh"
         android:layout_width="match_parent"
@@ -195,7 +176,7 @@
         android:layout_marginStart="36dp"
         android:background="@drawable/roundcorner_edittext"
         android:padding="8dp"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNgaysinh"
         tools:ignore="TouchTargetSizeCheck" />
@@ -209,12 +190,11 @@
         android:layout_marginStart="36dp"
         android:background="@drawable/roundcorner_edittext"
         android:padding="8dp"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtGioitinh"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
     <Button
         android:id="@+id/btnsavepf"
         android:layout_width="wrap_content"
@@ -223,7 +203,7 @@
         android:layout_marginEnd="20dp"
         android:backgroundTint="#000000"
         android:text="Lưu"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

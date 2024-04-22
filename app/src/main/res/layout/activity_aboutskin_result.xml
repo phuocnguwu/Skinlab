@@ -138,7 +138,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textViewMota1"
+        android:id="@+id/txtMota1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -153,7 +153,21 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
     <TextView
-        android:id="@+id/textViewMota2"
+        android:id="@+id/txtGoiy1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gợi ý"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtMota1" />
+
+
+    <TextView
+        android:id="@+id/txtMota2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -164,7 +178,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMota1" />
+        app:layout_constraintTop_toBottomOf="@+id/txtGoiy1" />
 
     <TextView
         android:id="@+id/txtGoiy"
@@ -177,7 +191,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMota2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtMota2" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvProduct"

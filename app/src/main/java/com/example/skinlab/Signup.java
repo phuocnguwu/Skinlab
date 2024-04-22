@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -19,6 +21,8 @@ import com.example.skinlab.databinding.ActivitySignupBinding;
 public class Signup extends AppCompatActivity {
     ActivitySignupBinding binding;
     DatabaseHelper databaseHelper;
+    boolean isPasswordVisible = false;
+
 
 
     @Override
@@ -31,6 +35,9 @@ public class Signup extends AppCompatActivity {
     }
 
     private void addEvents() {
+
+
+
         binding.btnsavepf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,40 +48,6 @@ public class Signup extends AppCompatActivity {
                 }
             }
 
-//            private boolean isInputValid() {
-//                String hoTen = binding.edtHoten.getText().toString().trim();
-//                String sdt = binding.edtSdt.getText().toString().trim();
-//                String email = binding.edtEmail.getText().toString().trim();
-//                String matKhau = binding.edtMatkhau.getText().toString().trim();
-//                String dob = binding.edtDOB.getText().toString().trim();
-//                String gioiTinh = binding.edtGioitinh.getText().toString().trim();
-//
-//                // Kiểm tra xem các trường thông tin có rỗng không
-//                if (hoTen.isEmpty() || sdt.isEmpty() || email.isEmpty() || matKhau.isEmpty() || dob.isEmpty() || gioiTinh.isEmpty()) {
-//                    return false;
-//                }
-//                // Kiểm tra định dạng số điện thoại
-//                if (!isValidPhoneNumber(sdt)) {
-//                    return false;
-//                }
-//
-//                // Kiểm tra email
-//                if (!isValidEmail(email)) {
-//                    return false;
-//                }
-//
-//                // Kiểm tra mật khẩu
-//                if (matKhau.length() < 6 || !isValidPassword(matKhau)) {
-//                    return false;
-//                }
-//
-//                // Kiểm tra định dạng ngày sinh
-//                if (!isValidDOB(dob)) {
-//                    return false;
-//                }
-//
-//                return true;
-//            }
 
             private void showSuccessDialog() {
                 String hoTen = binding.edtHoten.getText().toString().trim();
@@ -137,6 +110,7 @@ public class Signup extends AppCompatActivity {
                 }
                 return true;
             }
+
             private boolean isValidPassword(String password) {
                 // Kiểm tra mật khẩu có ít nhất 6 ký tự và chứa ít nhất một ký tự đặc biệt
                 if (password.length() < 6) {
@@ -193,9 +167,11 @@ public class Signup extends AppCompatActivity {
                 return true;
             }
 
+
             private void showToast(String message) {
                 Toast.makeText(Signup.this, message, Toast.LENGTH_SHORT).show();
             }
+
         });
     }
 

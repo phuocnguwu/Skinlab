@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MyAccountFragment"
-        android:id="@+id/myaccountcontainlayout">
+        android:id="@+id/myaccountcontainlayout"
+        >
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
@@ -17,7 +18,7 @@
             android:layout_marginTop="32dp"
             android:gravity="center"
             android:text="Thông tin cá nhân"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +72,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="4dp"
                 android:text="Hồ sơ của bạn"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/iconprofile"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -124,9 +125,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="28dp"
                 android:text="Đơn hàng"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/icondonhang"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -180,9 +181,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="28dp"
                 android:text="Địa chỉ"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/icondiachi"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -235,9 +236,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="28dp"
                 android:text="Cài đặt"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/iconcaidat"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -292,9 +293,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="30dp"
                 android:text="Đăng xuất"
-                android:textSize="14sp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/icondangxuat"
                 app:layout_constraintTop_toTopOf="parent" />
 
