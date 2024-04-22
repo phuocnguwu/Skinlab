@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.models.Question;
@@ -17,10 +16,12 @@ import java.util.List;
 public class QuestionAdapter extends BaseAdapter {
     Context context;
     List<Question> quesList;
+    int totalScore;
 
     public QuestionAdapter(Context context, List<Question> quesList) {
         this.context = context;
         this.quesList = quesList;
+        this.totalScore = 0;
     }
 
     @Override
@@ -77,6 +78,7 @@ public class QuestionAdapter extends BaseAdapter {
                 question.setCheckedB(false);
                 question.setCheckedC(false);
                 question.setCheckedD(false);
+                totalScore += 1;
                 notifyDataSetChanged(); // Cập nhật lại ListView
             }
         });
@@ -88,6 +90,7 @@ public class QuestionAdapter extends BaseAdapter {
                 question.setCheckedB(true);
                 question.setCheckedC(false);
                 question.setCheckedD(false);
+                totalScore += 2;
                 notifyDataSetChanged(); // Cập nhật lại ListView
             }
         });
@@ -99,6 +102,7 @@ public class QuestionAdapter extends BaseAdapter {
                 question.setCheckedB(false);
                 question.setCheckedC(true);
                 question.setCheckedD(false);
+                totalScore += 3;
                 notifyDataSetChanged(); // Cập nhật lại ListView
             }
         });
@@ -110,6 +114,7 @@ public class QuestionAdapter extends BaseAdapter {
                 question.setCheckedB(false);
                 question.setCheckedC(false);
                 question.setCheckedD(true);
+                totalScore += 4;
                 notifyDataSetChanged(); // Cập nhật lại ListView
             }
         });

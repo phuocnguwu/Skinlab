@@ -3,7 +3,9 @@ package com.example.skinlab;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -20,7 +22,11 @@ public class Aboutskin_result extends AppCompatActivity {
     ActivityAboutskinResultBinding binding;
     ProductAdapter adapter;
     ArrayList<Product> products;
+
+    DatabaseHelper dbHelper;
+
     public static final String DB_NAME = "Skinlab.db";
+
     public static SQLiteDatabase db = null;
     public static final String TBL_NAME = "product";
     public static final String COLUMN_PD_ID = "pd_id";
@@ -32,6 +38,16 @@ public class Aboutskin_result extends AppCompatActivity {
     public static final String COLUMN_PD_PHOTO = "pd_photo";
     public static final String COLUMN_PD_DES = "pd_des";
     public static final String COLUMN_PD_SKINTYPE = "pd_skintype";
+    public static final String TBL_SKIN = "ABOUTSKIN_DACDIEM";
+    public static final String COLUMN_DACDIEM1 = "skin_dacdiem1";
+    public static final String COLUMN_DACDIEM2 = "skin_dacdiem2";
+    public static final String COLUMN_DACDIEM3 = "skin_dacdiem3";
+    public static final String COLUMN_MOTA1 = "skin_mota";
+    public static final String COLUMN_MOTA2 = "skin_dacdiemmota2";
+    public static final String COLUMN_USERSKIN = "user_skin";
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +57,50 @@ public class Aboutskin_result extends AppCompatActivity {
 
         loadDb();
         addEvents();
+//        updateDb();
+//
+
+
+//        Intent intent = getIntent();
+//        if (intent != null && intent.hasExtra("TOTAL_SCORE")) {
+//            int totalScore = intent.getIntExtra("TOTAL_SCORE", 0);
+//            // Hiển thị kết quả dựa trên tổng điểm nhận được
+//            // Ví dụ: Hiển thị "Da dầu" nếu điểm từ 20 đến 40
+//            if (totalScore > 20 && totalScore <= 40) {
+//                binding.txtDa.setText("Da dầu");
+//            } else if (totalScore >= 10 && totalScore <= 20) {
+//                binding.txtDa.setText("Da khô"); // Hiển thị "Da khô" nếu điểm từ 10 đến 20
+//            }
+//        }
+
+        dbHelper = new DatabaseHelper(this);
+
+        // Kiểm tra xem người dùng có đăng nhập không
+        String loggedInPhone = getLoggedInPhone(); // Lấy user_phone từ SharedPreferences
+
+        // Kiểm tra xem có đăng nhập hay không
+        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+            // Nếu có đăng nhập, kiểm tra totalScore và cập nhật user_skin tương ứng
+            int totalScore = getIntent().getIntExtra("TOTAL_SCORE", 0);
+            if (totalScore > 20 && totalScore <= 40) {
+                // Update user_skin thành "Da dầu"
+                dbHelper.updateUserSkin(loggedInPhone, "Da dầu");
+                binding.txtDa.setText("Da dầu");
+            } else if (totalScore >= 10 && totalScore <= 20) {
+                // Update user_skin thành "Da khô"
+                dbHelper.updateUserSkin(loggedInPhone, "Da khô");
+                binding.txtDa.setText("Da khô");
+            }
+        } else {
+            // Nếu không đăng nhập, chỉ setText cho txtDa dựa trên totalScore
+            int totalScore = getIntent().getIntExtra("TOTAL_SCORE", 0);
+            if (totalScore > 20 && totalScore <= 40) {
+                binding.txtDa.setText("Da dầu");
+            } else if (totalScore >= 10 && totalScore <= 20) {
+                binding.txtDa.setText("Da khô");
+            }
+        }
+
     }
 
     private void loadDb() {
@@ -105,6 +165,27 @@ public class Aboutskin_result extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+//    private void updateDb() {
+//        String loggedInPhone = getLoggedInPhone();
+//        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+//            Intent intent = getIntent();
+//            if (intent != null && intent.hasExtra("TOTAL_SCORE")) {
+//                int totalScore = intent.getIntExtra("TOTAL_SCORE", 0);
+//                if (totalScore > 20 && totalScore <= 40) {
+//                    dbHelper.updateUserSkinType("Da dầu");
+//                } else if (totalScore >= 10 && totalScore <= 20) {
+//                    dbHelper.updateUserSkinType("Da khô");
+//                }
+//            }
+//        }
+//    }
+//
+
+    private String getLoggedInPhone() {
+        SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("loggedInPhone", "");
     }
 
     private void addEvents() {

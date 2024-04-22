@@ -141,6 +141,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateUserSkin(String phone, String newSkinType) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_SKINTYPE, newSkinType);
+
+        // Cập nhật thông tin user_skin của người dùng
+        db.update(USER, values, COLUMN_USER_PHONE + " = ?", new String[]{phone});
+        db.close();
+    }
+
+
+
 
 
 }
