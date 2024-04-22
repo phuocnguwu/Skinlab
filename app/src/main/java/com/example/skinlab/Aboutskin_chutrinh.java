@@ -1,11 +1,15 @@
 package com.example.skinlab;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -25,6 +29,9 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
     ProductAdapter adapter;
 
     ArrayList<Product> products;
+
+    DatabaseHelper dbHelper;
+
     public static final String DB_NAME = "Skinlab.db";
     public static SQLiteDatabase db = null;
     public static final String TBL_NAME = "product";
@@ -59,6 +66,15 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
             loadDb(userSkinType, "Kem dưỡng", binding.rcvKem);
         }
 
+        dbHelper = new DatabaseHelper(this);
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateDb();
     }
 
     // Phương thức để lấy loại da từ database của người dùng
@@ -163,6 +179,32 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
         });
     }
 
+
+    private void updateDb(){
+        String loggedInPhone = getLoggedInPhone(); // Lấy user_phone từ SharedPreferences
+        String userSkinType = dbHelper.getUserSkinType(loggedInPhone);
+
+// Kiểm tra xem có đăng nhập hay không
+        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+            if (userSkinType != null && !userSkinType.isEmpty()) {
+                // Hiển thị dữ liệu từ cột user_skin nếu có
+                binding.txtTinhtrangda.setText(userSkinType);
+            } else {
+                // Hiển thị "Không có" nếu cột user_skin trống hoặc dữ liệu là null
+                binding.txtTinhtrangda.setText("Không có");
+            }
+        } else {
+            // Hiển thị "Không có" nếu không có đăng nhập
+            binding.txtTinhtrangda.setText("Không có");
+        }
+
+    }
+
+    private String getLoggedInPhone() {
+        // Sử dụng requireContext() để lấy Context của Fragment
+        SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("loggedInPhone", "");
+    }
 
     private void addEvents() {
         binding.btnTest.setOnClickListener(new View.OnClickListener() {

@@ -40,6 +40,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
+    public boolean userHasAddress1(String phone) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_USER_ADDRESS}; // Assuming COLUMN_USER_ADDRESS represents the address1 field
+        String selection = COLUMN_USER_PHONE + " = ?";
+        String[] selectionArgs = {phone};
+        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
+        boolean hasAddress1 = false;
+        if (cursor != null && cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndex(COLUMN_USER_ADDRESS);
+            if (columnIndex != -1) {
+                hasAddress1 = !cursor.isNull(columnIndex);
+            }
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+        return hasAddress1;
+    }
+
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 
@@ -52,29 +73,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-
-//    public boolean checkLogin(String emailPhone, String password) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        String[] columns = {COLUMN_USER_ID, COLUMN_USER_PHONE}; // Thêm COLUMN_USER_PHONE vào đây
-//        String selection = COLUMN_USER_PHONE + " = ? AND " + COLUMN_USER_PASSWORD + " = ?";
-//        String[] selectionArgs = {emailPhone, password};
-//        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
-//        int count = cursor.getCount();
-//        cursor.close();
-//        return count > 0;
-//    }
-//public boolean checkLogin(String emailPhone, String password) {
-//    SQLiteDatabase db = this.getReadableDatabase();
-//    String[] columns = {COLUMN_USER_ID, COLUMN_USER_PHONE, COLUMN_USER_EMAIL}; // Thêm cột email vào danh sách cột
-//    String selection = COLUMN_USER_PHONE + " = ? OR " + COLUMN_USER_EMAIL + " = ?"; // Sử dụng OR để kiểm tra cả số điện thoại và email
-//    String[] selectionArgs = {emailPhone, emailPhone}; // Dùng emailPhone cho cả số điện thoại và email
-//    Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
-//            int count = cursor.getCount();
-//        cursor.close();
-//        return count > 0;
-////    cursor.close();
-////    return false; // Trả về false nếu không tìm thấy số điện thoại hoặc email hoặc mật khẩu không khớp
-//}
 public boolean checkLogin(String emailPhone, String password) {
     SQLiteDatabase db = this.getReadableDatabase();
     String[] columns = {COLUMN_USER_ID, COLUMN_USER_PHONE, COLUMN_USER_EMAIL};
@@ -212,30 +210,31 @@ public boolean checkLogin(String emailPhone, String password) {
         db.close();
     }
 
-//    public String getUserSkin(String phone) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        String userSkinType = "";
-//
-//        String[] columns = {COLUMN_USER_SKINTYPE};
-//        String selection = COLUMN_USER_PHONE + " = ?";
-//        String[] selectionArgs = {phone};
-//
-//        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
-//
-//        if (cursor != null && cursor.moveToFirst()) {
-//            int userSkinColumnIndex = cursor.getColumnIndex(COLUMN_USER_SKINTYPE);
-//            if (userSkinColumnIndex != -1) {
-//                userSkinType = cursor.getString(userSkinColumnIndex);
-//            } else {
-//                Log.e("Error", "Column 'user_skin' does not exist in the result set");
-//            }
-//            cursor.close();
-//        } else {
-//            Log.e("Error", "No data found in the result set");
-//        }
-//
-//        return userSkinType;
-//    }
+    public String getUserSkinType(String userPhone) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String userSkinType = "";
+
+        String[] columns = {COLUMN_USER_SKINTYPE};
+        String selection = COLUMN_USER_PHONE + " = ?";
+        String[] selectionArgs = {userPhone};
+
+        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int userSkinTypeColumnIndex = cursor.getColumnIndex(COLUMN_USER_SKINTYPE);
+            if (userSkinTypeColumnIndex != -1) {
+                userSkinType = cursor.getString(userSkinTypeColumnIndex);
+            } else {
+                Log.e("Error", "Column 'user_skin' does not exist in the result set");
+            }
+            cursor.close();
+        } else {
+            Log.e("Error", "No data found in the result set");
+        }
+
+        return userSkinType;
+    }
+
 
 
 }

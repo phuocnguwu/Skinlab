@@ -187,7 +187,7 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
         return userPhone;
     }
 
-    private String getUserName(String loggedInPhone) {
+    public String getUserName(String loggedInPhone) {
         SQLiteDatabase db = databaseHelper.getReadableDatabase();
         String userName = "";
 
@@ -282,35 +282,6 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
                 onBackPressed();
             }
         });
-
-//        binding.btnsavepf.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String newhoten = binding.txtHoten.getText().toString();
-//                String newsdt = binding.txtsdt.getText().toString();
-//                String newemail = binding.txtEmail.getText().toString();
-//                binding.txtHoten.setText(newhoten);
-//                binding.txtsdt.setText(newsdt);
-//                binding.txtEmail.setText(newemail);
-//                showAlerDialog();
-//            }
-//            private void showAlerDialog() {
-//                ActivityDialogSaveBinding dialogsaveBinding = ActivityDialogSaveBinding.inflate(LayoutInflater.from(Myaccount_Profile.this));
-//                AlertDialog.Builder builder = new AlertDialog.Builder(Myaccount_Profile.this)
-//                        .setView(dialogsaveBinding.getRoot())
-//                        .setCancelable(true);
-//                final AlertDialog dialog = builder.create();
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                dialog.getWindow().setLayout(200, 200);
-//                dialog.show();
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        dialog.dismiss();
-//                    }
-//                }, 1000);
-//            }
-//        });
         binding.btnsavepf.setOnClickListener(v -> saveUserProfile());
 
     }

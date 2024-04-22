@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ public class Myaccount_Diachi extends AppCompatActivity {
         addEvents();
         createDb();
         databaseHelper = new DatabaseHelper(this);
+
 
     }
 
@@ -121,10 +123,78 @@ public class Myaccount_Diachi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Myaccount_Diachi.this, Myaccount_adddiachi.class);
+                // Kiểm tra xem người dùng đã có địa chỉ hay chưa
+                String loggedInPhone = getLoggedInPhone();
+                if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+                    boolean hasAddress = hasAddress(loggedInPhone);
+                    // Truyền dữ liệu nếu người dùng chưa có địa chỉ
+                    if (!hasAddress) {
+                        String userName = getUserName(loggedInPhone);
+                        String userPhone = getUserPhone(loggedInPhone);
+                        intent.putExtra("userName", userName);
+                        intent.putExtra("userPhone", userPhone);
+                    }
+                }
                 startActivity(intent);
             }
-        });
 
+            private String getUserPhone(String loggedInPhone) {
+                SQLiteDatabase db = databaseHelper.getReadableDatabase();
+                String userPhone = "";
+
+                Cursor cursor = db.query(DatabaseHelper.USER, new String[]{DatabaseHelper.COLUMN_USER_PHONE},
+                        DatabaseHelper.COLUMN_USER_PHONE + " = ?", new String[]{loggedInPhone}, null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    int userPhoneColumnIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_USER_PHONE);
+                    if (userPhoneColumnIndex != -1) {
+                        userPhone = cursor.getString(userPhoneColumnIndex);
+                    } else {
+                        Log.e("Error", "Column 'user_phone' does not exist in the result set");
+                    }
+                    cursor.close();
+                } else {
+                    Log.e("Error", "No data found in the result set");
+                }
+                return userPhone;
+            }
+
+            public String getUserName(String loggedInPhone) {
+                SQLiteDatabase db = databaseHelper.getReadableDatabase();
+                String userName = "";
+
+                Cursor cursor = db.query(DatabaseHelper.USER, new String[]{DatabaseHelper.COLUMN_USER_NAME},
+                        DatabaseHelper.COLUMN_USER_PHONE + " = ?", new String[]{loggedInPhone}, null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    int userNameColumnIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_USER_NAME);
+                    if (userNameColumnIndex != -1) {
+                        userName = cursor.getString(userNameColumnIndex);
+                    } else {
+                        Log.e("Error", "Column 'user_name' does not exist in the result set");
+                    }
+                    cursor.close();
+                } else {
+                    Log.e("Error", "No data found in the result set");
+                }
+                return userName;
+            }
+
+
+            private boolean hasAddress(String loggedInPhone) {
+                SQLiteDatabase db = databaseHelper.getReadableDatabase();
+                Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.USER +
+                        " WHERE " + DatabaseHelper.COLUMN_USER_PHONE + " = ?", new String[]{loggedInPhone});
+                boolean hasAddress = false;
+                if (cursor.moveToFirst()) {
+                    String address1 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS));
+                    if (address1 != null && !address1.isEmpty()) {
+                        hasAddress = true;
+                    }
+                }
+                cursor.close();
+                db.close();
+                return hasAddress;
+            }
+        });
 
     }
 }
