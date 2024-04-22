@@ -100,10 +100,19 @@ public class AboutskinFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        dbHelper = new DatabaseHelper(requireContext());
+
         addEvents();
         loadDb();
-//        updateDb();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateDb();
+    }
+
 
     private void loadDb() {
         db = SQLiteDatabase.openDatabase(requireContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
@@ -169,34 +178,32 @@ public class AboutskinFragment extends Fragment {
         });
     }
 
-//    private void updateDb(){
-//        String loggedInPhone = getLoggedInPhone();
-//        // Kiểm tra xem có đăng nhập hay không
-//        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
-//            // Tạo đối tượng DatabaseHelper để truy vấn cơ sở dữ liệu
-//            DatabaseHelper dbHelper = new DatabaseHelper(requireContext());
-//
-//            // Truy vấn cơ sở dữ liệu để lấy thông tin user_skin của người dùng đã đăng nhập
-//            String userSkinType = dbHelper.getUserSkin(loggedInPhone);
-//
-//            // Kiểm tra nếu dữ liệu user_skin không rỗng, thì hiển thị lên TextView
-//            if (!userSkinType.isEmpty()) {
-//                binding.txtTinhtrangda.setText(userSkinType);
-//            } else {
-//                // Nếu dữ liệu user_skin rỗng, hiển thị "Không có"
-//                binding.txtTinhtrangda.setText("Không có");
-//
-//                dbHelper.updateUserSkin(loggedInPhone, "Không có");
-//            }
-//        }
-//    }
-//
-//    private String getLoggedInPhone() {
-//        // Sử dụng requireContext() để lấy Context của Fragment
-//        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("login_pref", Context.MODE_PRIVATE);
-//        return sharedPreferences.getString("loggedInPhone", "");
-//    }
-//
+    private void updateDb(){
+        String loggedInPhone = getLoggedInPhone(); // Lấy user_phone từ SharedPreferences
+        String userSkinType = dbHelper.getUserSkinType(loggedInPhone);
+
+// Kiểm tra xem có đăng nhập hay không
+        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+            if (userSkinType != null && !userSkinType.isEmpty()) {
+                // Hiển thị dữ liệu từ cột user_skin nếu có
+                binding.txtTinhtrangda.setText(userSkinType);
+            } else {
+                // Hiển thị "Không có" nếu cột user_skin trống hoặc dữ liệu là null
+                binding.txtTinhtrangda.setText("Không có");
+            }
+        } else {
+            // Hiển thị "Không có" nếu không có đăng nhập
+            binding.txtTinhtrangda.setText("Không có");
+        }
+
+    }
+
+    private String getLoggedInPhone() {
+        // Sử dụng requireContext() để lấy Context của Fragment
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("loggedInPhone", "");
+    }
+
 
 
     private void addEvents() {

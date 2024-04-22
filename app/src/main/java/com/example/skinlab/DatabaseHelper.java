@@ -212,30 +212,31 @@ public boolean checkLogin(String emailPhone, String password) {
         db.close();
     }
 
-//    public String getUserSkin(String phone) {
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        String userSkinType = "";
-//
-//        String[] columns = {COLUMN_USER_SKINTYPE};
-//        String selection = COLUMN_USER_PHONE + " = ?";
-//        String[] selectionArgs = {phone};
-//
-//        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
-//
-//        if (cursor != null && cursor.moveToFirst()) {
-//            int userSkinColumnIndex = cursor.getColumnIndex(COLUMN_USER_SKINTYPE);
-//            if (userSkinColumnIndex != -1) {
-//                userSkinType = cursor.getString(userSkinColumnIndex);
-//            } else {
-//                Log.e("Error", "Column 'user_skin' does not exist in the result set");
-//            }
-//            cursor.close();
-//        } else {
-//            Log.e("Error", "No data found in the result set");
-//        }
-//
-//        return userSkinType;
-//    }
+    public String getUserSkinType(String userPhone) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String userSkinType = "";
+
+        String[] columns = {COLUMN_USER_SKINTYPE};
+        String selection = COLUMN_USER_PHONE + " = ?";
+        String[] selectionArgs = {userPhone};
+
+        Cursor cursor = db.query(USER, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int userSkinTypeColumnIndex = cursor.getColumnIndex(COLUMN_USER_SKINTYPE);
+            if (userSkinTypeColumnIndex != -1) {
+                userSkinType = cursor.getString(userSkinTypeColumnIndex);
+            } else {
+                Log.e("Error", "Column 'user_skin' does not exist in the result set");
+            }
+            cursor.close();
+        } else {
+            Log.e("Error", "No data found in the result set");
+        }
+
+        return userSkinType;
+    }
+
 
 
 }
