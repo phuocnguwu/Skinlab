@@ -43,10 +43,8 @@ public class Aboutskin_result extends AppCompatActivity {
     public static final String COLUMN_DACDIEM2 = "skin_dacdiem2";
     public static final String COLUMN_DACDIEM3 = "skin_dacdiem3";
     public static final String COLUMN_MOTA1 = "skin_mota";
-    public static final String COLUMN_MOTA2 = "skin_dacdiemmota2";
+    public static final String COLUMN_MOTA2 = "skin_mota2";
     public static final String COLUMN_USERSKIN = "user_skin";
-
-
 
 
     @Override
@@ -98,7 +96,7 @@ public class Aboutskin_result extends AppCompatActivity {
                     products.add(product);
                 }
             }
-            while (cursor.moveToNext()) ;
+            while (cursor.moveToNext());
             cursor.close();
         }
         // Tạo layout manager cho RecyclerView (ở đây là GridLayoutManager)
@@ -127,7 +125,37 @@ public class Aboutskin_result extends AppCompatActivity {
     }
 
 
-    private void updateDb(){
+//    private void updateDb(){
+//        dbHelper = new DatabaseHelper(this);
+//
+//        // Kiểm tra xem người dùng có đăng nhập không
+//        String loggedInPhone = getLoggedInPhone(); // Lấy user_phone từ SharedPreferences
+//
+//        // Kiểm tra xem có đăng nhập hay không
+//        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+//            // Nếu có đăng nhập, kiểm tra totalScore và cập nhật user_skin tương ứng
+//            int totalScore = getIntent().getIntExtra("TOTAL_SCORE", 0);
+//            if (totalScore > 20 && totalScore <= 40) {
+//                // Update user_skin thành "Da dầu"
+//                dbHelper.updateUserSkin(loggedInPhone, "Da dầu");
+//                binding.txtDa.setText("Da dầu");
+//            } else if (totalScore >= 10 && totalScore <= 20) {
+//                // Update user_skin thành "Da khô"
+//                dbHelper.updateUserSkin(loggedInPhone, "Da khô");
+//                binding.txtDa.setText("Da khô");
+//            }
+//        } else {
+//            // Nếu không đăng nhập, chỉ setText cho txtDa dựa trên totalScore
+//            int totalScore = getIntent().getIntExtra("TOTAL_SCORE", 0);
+//            if (totalScore > 20 && totalScore <= 40) {
+//                binding.txtDa.setText("Da dầu");
+//            } else if (totalScore >= 10 && totalScore <= 20) {
+//                binding.txtDa.setText("Da khô");
+//            }
+//        }
+//}
+
+    private void updateDb() {
         dbHelper = new DatabaseHelper(this);
 
         // Kiểm tra xem người dùng có đăng nhập không
@@ -141,10 +169,32 @@ public class Aboutskin_result extends AppCompatActivity {
                 // Update user_skin thành "Da dầu"
                 dbHelper.updateUserSkin(loggedInPhone, "Da dầu");
                 binding.txtDa.setText("Da dầu");
+                // Truy vấn dữ liệu từ bảng ABOUTSKIN_DACDIEM cho "Da dầu"
+                Cursor cursor = dbHelper.getSkinDataByType("Da dầu");
+                if (cursor != null && cursor.moveToFirst()) {
+                    // Hiển thị dữ liệu lên các TextView tương ứng
+                    binding.txtDacdiem1.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DACDIEM1)));
+                    binding.txtDacdiem2.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DACDIEM2)));
+                    binding.txtDacdiem3.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DACDIEM3)));
+                    binding.txtMota1.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MOTA1)));
+                    binding.txtMota2.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MOTA2)));
+                    cursor.close();
+                }
             } else if (totalScore >= 10 && totalScore <= 20) {
                 // Update user_skin thành "Da khô"
                 dbHelper.updateUserSkin(loggedInPhone, "Da khô");
                 binding.txtDa.setText("Da khô");
+                // Truy vấn dữ liệu từ bảng ABOUTSKIN_DACDIEM cho "Da khô"
+                Cursor cursor = dbHelper.getSkinDataByType("Da khô");
+                if (cursor != null && cursor.moveToFirst()) {
+                    // Hiển thị dữ liệu lên các TextView tương ứng
+                    binding.txtDacdiem1.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DACDIEM1)));
+                    binding.txtDacdiem2.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DACDIEM2)));
+                    binding.txtDacdiem3.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DACDIEM3)));
+                    binding.txtMota1.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MOTA1)));
+                    binding.txtMota2.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MOTA2)));
+                    cursor.close();
+                }
             }
         } else {
             // Nếu không đăng nhập, chỉ setText cho txtDa dựa trên totalScore
@@ -155,8 +205,8 @@ public class Aboutskin_result extends AppCompatActivity {
                 binding.txtDa.setText("Da khô");
             }
         }
-
     }
+
     private String getLoggedInPhone() {
         SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
         return sharedPreferences.getString("loggedInPhone", "");

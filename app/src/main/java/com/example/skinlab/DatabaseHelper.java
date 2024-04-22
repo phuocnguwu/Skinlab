@@ -25,6 +25,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USER_NAME2FORADDRESS2 = "user_name2foraddress2";
     public static final String COLUMN_USER_PHONE2FORADDRESS2 = "user_phone2foraddress2";
 
+    public static final String TBL_SKIN = "ABOUTSKIN_DACDIEM";
+    public static final String COLUMN_DACDIEM1 = "skin_dacdiem1";
+    public static final String COLUMN_DACDIEM2 = "skin_dacdiem2";
+    public static final String COLUMN_DACDIEM3 = "skin_dacdiem3";
+    public static final String COLUMN_MOTA1 = "skin_mota";
+    public static final String COLUMN_MOTA2 = "skin_mota2";
+    public static final String COLUMN_USERSKIN = "user_skin";
+
 
     public static final String COLUMN_USER_SKINTYPE = "user_skin";
 
@@ -233,6 +241,14 @@ public boolean checkLogin(String emailPhone, String password) {
         }
 
         return userSkinType;
+    }
+
+    public Cursor getSkinDataByType(String skinType) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_DACDIEM1, COLUMN_DACDIEM2, COLUMN_DACDIEM3, COLUMN_MOTA1, COLUMN_MOTA2};
+        String selection = COLUMN_USERSKIN + " = ?";
+        String[] selectionArgs = {skinType};
+        return db.query(TBL_SKIN, columns, selection, selectionArgs, null, null, null);
     }
 
 
