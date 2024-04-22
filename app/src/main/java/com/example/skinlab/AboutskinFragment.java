@@ -123,7 +123,6 @@ public class AboutskinFragment extends Fragment {
 
         String loggedInPhone = getLoggedInPhone();
         userSkinType = dbHelper.getUserSkinType(loggedInPhone);
-        Log.d("ProductCheck",  "Skintype: " + userSkinType);
 
         Cursor cursor = db.query(TBL_NAME, null, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
@@ -151,15 +150,13 @@ public class AboutskinFragment extends Fragment {
                     String pdDes = cursor.getString(columnIndexDes);
                     String pdPhoto = cursor.getString(columnIndexPhoto);
                     String pdSkintype = cursor.getString(columnIndexSkintype);
-//
-//                  / Kiểm tra tình trạng da của người dùng có nằm trong pdSkintype của sản phẩm không
+
+                    // Kiểm tra tình trạng da của người dùng có nằm trong pdSkintype của sản phẩm không
                     if (pdSkintype != null && userSkinType != null && pdSkintype.contains(userSkinType)) {
                         // Tạo đối tượng Product từ dữ liệu truy vấn
                         Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
                         products.add(product);
 
-                        // Log để kiểm tra
-                        Log.d("ProductCheck", "Added product: " + " | Skintype: " + pdSkintype);
                     }
                 }
             }
