@@ -1,10 +1,5 @@
 package com.example.skinlab;
 
-import static com.example.skinlab.DatabaseHelper.COLUMN_USER_PHONE;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,14 +7,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.adapters.AppointmentAdapter;
 import com.example.adapters.QuestionAdapter;
-import com.example.models.Appointment;
 import com.example.models.Question;
 import com.example.skinlab.databinding.ActivityAboutskinTestBinding;
 
@@ -32,11 +26,10 @@ public class Aboutskin_test extends AppCompatActivity {
 
     private boolean allQuestionsAnswered = false;
 
-    ListView listView;
+    RecyclerView recyclerView;
     QuestionAdapter adapter;
     ArrayList<Question> questionList;
     DatabaseHelper databaseHelper;
-    private RadioGroup[] radioGroups;
 
     public static final String DB_NAME = "Skinlab.db";
 
@@ -57,6 +50,8 @@ public class Aboutskin_test extends AppCompatActivity {
         setContentView(binding.getRoot());
         databaseHelper = new DatabaseHelper(this);
 
+        recyclerView = findViewById(R.id.lvTest);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         addEvents();
         loadQuestion();
@@ -66,7 +61,6 @@ public class Aboutskin_test extends AppCompatActivity {
     private void loadQuestion() {
         questionList = new ArrayList<>();
         db = SQLiteDatabase.openDatabase(getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
-
 
         Cursor cursor = db.query(TBL_NAME, null, null, null, null, null, null);
 
@@ -78,7 +72,6 @@ public class Aboutskin_test extends AppCompatActivity {
                 int columnIndexB = cursor.getColumnIndex(COLUMN_TEST_B);
                 int columnIndexC = cursor.getColumnIndex(COLUMN_TEST_C);
                 int columnIndexD = cursor.getColumnIndex(COLUMN_TEST_D);
-
 
                 if (columnIndexSTT != -1 && columnIndexQuestion != -1 &&
                         columnIndexA != -1 && columnIndexB != -1 && columnIndexC != -1
@@ -99,8 +92,8 @@ public class Aboutskin_test extends AppCompatActivity {
             cursor.close();
         }
 
-        QuestionAdapter adapter = new QuestionAdapter(this, questionList);
-        binding.lvTest.setAdapter(adapter);
+        adapter = new QuestionAdapter(this, questionList);
+        recyclerView.setAdapter(adapter);
     }
 
     private boolean isAllQuestionsAnswered() {
@@ -155,8 +148,4 @@ public class Aboutskin_test extends AppCompatActivity {
         }
         return totalScore;
     }
-
-
-
-
 }
