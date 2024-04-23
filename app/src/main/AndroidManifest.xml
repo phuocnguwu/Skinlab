@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Skinlab"
         tools:targetApi="31">
         <activity
+            android:name=".Dialog_YeucauDangnhap"
+            android:exported="false" />
+        <activity
             android:name=".Quenmatkhau_Matkhaumoi"
             android:exported="false" />
         <activity
