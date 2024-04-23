@@ -1,17 +1,18 @@
 package com.example.models;
 
-import java.io.Serializable;
-import java.sql.Blob;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Feedback implements Serializable {
+public class Feedback implements Parcelable {
     private String feedbackId;
-    private String userThumbUrl; // Đường dẫn ảnh đại diện của người dùng
+    private String userThumbUrl;
     private String userName;
     private String date;
     private int ratings;
     private String feedbackTitle;
     private String feedbackContent;
 
+    // Constructor
     public Feedback(String feedbackId, String userThumbUrl, String userName, String date, int ratings, String feedbackTitle, String feedbackContent) {
         this.feedbackId = feedbackId;
         this.userThumbUrl = userThumbUrl;
@@ -22,59 +23,71 @@ public class Feedback implements Serializable {
         this.feedbackContent = feedbackContent;
     }
 
-    public String getFeedbackId() {
-        return feedbackId;
+    // Parcelable implementation
+    protected Feedback(Parcel in) {
+        feedbackId = in.readString();
+        userThumbUrl = in.readString();
+        userName = in.readString();
+        date = in.readString();
+        ratings = in.readInt();
+        feedbackTitle = in.readString();
+        feedbackContent = in.readString();
     }
 
-    public void setFeedbackId(String feedbackId) {
-        this.feedbackId = feedbackId;
+    public static final Creator<Feedback> CREATOR = new Creator<Feedback>() {
+        @Override
+        public Feedback createFromParcel(Parcel in) {
+            return new Feedback(in);
+        }
+
+        @Override
+        public Feedback[] newArray(int size) {
+            return new Feedback[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(feedbackId);
+        dest.writeString(userThumbUrl);
+        dest.writeString(userName);
+        dest.writeString(date);
+        dest.writeInt(ratings);
+        dest.writeString(feedbackTitle);
+        dest.writeString(feedbackContent);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    // Getters and setters
+    public String getFeedbackId() {
+        return feedbackId;
     }
 
     public String getUserThumbUrl() {
         return userThumbUrl;
     }
 
-    public void setUserThumbUrl(String userThumbUrl) {
-        this.userThumbUrl = userThumbUrl;
-    }
-
     public String getUserName() {
         return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public int getRatings() {
         return ratings;
-    }
-
-    public void setRatings(int ratings) {
-        this.ratings = ratings;
     }
 
     public String getFeedbackTitle() {
         return feedbackTitle;
     }
 
-    public void setFeedbackTitle(String feedbackTitle) {
-        this.feedbackTitle = feedbackTitle;
-    }
-
     public String getFeedbackContent() {
         return feedbackContent;
-    }
-
-    public void setFeedbackContent(String feedbackContent) {
-        this.feedbackContent = feedbackContent;
     }
 }
