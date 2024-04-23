@@ -41,24 +41,28 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<ProductDetailsAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-//                holder.imvProduct.setImageResource(products.get(position).getPd_photo());
-        Picasso.get().load(products.get(position).getPd_photo()).into(holder.imvProduct);
-        holder.txtProductBrand.setText(products.get(position).getPd_brand());
-        holder.txtProductName.setText(products.get(position).getPd_name());
-        holder.txtProductDes.setText(products.get(position).getPd_des());
-        holder.txtId.setText(products.get(position).getPd_id());
-
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator('.'); // Dấu chấm làm dấu phân tách hàng nghìn
 
         DecimalFormat decimalFormat = new DecimalFormat("#,##0", symbols);
         decimalFormat.setGroupingSize(3); // Định dạng hàng nghìn theo từng nhóm 3 chữ số
 
-        String formattedPrice = decimalFormat.format(products.get(position).getPd_price());
-        String formattedPrice2 = decimalFormat.format(products.get(position).getPd_price2());
+        // Lấy giá trị pd_price (giả sử là kiểu long)
+        long price = products.get(position).getPd_price();
+        String formattedPrice = decimalFormat.format(price);
+
+// Lấy giá trị pd_price2 (giả sử là kiểu long)
+        long price2 = products.get(position).getPd_price2();
+        String formattedPrice2 = decimalFormat.format(price2);
+
+// Hiển thị giá sản phẩm trong TextView
         holder.txtProductPrice.setText(formattedPrice + " đ");
         holder.txtProductPrice2.setText(formattedPrice2 + " đ");
-
+        Picasso.get().load(products.get(position).getPd_photo()).into(holder.imvProduct);
+        holder.txtProductBrand.setText(products.get(position).getPd_brand());
+        holder.txtProductName.setText(products.get(position).getPd_name());
+        holder.txtProductDes.setText(products.get(position).getPd_des());
+        holder.txtId.setText(products.get(position).getPd_id());
 
         // Khi click 1 item
         final int itemPosition = position;
