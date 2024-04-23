@@ -32,11 +32,9 @@
                 tools:layout_editor_absoluteX="20dp">
 
                 <ImageView
-                    android:id="@+id/imvBack"
-                    android:layout_width="44dp"
+                    android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_gravity="start"
-                    android:src="@drawable/back" />
+                    android:layout_gravity="start" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -101,7 +99,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvSlider"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"/>
 
             <TableRow
                 android:id="@+id/tableRow"

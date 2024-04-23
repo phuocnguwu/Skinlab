@@ -32,7 +32,7 @@
             android:text="Tình trạng da: "
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#8AB0F9"
+            android:textColor="@color/black"
             android:layout_marginStart="30sp"
             android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="@+id/imageView2"
@@ -55,10 +55,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ECF96E"
-            android:text="Kiểm tra  >"
+            android:text="Kiểm tra"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
@@ -97,7 +96,6 @@
                 android:text="Chu trình dưỡng da"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/ibtnChutrinh"
                 app:layout_constraintTop_toTopOf="@+id/ibtnChutrinh" />
 
@@ -125,7 +123,6 @@
                 android:text="Xem lịch    tư vấn"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/ibtnLichhen"
                 app:layout_constraintTop_toTopOf="@+id/ibtnLichhen" />
         </androidx.constraintlayout.widget.ConstraintLayout>
