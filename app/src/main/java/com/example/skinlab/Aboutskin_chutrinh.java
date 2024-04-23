@@ -2,6 +2,7 @@ package com.example.skinlab;
 
 import static androidx.core.content.ContentProviderCompat.requireContext;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,13 +13,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.adapters.ProductAdapter;
 import com.example.models.Product;
 import com.example.skinlab.databinding.ActivityAboutskinChutrinhBinding;
+import com.example.skinlab.databinding.ActivityDialogYeucauDangnhapBinding;
+import com.example.skinlab.databinding.ActivityForumDialogSendBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,7 +208,9 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
             }
         } else {
             // Hiển thị "Không có" nếu không có đăng nhập
-            binding.txtTinhtrangda.setText("Đăng nhập để hiển thị");
+            binding.txtTinhtrangda.setText("Không có");
+            showAlerDialog();
+
         }
 
     }
@@ -224,6 +233,19 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showAlerDialog() {
+        ActivityDialogYeucauDangnhapBinding yeucauDangnhapBinding = ActivityDialogYeucauDangnhapBinding.inflate(LayoutInflater.from(Aboutskin_chutrinh.this));
+        AlertDialog.Builder builder = new AlertDialog.Builder(Aboutskin_chutrinh.this)
+                .setView(yeucauDangnhapBinding.getRoot())
+                .setCancelable(true);
+
+        // Create dialog
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setLayout(200, 200);
+        dialog.show();
     }
 
 }
