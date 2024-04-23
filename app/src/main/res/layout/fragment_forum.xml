@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ForumFragment"
     android:padding="10dp">
-    <ImageButton
-        android:id="@+id/btnclickback"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="27dp"
-        android:src="@drawable/arrowleft"
-        android:background="@drawable/backgroundbuttonback"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textviewTieude"
         android:layout_width="match_parent"
@@ -74,6 +63,7 @@
         android:text="+  Thêm đánh giá"
         android:textColor="#000000"
         android:textSize="16sp"
+        android:layout_gravity="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textviewTieude"
@@ -82,18 +72,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textviewdanhgia">
+        app:layout_constraintTop_toBottomOf="@+id/textviewdanhgia"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ListView
             android:id="@+id/lvReview"
-            android:layout_marginTop="150dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp" />
 
     </LinearLayout>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -95,6 +95,9 @@ public class Forum_AddReview_Main extends AppCompatActivity {
             if (!avatarUrl.isEmpty()) {
                 Picasso.get().load(avatarUrl).into(binding.imvAvatar);
             }
+        }else {
+            //Xử lý chưa đăng nhập
+            loadDb();
         }
 
 
@@ -168,47 +171,51 @@ public class Forum_AddReview_Main extends AppCompatActivity {
         binding.btnSendReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BitmapDrawable forumContentImg = (BitmapDrawable) binding.imvContentImg.getDrawable();
-                BitmapDrawable forumAvatarImg = (BitmapDrawable) binding.imvAvatar.getDrawable();
-                Bitmap bitmap_cimg = forumContentImg.getBitmap();
-                Bitmap bitmap_avatar = forumAvatarImg.getBitmap();
-                ByteArrayOutputStream stream_cimg = new ByteArrayOutputStream();
-                ByteArrayOutputStream stream_avatar = new ByteArrayOutputStream();
-                bitmap_cimg.compress(Bitmap.CompressFormat.PNG, 100, stream_cimg);
-                bitmap_avatar.compress(Bitmap.CompressFormat.PNG, 100, stream_avatar);
-                byte[] forumImage = stream_cimg.toByteArray();
-                byte[] forumAvatar = stream_avatar.toByteArray();
-                String forumName = binding.txtName.getText().toString();
-                String forumTitle = binding.edtAddTitle.getText().toString();
-                String forumShortContent = binding.edtShortContent.getText().toString();
-                String forumContent = binding.edtAddContent.getText().toString();
-                int forumRating = Integer.parseInt(binding.edtRating.getText().toString());
-
-                // Lấy thời gian hiện tại
-                String currentDateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-
-                ContentValues values = new ContentValues();
-                values.put(COLUMN_FORUM_NAME, forumName);
-                values.put(COLUMN_FORUM_AVATAR, forumAvatar);
-                values.put(COLUMN_FORUM_TITLE, forumTitle);
-                values.put(COLUMN_FORUM_SHORTCONTENT, forumShortContent);
-                values.put(COLUMN_FORUM_CONTENT, forumContent);
-                values.put(COLUMN_FORUM_CONTENT_IMG, forumImage);
-                values.put(COLUMN_FORUM_RATING, forumRating);
-                values.put(COLUMN_FORUM_DATE, currentDateAndTime);
-                values.put(COLUMN_FORUM_COMMENT_NAME1, "");
-                values.put(COLUMN_FORUM_COMMENT_CONTENT1, "");
-                values.put(COLUMN_FORUM_COMMENT_NAME2, "");
-                values.put(COLUMN_FORUM_COMMENT_CONTENT2, "");
-
-                long numbOfRows = db.insert(TBL_NAME, null, values);
-                if (numbOfRows > 0) {
-                    showAlerDialog();
-                }
-                finish();
+                loadDb();
             }
 
         });
+    }
+
+    public void loadDb(){
+        BitmapDrawable forumContentImg = (BitmapDrawable) binding.imvContentImg.getDrawable();
+        BitmapDrawable forumAvatarImg = (BitmapDrawable) binding.imvAvatar.getDrawable();
+        Bitmap bitmap_cimg = forumContentImg.getBitmap();
+        Bitmap bitmap_avatar = forumAvatarImg.getBitmap();
+        ByteArrayOutputStream stream_cimg = new ByteArrayOutputStream();
+        ByteArrayOutputStream stream_avatar = new ByteArrayOutputStream();
+        bitmap_cimg.compress(Bitmap.CompressFormat.PNG, 100, stream_cimg);
+        bitmap_avatar.compress(Bitmap.CompressFormat.PNG, 100, stream_avatar);
+        byte[] forumImage = stream_cimg.toByteArray();
+        byte[] forumAvatar = stream_avatar.toByteArray();
+        String forumName = binding.txtName.getText().toString();
+        String forumTitle = binding.edtAddTitle.getText().toString();
+        String forumShortContent = binding.edtShortContent.getText().toString();
+        String forumContent = binding.edtAddContent.getText().toString();
+        int forumRating = Integer.parseInt(binding.edtRating.getText().toString());
+
+        // Lấy thời gian hiện tại
+        String currentDateAndTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FORUM_NAME, forumName);
+        values.put(COLUMN_FORUM_AVATAR, forumAvatar);
+        values.put(COLUMN_FORUM_TITLE, forumTitle);
+        values.put(COLUMN_FORUM_SHORTCONTENT, forumShortContent);
+        values.put(COLUMN_FORUM_CONTENT, forumContent);
+        values.put(COLUMN_FORUM_CONTENT_IMG, forumImage);
+        values.put(COLUMN_FORUM_RATING, forumRating);
+        values.put(COLUMN_FORUM_DATE, currentDateAndTime);
+        values.put(COLUMN_FORUM_COMMENT_NAME1, "");
+        values.put(COLUMN_FORUM_COMMENT_CONTENT1, "");
+        values.put(COLUMN_FORUM_COMMENT_NAME2, "");
+        values.put(COLUMN_FORUM_COMMENT_CONTENT2, "");
+
+        long numbOfRows = db.insert(TBL_NAME, null, values);
+        if (numbOfRows > 0) {
+            showAlerDialog();
+        }
+        finish();
     }
     private void showAlerDialog() {
         if (!isFinishing()) {
