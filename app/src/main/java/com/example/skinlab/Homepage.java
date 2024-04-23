@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,6 +98,10 @@ public class Homepage extends Fragment {
     public static final String COLUMN_PD_PHOTO = "pd_photo";
     public static final String COLUMN_PD_DES = "pd_des";
     public static final String COLUMN_PD_SKINTYPE = "pd_skintype";
+    private int currentPosition = 0;
+    private final int DELAY_MS = 2000;
+    private Handler sliderHandler;
+    private Runnable sliderRunnable;
 
 
     @Override
@@ -118,10 +123,8 @@ public class Homepage extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        initData();
         copyDb();
         loadDb();
-//        loadData();
         addEvents();
         loadSlider();
     }
@@ -204,7 +207,7 @@ public class Homepage extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 3);
         binding.rcvProduct.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
 
-        ArrayList<Product> limitedProducts = new ArrayList<>(products.subList(0, Math.min(products.size(), 6)));
+        ArrayList<Product> limitedProducts = new ArrayList<>(products.subList(0, Math.min(products.size(), 9)));
         // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
         adapter = new ProductAdapter(requireActivity(), limitedProducts);
 
@@ -233,12 +236,37 @@ public class Homepage extends Fragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireActivity(), layoutManager.getOrientation());
         binding.rcvSlider.addItemDecoration(dividerItemDecoration);
 
+
         sliders = new ArrayList<>();
         sliders.add(new Slider(R.drawable.slider1));
         sliders.add(new Slider(R.drawable.slider2));
 
         adapter2 = new SliderRecyclerAdapter(requireContext(), sliders);
         binding.rcvSlider.setAdapter(adapter2);
+
+        // Tự động chuyển ảnh
+        sliderHandler = new Handler();
+        sliderRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (currentPosition == sliders.size()) {
+                    currentPosition = 0;
+                    binding.rcvSlider.scrollToPosition(currentPosition); // Đưa slider về vị trí đầu tiên
+                } else {
+                    binding.rcvSlider.smoothScrollToPosition(currentPosition++);
+                }
+                sliderHandler.postDelayed(this, DELAY_MS);
+            }
+        };
+        sliderHandler.postDelayed(sliderRunnable, DELAY_MS);
+
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (sliderHandler != null && sliderRunnable != null) {
+            sliderHandler.removeCallbacks(sliderRunnable);
+        }
     }
 
     private void addEvents() {
@@ -291,6 +319,39 @@ public class Homepage extends Fragment {
             }
         });
 
+        binding.layoutInnisfree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), Products.class);
+                intent.putExtra("brand", "INNISFREE");
+                startActivity(intent);
+            }
+        });
+        binding.layoutKlairs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), Products.class);
+                intent.putExtra("brand", "Klairs");
+                startActivity(intent);
+            }
+        });
+        binding.layoutAHC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), Products.class);
+                intent.putExtra("brand", "AHC");
+                startActivity(intent);
+            }
+        });
+        binding.layoutLaneige.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), Products.class);
+                intent.putExtra("brand", "Laneige");
+                startActivity(intent);
+            }
+        });
+
         binding.btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -333,6 +394,7 @@ public class Homepage extends Fragment {
                 intent.putExtra("showAllProducts", true);
                 intent.putExtra("searchKeyword", "");
                 intent.putExtra("category", "Sữa rửa mặt");
+                intent.putExtra("brand", "INNISFREE");
                 startActivity(intent);
             }
         });

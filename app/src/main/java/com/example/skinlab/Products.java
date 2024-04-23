@@ -25,14 +25,13 @@ import com.example.skinlab.databinding.ActivityProductsBinding;
 import com.example.models.Product;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Products extends AppCompatActivity {
     ActivityProductsBinding binding;
     ProductAdapter adapter;
     ArrayList<Product> products;
+
     public static final String DB_NAME = "Skinlab.db";
 
     // Khai báo các biến để lưu trạng thái của các bộ lọc
@@ -43,6 +42,7 @@ public class Products extends AppCompatActivity {
     String searchKeyword;
 
     public static SQLiteDatabase db;
+
     public static final String TBL_NAME = "product";
     public static final String COLUMN_PD_ID = "pd_id";
     public static final String COLUMN_PD_NAME = "pd_name";
@@ -80,7 +80,9 @@ public class Products extends AppCompatActivity {
         if (searchKeyword == null) {
             searchKeyword = "";
         }
+        String brand = intent.getStringExtra("brand");
         String category = intent.getStringExtra("category");
+
 
         Cursor cursor;
 
@@ -96,6 +98,11 @@ public class Products extends AppCompatActivity {
             // Lọc sản phẩm theo category
             String selection = COLUMN_PD_CATE + " = ?";
             String[] selectionArgs = { category };
+            cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
+        } else if (brand != null && !brand.isEmpty()) {
+            // Lọc sản phẩm theo brand
+            String selection = COLUMN_PD_BRAND + " = ?";
+            String[] selectionArgs = { brand };
             cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
         } else {
             // Mặc định không hiển thị sản phẩm nào
@@ -149,12 +156,8 @@ public class Products extends AppCompatActivity {
         adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Product product) {
-                // Xử lý khi người dùng nhấn vào một item trong RecyclerView
-                // Khởi tạo Intent để chuyển sang màn hình chi tiết sản phẩm
                 Intent intent = new Intent(Products.this, Product_Details.class);
-                // Đính kèm thông tin sản phẩm được chọn vào Intent
                 intent.putExtra("selectedProduct", product);
-                // Chuyển sang màn hình chi tiết sản phẩm
                 startActivity(intent);
             }
         });
@@ -570,22 +573,6 @@ public class Products extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("checkbox_states", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
-        editor.apply();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        // Xóa tất cả các bộ lọc đã chọn
-        selectedCategories.clear();
-        selectedBrands.clear();
-        selectedPriceRanges.clear();
-
-        // Đặt trạng thái của các checkbox về mặc định
-        SharedPreferences sharedPreferences = getSharedPreferences("checkbox_states", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear(); // Xóa tất cả trạng thái checkbox đã lưu
         editor.apply();
     }
 
