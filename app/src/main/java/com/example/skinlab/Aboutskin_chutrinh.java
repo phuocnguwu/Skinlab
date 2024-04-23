@@ -2,6 +2,7 @@ package com.example.skinlab;
 
 import static androidx.core.content.ContentProviderCompat.requireContext;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,13 +13,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.adapters.ProductAdapter;
 import com.example.models.Product;
 import com.example.skinlab.databinding.ActivityAboutskinChutrinhBinding;
+import com.example.skinlab.databinding.ActivityDialogYeucauDangnhapBinding;
+import com.example.skinlab.databinding.ActivityForumDialogSendBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +75,10 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
         db = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
         products = new ArrayList<>();
 
+        String loggedInPhone = getLoggedInPhone();
+        String userSkinType = dbHelper.getUserSkinType(loggedInPhone);
+        Log.d("ProductCheck",  "Skintype: " + userSkinType);
+
         Cursor cursor = db.query(TBL_NAME, null, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -94,46 +105,21 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
                     String pdDes = cursor.getString(columnIndexDes);
                     String pdPhoto = cursor.getString(columnIndexPhoto);
                     String pdSkintype = cursor.getString(columnIndexSkintype);
-
-                    Log.d("Database Values", "pdId: " + pdId + ", pdName: " + pdName + ", pdPrice: " + pdPrice + ", pdPrice2: " + pdPrice2 +
-                            ", pdBrand: " + pdBrand + ", pdCate: " + pdCate + ", pdDes: " + pdDes + ", pdPhoto: " + pdPhoto +
-                            ", pdSkintype: " + pdSkintype);
 //
-//                    // Tạo đối tượng Product từ dữ liệu truy vấn
-                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
-                    products.add(product);
+//                  / Kiểm tra tình trạng da của người dùng có nằm trong pdSkintype của sản phẩm không
+                    if (pdSkintype != null && userSkinType != null && pdSkintype.contains(userSkinType)) {
+                        // Tạo đối tượng Product từ dữ liệu truy vấn
+                        Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
+                        products.add(product);
+
+                        // Log để kiểm tra
+                        Log.d("ProductCheck", "Added product: " + " | Skintype: " + pdSkintype);
+                    }
                 }
             }
             while (cursor.moveToNext()) ;
             cursor.close();
         }
-
-        String userSkinType = dbHelper.getUserSkinType(getLoggedInPhone());
-        ArrayList<Product> suaruamat = filterProductsBySkinType(products, "Sữa rửa mặt", userSkinType);
-//        binding.rcvSuaruamat.setAdapter(new ProductAdapter(this, suaruamat));
-        adapter = new ProductAdapter(this,suaruamat);
-        binding.rcvSuaruamat.setAdapter(adapter);
-
-        ArrayList<Product> toner = filterProductsBySkinType(products, "Nước dưỡng", userSkinType);
-//        binding.rcvToner.setAdapter(new ProductAdapter(this, toner));
-        adapter = new ProductAdapter(this,toner);
-        binding.rcvToner.setAdapter(adapter);
-
-        ArrayList<Product> serum = filterProductsBySkinType(products, "Tinh chất", userSkinType);
-//        binding.rcvSerum.setAdapter(new ProductAdapter(this, serum));
-        adapter = new ProductAdapter(this, serum);
-        binding.rcvSerum.setAdapter(adapter);
-
-        ArrayList<Product> kem = filterProductsBySkinType(products, "Kem dưỡng", userSkinType);
-//        binding.rcvKem.setAdapter(new ProductAdapter(this, kem));
-        adapter = new ProductAdapter(this,kem);
-        binding.rcvKem.setAdapter(adapter);
-
-        Log.d("loadDb", "Sữa rửa mặt size: " + suaruamat.size());
-        Log.d("loadDb", "Toner size: " + toner.size());
-        Log.d("loadDb", "Serum size: " + serum.size());
-        Log.d("loadDb", "Kem dưỡng size: " + kem.size());
-
 
         GridLayoutManager layoutManagerSuaruamat = new GridLayoutManager(this, 3);
         GridLayoutManager layoutManagerToner = new GridLayoutManager(this, 3);
@@ -145,28 +131,67 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
         binding.rcvSerum.setLayoutManager(layoutManagerSerum);
         binding.rcvKem.setLayoutManager(layoutManagerKem);
 
-        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+        ArrayList<Product> suaruamat = filterProductsByCategory(products, "Sữa rửa mặt");
+        ProductAdapter suaruamatAdapter = new ProductAdapter(this, suaruamat);
+        binding.rcvSuaruamat.setAdapter(suaruamatAdapter);
+
+        ArrayList<Product> toner = filterProductsByCategory(products, "Toner");
+        ProductAdapter tonerAdapter = new ProductAdapter(this, toner);
+        binding.rcvToner.setAdapter(tonerAdapter);
+
+        ArrayList<Product> serum = filterProductsByCategory(products, "Tinh chất");
+        ProductAdapter serumAdapter = new ProductAdapter(this, serum);
+        binding.rcvSerum.setAdapter(serumAdapter);
+
+        ArrayList<Product> kem = filterProductsByCategory(products, "Kem dưỡng");
+        ProductAdapter kemAdapter = new ProductAdapter(this, kem);
+        binding.rcvKem.setAdapter(kemAdapter);
+
+        // Set item click listener for each adapter
+        suaruamatAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Product product) {
-                Intent intent = new Intent(Aboutskin_chutrinh.this, Product_Details.class);
-                intent.putExtra("selectedProduct", product);
-                startActivity(intent);
+                openProductDetails(product);
+            }
+        });
+
+        tonerAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                openProductDetails(product);
+            }
+        });
+
+        serumAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                openProductDetails(product);
+            }
+        });
+
+        kemAdapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                openProductDetails(product);
             }
         });
     }
 
-    private ArrayList<Product> filterProductsBySkinType(ArrayList<Product> products, String category, String userSkinType) {
+    private void openProductDetails(Product product) {
+        Intent intent = new Intent(Aboutskin_chutrinh.this, Product_Details.class);
+        intent.putExtra("selectedProduct", product);
+        startActivity(intent);
+    }
+
+    private ArrayList<Product> filterProductsByCategory(ArrayList<Product> products, String category) {
         ArrayList<Product> filteredProducts = new ArrayList<>();
         for (Product product : products) {
-            // Lọc sản phẩm theo category và userSkinType
-            if (product.getPd_cate().equalsIgnoreCase(category) && product.getPd_skintype().equalsIgnoreCase(userSkinType)) {
+            if (product.getPd_cate().equalsIgnoreCase(category)) {
                 filteredProducts.add(product);
             }
         }
-
         return filteredProducts;
     }
-
 
     private void updateDb(){
         String loggedInPhone = getLoggedInPhone(); // Lấy user_phone từ SharedPreferences
@@ -184,6 +209,8 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
         } else {
             // Hiển thị "Không có" nếu không có đăng nhập
             binding.txtTinhtrangda.setText("Không có");
+            showAlerDialog();
+
         }
 
     }
@@ -206,6 +233,19 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showAlerDialog() {
+        ActivityDialogYeucauDangnhapBinding yeucauDangnhapBinding = ActivityDialogYeucauDangnhapBinding.inflate(LayoutInflater.from(Aboutskin_chutrinh.this));
+        AlertDialog.Builder builder = new AlertDialog.Builder(Aboutskin_chutrinh.this)
+                .setView(yeucauDangnhapBinding.getRoot())
+                .setCancelable(true);
+
+        // Create dialog
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setLayout(200, 200);
+        dialog.show();
     }
 
 }

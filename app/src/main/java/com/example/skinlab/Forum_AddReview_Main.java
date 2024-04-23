@@ -36,6 +36,7 @@ import com.example.models.Forum;
 import com.example.skinlab.databinding.ActivityDialogSaveBinding;
 import com.example.skinlab.databinding.ActivityForumAddReviewMainBinding;
 import com.example.skinlab.databinding.ActivityForumDialogSendBinding;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
@@ -45,6 +46,7 @@ import java.util.Date;
 public class Forum_AddReview_Main extends AppCompatActivity {
     ActivityForumAddReviewMainBinding binding;
     ArrayList<Forum> forums;
+    DatabaseHelper dbHelper;
     ActivityResultLauncher<Intent> launcher;
     ActivityResultLauncher<Intent> launcher1;
     boolean openCam;
@@ -77,9 +79,35 @@ public class Forum_AddReview_Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityForumAddReviewMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        dbHelper = new DatabaseHelper(this);
+
+        String loggedInPhone = getLoggedInPhone();
+        if (!loggedInPhone.isEmpty()) {
+            // Nếu đã đăng nhập, lấy tên và URL hình đại diện của người dùng
+            String userName = getUserName(loggedInPhone);
+            String avatarUrl = getUserAvatarUrl(loggedInPhone);
+
+            // Đặt tên người dùng vào EditText
+            binding.txtName.setText(userName);
+
+            // Nếu có URL hình đại diện, tải hình từ URL và hiển thị lên ImageView
+            if (!avatarUrl.isEmpty()) {
+                Picasso.get().load(avatarUrl).into(binding.imvAvatar);
+            }
+        }
+
+
         addEvents();
 
         db = openOrCreateDatabase(DB_NAME, MODE_PRIVATE, null);
+
+        if (db != null) {
+            // Cơ sở dữ liệu đã mở thành công, thực hiện các hoạt động khác ở đây
+        } else {
+            // Xảy ra lỗi khi mở hoặc tạo cơ sở dữ liệu
+            Log.e("Database Error", "Failed to open or create the database");
+        }
 
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -115,8 +143,7 @@ public class Forum_AddReview_Main extends AppCompatActivity {
         binding.btnclickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Forum_AddReview_Main.this, ForumFragment.class);
-                startActivity(intent);
+                finish();
             }
         });
         binding.imvAvatar.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +157,12 @@ public class Forum_AddReview_Main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showBottomSheet1();
+            }
+        });
+        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
         binding.btnSendReview.setOnClickListener(new View.OnClickListener() {
@@ -258,6 +291,53 @@ public class Forum_AddReview_Main extends AppCompatActivity {
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+
+    private String getUserName(String loggedInPhone) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String userName = "";
+
+        Cursor cursor = db.query(DatabaseHelper.USER, new String[]{DatabaseHelper.COLUMN_USER_NAME},
+                DatabaseHelper.COLUMN_USER_PHONE + " = ?", new String[]{loggedInPhone}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int userNameColumnIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_USER_NAME);
+            if (userNameColumnIndex != -1) {
+                userName = cursor.getString(userNameColumnIndex);
+            } else {
+                Log.e("Error", "Column 'user_name' does not exist in the result set");
+            }
+            cursor.close();
+        } else {
+            Log.e("Error", "No data found in the result set");
+        }
+        return userName;
+    }
+
+    private String getUserAvatarUrl(String loggedInPhone) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String avatarUrl = "";
+
+        Cursor cursor = db.query(DatabaseHelper.USER, new String[]{DatabaseHelper.COLUMN_USER_AVA},
+                DatabaseHelper.COLUMN_USER_PHONE + " = ?", new String[]{loggedInPhone}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int userAvatarColumnIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_USER_AVA);
+            if (userAvatarColumnIndex != -1) {
+                avatarUrl = cursor.getString(userAvatarColumnIndex);
+            } else {
+                Log.e("Error", "Column 'user_avatar' does not exist in the result set");
+            }
+            cursor.close();
+        } else {
+            Log.e("Error", "No data found in the result set");
+        }
+        return avatarUrl;
+    }
+
+    private String getLoggedInPhone() {
+        // Sử dụng requireContext() để lấy Context của Fragment
+        SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("loggedInPhone", "");
     }
 
 }

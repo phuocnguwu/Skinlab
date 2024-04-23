@@ -135,7 +135,16 @@ public class ForumFragment extends Fragment {
         File dbFile = requireContext().getDatabasePath(DB_NAME);
         db = SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.OPEN_READONLY);
         forums = new ArrayList<>();
-        Cursor cursor = db.query(TBL_NAME, null, null, null, null, null, null);
+        String[] projection = {
+                COLUMN_FORUM_ID,
+                COLUMN_FORUM_NAME,
+                COLUMN_FORUM_AVATAR,
+                COLUMN_FORUM_DATE,
+                COLUMN_FORUM_RATING,
+                COLUMN_FORUM_TITLE,
+                COLUMN_FORUM_SHORTCONTENT
+        };
+        Cursor cursor = db.query(TBL_NAME, projection, null, null, null, null, null);
         while (cursor.moveToNext()){
             byte[] imageData = cursor.getBlob(2);
             forums.add(new Forum(cursor.getInt(0),
