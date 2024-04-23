@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,8 @@ public class AboutskinFragment extends Fragment {
     ProductAdapter adapter;
     ArrayList<Product> products;
     DatabaseHelper dbHelper;
+
+    String userSkinType;
 
     public static final String DB_NAME = "Skinlab.db";
     public static SQLiteDatabase db = null;
@@ -118,6 +121,9 @@ public class AboutskinFragment extends Fragment {
         db = SQLiteDatabase.openDatabase(requireContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
         products = new ArrayList<>();
 
+        String loggedInPhone = getLoggedInPhone();
+        userSkinType = dbHelper.getUserSkinType(loggedInPhone);
+
         Cursor cursor = db.query(TBL_NAME, null, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -143,11 +149,15 @@ public class AboutskinFragment extends Fragment {
                     String pdCate = cursor.getString(columnIndexCate);
                     String pdDes = cursor.getString(columnIndexDes);
                     String pdPhoto = cursor.getString(columnIndexPhoto);
-                    String pdSkintype = cursor.getString(columnIndexPhoto);
-//
-//                    // Tạo đối tượng Product từ dữ liệu truy vấn
-                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
-                    products.add(product);
+                    String pdSkintype = cursor.getString(columnIndexSkintype);
+
+                    // Kiểm tra tình trạng da của người dùng có nằm trong pdSkintype của sản phẩm không
+                    if (pdSkintype != null && userSkinType != null && pdSkintype.contains(userSkinType)) {
+                        // Tạo đối tượng Product từ dữ liệu truy vấn
+                        Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
+                        products.add(product);
+
+                    }
                 }
             }
             while (cursor.moveToNext()) ;
@@ -162,6 +172,8 @@ public class AboutskinFragment extends Fragment {
         adapter = new ProductAdapter(requireActivity(), limitedProducts);
 
         binding.rcvProduct.setAdapter(adapter); // Đặt adapter cho RecyclerView
+        adapter.notifyDataSetChanged();
+
 
         // Định nghĩa sự kiện click trên mỗi sản phẩm trong RecyclerView
         adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {

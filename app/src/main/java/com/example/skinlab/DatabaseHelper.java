@@ -241,6 +241,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             Log.e("Error", "No data found in the result set");
         }
+        userSkinType = userSkinType.trim();
 
         return userSkinType;
     }

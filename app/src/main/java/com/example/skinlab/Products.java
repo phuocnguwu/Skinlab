@@ -68,9 +68,96 @@ public class Products extends AppCompatActivity {
 
         loadDb();
         addEvents();
+    }
 
+    private void loadDb() {
+        db = SQLiteDatabase.openDatabase(getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
+        products = new ArrayList<>();
 
+        Intent intent = getIntent();
+        boolean showAllProducts = intent.getBooleanExtra("showAllProducts", false);
+        String searchKeyword = intent.getStringExtra("searchKeyword");
+        if (searchKeyword == null) {
+            searchKeyword = "";
+        }
+        String category = intent.getStringExtra("category");
 
+        Cursor cursor;
+
+        if (showAllProducts) {
+            // Hiển thị tất cả sản phẩm
+            cursor = db.query(TBL_NAME, null, null, null, null, null, null);
+        } else if (searchKeyword != null && !searchKeyword.isEmpty()) {
+            // Tìm kiếm sản phẩm theo từ khoá
+            String selection = COLUMN_PD_NAME + " LIKE ?";
+            String[] selectionArgs = { "%" + searchKeyword + "%" };
+            cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
+        } else if (category != null && !category.isEmpty()) {
+            // Lọc sản phẩm theo category
+            String selection = COLUMN_PD_CATE + " = ?";
+            String[] selectionArgs = { category };
+            cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
+        } else {
+            // Mặc định không hiển thị sản phẩm nào
+            cursor = null;
+        }
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int columnIndexId = cursor.getColumnIndex(COLUMN_PD_ID);
+                int columnIndexName = cursor.getColumnIndex(COLUMN_PD_NAME);
+                int columnIndexPrice = cursor.getColumnIndex(COLUMN_PD_PRICE);
+                int columnIndexPrice2 = cursor.getColumnIndex(COLUMN_PD_PRICE2);
+                int columnIndexBrand = cursor.getColumnIndex(COLUMN_PD_BRAND);
+                int columnIndexCate = cursor.getColumnIndex(COLUMN_PD_CATE);
+                int columnIndexDes = cursor.getColumnIndex(COLUMN_PD_DES);
+                int columnIndexPhoto = cursor.getColumnIndex(COLUMN_PD_PHOTO);
+                int columnIndexSkiptype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
+
+                if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
+                        columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
+                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkiptype != -1) {
+
+                    String pdId = cursor.getString(columnIndexId);
+                    String pdName = cursor.getString(columnIndexName);
+                    int pdPrice = cursor.getInt(columnIndexPrice);
+                    int pdPrice2 = cursor.getInt(columnIndexPrice2);
+                    String pdBrand = cursor.getString(columnIndexBrand);
+                    String pdCate = cursor.getString(columnIndexCate);
+                    String pdDes = cursor.getString(columnIndexDes);
+                    String pdPhoto = cursor.getString(columnIndexPhoto);
+                    String pdSkintype = cursor.getString(columnIndexPhoto);
+
+                    // Tạo đối tượng Product từ dữ liệu truy vấn
+                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
+                    products.add(product);
+                }
+            } while (cursor.moveToNext());
+
+            cursor.close();
+        }
+
+        // Tạo layout manager cho RecyclerView (ở đây là GridLayoutManager)
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        binding.rcvProduct.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
+
+        // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
+        adapter = new ProductAdapter(this, products);
+        binding.rcvProduct.setAdapter(adapter); // Đặt adapter cho RecyclerView
+
+        // Định nghĩa sự kiện click trên mỗi sản phẩm trong RecyclerView
+        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Product product) {
+                // Xử lý khi người dùng nhấn vào một item trong RecyclerView
+                // Khởi tạo Intent để chuyển sang màn hình chi tiết sản phẩm
+                Intent intent = new Intent(Products.this, Product_Details.class);
+                // Đính kèm thông tin sản phẩm được chọn vào Intent
+                intent.putExtra("selectedProduct", product);
+                // Chuyển sang màn hình chi tiết sản phẩm
+                startActivity(intent);
+            }
+        });
     }
 
     private void applyFilters() {
@@ -176,96 +263,6 @@ public class Products extends AppCompatActivity {
             }
         }
         return builder.toString();
-    }
-
-    private void loadDb() {
-        db = SQLiteDatabase.openDatabase(getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
-        products = new ArrayList<>();
-
-        Intent intent = getIntent();
-        boolean showAllProducts = intent.getBooleanExtra("showAllProducts", false);
-        String searchKeyword = intent.getStringExtra("searchKeyword");
-        if (searchKeyword == null) {
-            searchKeyword = "";
-        }
-        String category = intent.getStringExtra("category");
-
-        Cursor cursor;
-
-        if (showAllProducts) {
-            // Hiển thị tất cả sản phẩm
-            cursor = db.query(TBL_NAME, null, null, null, null, null, null);
-        } else if (searchKeyword != null && !searchKeyword.isEmpty()) {
-            // Tìm kiếm sản phẩm theo từ khoá
-            String selection = COLUMN_PD_NAME + " LIKE ?";
-            String[] selectionArgs = { "%" + searchKeyword + "%" };
-            cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
-        } else if (category != null && !category.isEmpty()) {
-            // Lọc sản phẩm theo category
-            String selection = COLUMN_PD_CATE + " = ?";
-            String[] selectionArgs = { category };
-            cursor = db.query(TBL_NAME, null, selection, selectionArgs, null, null, null);
-        } else {
-            // Mặc định không hiển thị sản phẩm nào
-            cursor = null;
-        }
-
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                int columnIndexId = cursor.getColumnIndex(COLUMN_PD_ID);
-                int columnIndexName = cursor.getColumnIndex(COLUMN_PD_NAME);
-                int columnIndexPrice = cursor.getColumnIndex(COLUMN_PD_PRICE);
-                int columnIndexPrice2 = cursor.getColumnIndex(COLUMN_PD_PRICE2);
-                int columnIndexBrand = cursor.getColumnIndex(COLUMN_PD_BRAND);
-                int columnIndexCate = cursor.getColumnIndex(COLUMN_PD_CATE);
-                int columnIndexDes = cursor.getColumnIndex(COLUMN_PD_DES);
-                int columnIndexPhoto = cursor.getColumnIndex(COLUMN_PD_PHOTO);
-                int columnIndexSkiptype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
-
-                if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
-                        columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
-                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkiptype != -1) {
-
-                    String pdId = cursor.getString(columnIndexId);
-                    String pdName = cursor.getString(columnIndexName);
-                    int pdPrice = cursor.getInt(columnIndexPrice);
-                    int pdPrice2 = cursor.getInt(columnIndexPrice2);
-                    String pdBrand = cursor.getString(columnIndexBrand);
-                    String pdCate = cursor.getString(columnIndexCate);
-                    String pdDes = cursor.getString(columnIndexDes);
-                    String pdPhoto = cursor.getString(columnIndexPhoto);
-                    String pdSkintype = cursor.getString(columnIndexPhoto);
-
-                    // Tạo đối tượng Product từ dữ liệu truy vấn
-                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
-                    products.add(product);
-                }
-            } while (cursor.moveToNext());
-
-            cursor.close();
-        }
-
-        // Tạo layout manager cho RecyclerView (ở đây là GridLayoutManager)
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
-        binding.rcvProduct.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
-
-        // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
-        adapter = new ProductAdapter(this, products);
-        binding.rcvProduct.setAdapter(adapter); // Đặt adapter cho RecyclerView
-
-        // Định nghĩa sự kiện click trên mỗi sản phẩm trong RecyclerView
-        adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Product product) {
-                // Xử lý khi người dùng nhấn vào một item trong RecyclerView
-                // Khởi tạo Intent để chuyển sang màn hình chi tiết sản phẩm
-                Intent intent = new Intent(Products.this, Product_Details.class);
-                // Đính kèm thông tin sản phẩm được chọn vào Intent
-                intent.putExtra("selectedProduct", product);
-                // Chuyển sang màn hình chi tiết sản phẩm
-                startActivity(intent);
-            }
-        });
     }
 
 
@@ -551,6 +548,29 @@ public class Products extends AppCompatActivity {
             selectedCategories.remove(checkBox.getText().toString()); // Xóa khỏi danh sách nếu không được chọn
             selectedBrands.remove(checkBox.getText().toString()); // Xóa khỏi danh sách nếu không được chọn
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Xóa tất cả các bộ lọc đã chọn
+        selectedCategories.clear();
+        selectedBrands.clear();
+        selectedPriceRanges.clear();
+
+        // Đặt trạng thái của các checkbox về mặc định
+        SharedPreferences sharedPreferences = getSharedPreferences("checkbox_states", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear(); // Xóa tất cả trạng thái checkbox đã lưu
+        editor.apply();
+    }
+
+    private void clearCheckBoxStates() {
+        SharedPreferences sharedPreferences = getSharedPreferences("checkbox_states", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
     }
 
     @Override
