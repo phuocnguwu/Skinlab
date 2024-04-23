@@ -23,7 +23,6 @@
             android:id="@+id/imvBack"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_weight="1"
             android:src="@drawable/back" />
 
         <TextView
@@ -39,7 +38,6 @@
             android:id="@+id/imvCart"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_weight="1"
             android:src="@drawable/shop" />
     </LinearLayout>
 
@@ -85,15 +83,6 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/txtId"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:text="Brand"
-                    android:textColor="@color/black"
-                    android:textSize="12sp" />
-
-                <TextView
                     android:id="@+id/txtProductName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -122,7 +111,7 @@
                         android:id="@+id/txtProductPrice2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="price" />
+                        android:text="price2" />
 
                 </LinearLayout>
 
@@ -151,9 +140,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:backgroundTint="#ECF96E"
-                        android:text="Thêm vào giỏ"
+                        android:text="Thêm vào giỏ hàng"
                         android:layout_weight="5"
                         android:textColor="@color/black"
+                        android:background="@drawable/round_corner_4"
                         android:textSize="18sp" />
 
 <!--                    <ImageView-->
@@ -172,7 +162,8 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="15dp"
                     android:text="Mô tả"
-                    android:textSize="22sp"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintTop_toBottomOf="@+id/tableRow"
                     tools:layout_editor_absoluteX="16dp" />
@@ -181,7 +172,7 @@
                     android:id="@+id/txtProductDes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="15dp"
+                    android:paddingBottom="16dp"
                     android:text="Description" />
 
                 <LinearLayout
@@ -196,7 +187,8 @@
                         android:layout_weight="8"
                         android:paddingBottom="15dp"
                         android:text="Đánh giá"
-                        android:textSize="22sp"
+                        android:textColor="@color/blue"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintTop_toBottomOf="@+id/tableRow"
                         tools:layout_editor_absoluteX="16dp" />

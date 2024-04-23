@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="8"
             android:gravity="center"
-            android:text="Đánh gía"
+            android:text="Đánh giá"
             android:textSize="26dp"
             android:textStyle="bold" />
 

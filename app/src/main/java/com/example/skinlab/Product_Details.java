@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -46,14 +47,19 @@ public class Product_Details extends AppCompatActivity {
     List<Feedback> feedbacks;
     Product selectedProduct;
 
+    public static final String DB_NAME = "Skinlab.db";
     public static final String TABLE_NAME_FEEDBACK = "feedback";
     public static final String COLUMN_FEEDBACK_ID = "feedback_id";
     public static final String COLUMN_USER_ID = "user_id";
-    public static final String COLUMN_PRODUCT_ID = "product_id";
+    public static final String COLUMN_PRODUCT_ID = "pd_id";
     public static final String COLUMN_DATE_CREATED = "date_created";
     public static final String COLUMN_FEEDBACK_RATINGS = "feedback_ratings";
     public static final String COLUMN_FEEDBACK_TITLE = "feedback_title";
     public static final String COLUMN_FEEDBACK_CONTENT = "feedback_content";
+    public static final String TABLE_NAME_USER = "user";
+    public static final String COLUMN_USER_NAME = "user_name";
+    public static final String COLUMN_USER_AVATAR = "user_avatar";
+
 
 
 
@@ -64,16 +70,14 @@ public class Product_Details extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 //        initFeedback();
-//        loadFeedback();
-
 //        loadFeedbacksByProductId();
 
         loadData();
+        loadFeedback();
         addEvents();
     }
 
-//    public List<Feedback> getFeedbacksByProductId(String productId) {
-//        List<Feedback> feedbackList = new ArrayList<>();
+//    public List<Feedback> loadFeedbacksByProductId(String productId) {
 //        Cursor cursor = db.rawQuery(query, new String[]{productId});
 //        if (cursor != null && cursor.moveToFirst()) {
 //            List<Feedback> feedbacks = new ArrayList<>();
@@ -105,21 +109,67 @@ public class Product_Details extends AppCompatActivity {
 //        }
 //    }
 
-    private void initFeedback() {
 
-//        feedbacks = new ArrayList<>();
-//        feedbacks.add(new Feedback("feedback01", R.drawable.account, "Emily", "07/04/2024", 5, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
-//        feedbacks.add(new Feedback("feedback01",R.drawable.account, "John", "07/04/2024", 4, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
-//        feedbacks.add(new Feedback("feedback01",R.drawable.account, "Belle", "07/04/2024", 5, "Giao nhanh, hàng chính hãng", "Tôi đã mua lần thứ 3. Check mã vạch chính hãng nên yên tâm sử dụng."));
-
-//        Log.d("Product_Details", "Feedbacks size: " + feedbacks.size());
-    }
 
     private void loadFeedback() {
-            feedbackAdapter = new FeedbackAdapter(Product_Details.this, R.layout.list_item_feedback, feedbacks);
-            binding.lvFeedback.setAdapter(feedbackAdapter);
+        feedbacks = new ArrayList<>();
+        db = SQLiteDatabase.openDatabase(getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
+        // Kiểm tra selectedProduct trước khi truy vấn dữ liệu
+        if (selectedProduct == null) {
+            Log.e("Product_Details", "selectedProduct is null");
+            return;
+        }
+        Cursor cursor = db.rawQuery("SELECT f.*, u." + COLUMN_USER_AVATAR + ", u." + COLUMN_USER_NAME +
+                " FROM " + TABLE_NAME_FEEDBACK + " AS f" +
+                " JOIN " + TABLE_NAME_USER + " AS u ON f." + COLUMN_USER_ID + " = u." + COLUMN_USER_ID +
+                " WHERE f." + COLUMN_PRODUCT_ID + " = ?", new String[]{selectedProduct.getPd_id()});
 
+        // Truy vấn các đánh giá từ cơ sở dữ liệu dựa trên ID sản phẩm
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int columnIndexfeedbackId = cursor.getColumnIndex(COLUMN_FEEDBACK_ID);
+                int columnIndexuserId = cursor.getColumnIndex(COLUMN_USER_ID);
+                int columnIndexdateCreated = cursor.getColumnIndex(COLUMN_DATE_CREATED);
+                int columnIndexratings = cursor.getColumnIndex(COLUMN_FEEDBACK_RATINGS);
+                int columnIndextitle = cursor.getColumnIndex(COLUMN_FEEDBACK_TITLE);
+                int columnIndexcontent = cursor.getColumnIndex(COLUMN_FEEDBACK_CONTENT);
+                int columnIndexuserThumbUrl = cursor.getColumnIndex(COLUMN_USER_AVATAR);
+                int columnIndexuserName = cursor.getColumnIndex(COLUMN_USER_NAME);
+
+                if (columnIndexfeedbackId != -1 && columnIndexuserId != -1 && columnIndexdateCreated != -1 &&
+                        columnIndexratings != -1 && columnIndextitle != -1 && columnIndexcontent != -1 &&
+                        columnIndexuserThumbUrl != -1 && columnIndexuserName != -1) {
+
+                    String feedbackId = cursor.getString(columnIndexfeedbackId);
+                    String userId = cursor.getString(columnIndexuserId);
+                    String dateCreated = cursor.getString(columnIndexdateCreated);
+                    int ratings = cursor.getInt(columnIndexratings);
+                    String title = cursor.getString(columnIndextitle);
+                    String content = cursor.getString(columnIndexcontent);
+                    String userThumbUrl = cursor.getString(columnIndexuserThumbUrl);
+                    String userName = cursor.getString(columnIndexuserName);
+
+                    // Tạo đối tượng Feedback
+                    Feedback feedback = new Feedback(feedbackId, userThumbUrl, userName, dateCreated, ratings, title, content);
+                    feedbacks.add(feedback);
+                }
+            } while (cursor.moveToNext());
+            cursor.close();
+
+            // Khởi tạo và gán FeedbackAdapter cho ListView
+            FeedbackAdapter feedbackAdapter = new FeedbackAdapter(Product_Details.this, R.layout.list_item_feedback, feedbacks);
+            binding.lvFeedback.setAdapter(feedbackAdapter);
+        } else {
+            Log.e("Product_Details", "Cursor is null or empty");
+            // Đóng con trỏ nếu không có dữ liệu
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
+
+
 
     private void loadData() {
 
@@ -133,11 +183,9 @@ public class Product_Details extends AppCompatActivity {
                     Picasso.get().load(selectedProduct.getPd_photo()).into(binding.imvProduct);
                     binding.txtProductName.setText(selectedProduct.getPd_name());
                     binding.txtProductBrand.setText(selectedProduct.getPd_brand());
-                    binding.txtId.setText(selectedProduct.getPd_id());
                     binding.txtProductPrice.setText(String.valueOf(selectedProduct.getPd_price() + " đ"));
                     binding.txtProductPrice2.setText(String.valueOf(selectedProduct.getPd_price2() + " đ"));
                     binding.txtProductDes.setText(selectedProduct.getPd_des());
-
                 }else{
                     Log.d("Product_Details", "selectedProduct is null");
                 }

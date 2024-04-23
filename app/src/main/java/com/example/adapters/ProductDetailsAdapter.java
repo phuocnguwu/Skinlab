@@ -91,7 +91,7 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<ProductDetailsAd
             imvProduct = itemView.findViewById(R.id.imvProduct);
             txtProductName = itemView.findViewById(R.id.txtProductName);
             txtProductPrice = itemView.findViewById(R.id.txtProductPrice);
-            txtId = itemView.findViewById(R.id.txtId);
+//            txtId = itemView.findViewById(R.id.txtId);
         }
     }
 }
