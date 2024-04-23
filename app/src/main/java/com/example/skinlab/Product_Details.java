@@ -69,47 +69,10 @@ public class Product_Details extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(binding.getRoot());
 
-//        initFeedback();
-//        loadFeedbacksByProductId();
-
         loadData();
         loadFeedback();
         addEvents();
     }
-
-//    public List<Feedback> loadFeedbacksByProductId(String productId) {
-//        Cursor cursor = db.rawQuery(query, new String[]{productId});
-//        if (cursor != null && cursor.moveToFirst()) {
-//            List<Feedback> feedbacks = new ArrayList<>();
-//
-//            do {
-//                String feedbackId = cursor.getString(cursor.getColumnIndex("feedback_id"));
-//                byte[] userThumb = cursor.getBlob(cursor.getColumnIndex("user_thumb"));
-//                String userName = cursor.getString(cursor.getColumnIndex("user_name"));
-//                String dateCreated = cursor.getString(cursor.getColumnIndex("date_created"));
-//                int ratings = cursor.getInt(cursor.getColumnIndex("feedback_ratings"));
-//                String title = cursor.getString(cursor.getColumnIndex("feedback_title"));
-//                String content = cursor.getString(cursor.getColumnIndex("feedback_content"));
-//
-//                // Tạo đối tượng Feedback từ dữ liệu trong Cursor
-//                Feedback feedback = new Feedback(feedbackId, userThumb, userName, dateCreated, ratings, title, content);
-//
-//                // Thêm đối tượng Feedback vào danh sách
-//                feedbacks.add(feedback);
-//            } while (cursor.moveToNext());
-//
-//            // Đóng Cursor sau khi sử dụng xong
-//            cursor.close();
-//
-//            // Trả về danh sách các đối tượng Feedback
-//            return feedbacks;
-//        } else {
-//            // Nếu Cursor rỗng, trả về danh sách trống
-//            return feedbacks;
-//        }
-//    }
-
-
 
     private void loadFeedback() {
         feedbacks = new ArrayList<>();
@@ -250,7 +213,10 @@ public class Product_Details extends AppCompatActivity {
         binding.txtProductFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("selectedProduct", "selectedProduct before sending: " + selectedProduct);
                 Intent intent = new Intent(Product_Details.this, Product_Details_Feedback.class);
+                intent.putExtra("selectedProduct", selectedProduct);
+                Log.d("selectedProduct", String.valueOf(selectedProduct));
                 startActivity(intent);
             }
         });
