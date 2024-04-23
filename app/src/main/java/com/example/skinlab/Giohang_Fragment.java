@@ -30,7 +30,7 @@ public class Giohang_Fragment extends Fragment {
     private ArrayList<Product> gioHangItemList = new ArrayList<>();
     FragmentGiohangBinding binding;
     Product selectedProduct;
-
+    int totalPrice;
 
     public Giohang_Fragment() {}
 
@@ -91,8 +91,11 @@ public class Giohang_Fragment extends Fragment {
         binding.btnDathangGiohang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                calculateTotalPrice();
                 Intent intent;
                 intent = new Intent(getActivity(), Donhang_dathang.class);
+                intent.putExtra("totalPrice", totalPrice);
+                Log.d("test intent giohang", "Giá trị đơn: " + totalPrice);
                 startActivity(intent);
             }
         });
@@ -193,7 +196,7 @@ public class Giohang_Fragment extends Fragment {
 
 
     private int calculateTotalPrice() {
-        int totalPrice = 0;
+        totalPrice = 0;
         for (Product product : gioHangItemList) {
             totalPrice += product.getPd_price() * product.getQuantity();
         }
@@ -207,6 +210,9 @@ public class Giohang_Fragment extends Fragment {
         Intent intent = new Intent(getActivity(), Donhang_dathang.class);
         // Đính kèm dữ liệu sản phẩm vào Intent
         intent.putExtra("gioHangItemList", gioHangItemList);
+        // Đính kèm dữ liệu totalPrice vào Intent
+        intent.putExtra("totalPrice", totalPrice);
+
         // Chuyển sang Activity Donhang_dathang
         startActivity(intent);
     }

@@ -45,7 +45,7 @@ public class Donhang_dathang extends AppCompatActivity {
     int totalPrice = 0;
     //int newQuantity;
 
-
+    int receivedTotalPrice = 0;
 
 
     @Override
@@ -53,6 +53,12 @@ public class Donhang_dathang extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityDonhangDathangBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            receivedTotalPrice = extras.getInt("totalPrice");
+            // Sử dụng receivedTotalPrice để hiển thị tổng giá tiền
+        }
+        Log.d("test intent donhang", "Giá trị đơn: " + receivedTotalPrice);
         gioHangAdapter = new GioHangAdapter(Donhang_dathang.this, R.layout.dathang_item_list, gioHangItemList);
         //int newQuantity = gioHangAdapter.getNewQuantity();
         //Log.d("quantity don hang", "quantity new: " + newQuantity);
@@ -141,23 +147,28 @@ public class Donhang_dathang extends AppCompatActivity {
 //        Log.d("donhang test", "product: " + product);
 
 
-        //binding.textView37.setText(String.valueOf(newQuantity));
-        //binding.textView34.setText("huhuhu");
-        Log.d("donhangtest", "giá trị đơn: " + (String.valueOf(calculateTotalPrice())));
-        Log.d("hàm mới gemini", "quantity: " + product.getQuantity());
+            binding.textView37.setText(String.valueOf(receivedTotalPrice));
+            binding.textView34.setText(String.valueOf(receivedTotalPrice));
+
+
+
+        //Log.d("donhangtest", "giá trị đơn: " + (String.valueOf(calculateTotalPrice())));
+        //Log.d("hàm mới gemini", "quantity: " + product.getQuantity());
         return product;
     }
 
 
-    private int calculateTotalPrice() {
-        for (Product product : gioHangItemList) {
-            totalPrice += product.getPd_price() * product.getQuantity();
-            Log.d("calculatedonhang", "đụ má khổ ghê " + product.getPd_price());
-            Log.d("calculatedonhang", "đụ má khổ ghê " + product.getQuantity());
-        }
-//        binding.textView37.setText(String.valueOf(totalPrice));
-        return totalPrice;
-    }
+//    private int calculateTotalPrice() {
+//        for (Product product : gioHangItemList) {
+//            totalPrice += product.getPd_price() * product.getQuantity();
+//            Log.d("calculatedonhang", "đụ má khổ ghê " + product.getPd_price());
+//            Log.d("calculatedonhang", "đụ má khổ ghê " + product.getQuantity());
+//            Log.d("calculatedonhang", "đụ má khổ ghê1 " + totalPrice);
+//        }
+//        Log.d("calculatedonhang", "đụ má khổ ghê2 " + totalPrice);
+////        binding.textView37.setText(String.valueOf(totalPrice));
+//        return totalPrice;
+//    }
 
 
     private void addEvents() {
