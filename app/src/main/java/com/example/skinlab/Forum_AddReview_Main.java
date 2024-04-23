@@ -171,7 +171,9 @@ public class Forum_AddReview_Main extends AppCompatActivity {
         binding.btnSendReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadDb();
+                if (isDataValid()) {
+                    loadDb();
+                }
             }
 
         });
@@ -346,5 +348,36 @@ public class Forum_AddReview_Main extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
         return sharedPreferences.getString("loggedInPhone", "");
     }
+
+    private boolean isDataValid() {
+        // Kiểm tra tất cả các trường đã được điền đầy đủ chưa
+        if (binding.txtName.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập tên của bạn", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (binding.edtAddTitle.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập tiêu đề", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (binding.edtShortContent.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập nội dung ngắn gọn", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (binding.edtAddContent.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập nội dung", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (binding.edtRating.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập đánh giá", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
 
 }
