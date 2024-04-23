@@ -91,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="15dp"
                     android:text="productname"
+                    android:justificationMode="inter_word"
                     android:textSize="26sp" />
 
 
@@ -115,6 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="price2"
+                        android:background="@drawable/strike_through"
                         android:textStyle="italic"
                         android:textSize="16sp"/>
                 </LinearLayout>
@@ -132,7 +134,7 @@
                         android:textColor="@color/black"
                         android:background="@drawable/round_corner_4"
                         android:paddingBottom="15dp"
-                        android:textSize="18sp" />
+                        android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -151,6 +153,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="16dp"
+                    android:justificationMode="inter_word"
                     android:text="Description" />
 
                 <LinearLayout

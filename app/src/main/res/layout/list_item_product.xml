@@ -30,6 +30,7 @@
                 android:id="@+id/txtProductName"
                 android:layout_width="100sp"
                 android:layout_height="60dp"
+                android:padding="10dp"
                 android:text="Name"
                 android:textColor="@android:color/black"
                 android:textSize="12sp" />
