@@ -44,8 +44,8 @@ public class Aboutskin_lichhen extends AppCompatActivity {
         setContentView(binding.getRoot());
         databaseHelper = new DatabaseHelper(this);
 
-        addEvents();
         loadLichhen();
+        addEvents();
 
     }
 
@@ -54,6 +54,14 @@ public class Aboutskin_lichhen extends AppCompatActivity {
         super.onResume();
         updateDb();
     }
+
+    private void addEvents() {
+        binding.btnDatlich.setOnClickListener(v -> {
+            Intent intent = new Intent(Aboutskin_lichhen.this, Aboutskin_datlich.class);
+            startActivity(intent);
+        });
+    }
+
 
     private void loadLichhen() {
         String loggedInPhone = getLoggedInPhone();
@@ -107,11 +115,7 @@ public class Aboutskin_lichhen extends AppCompatActivity {
                 // Hiển thị "Không có" nếu cột user_skin trống hoặc dữ liệu là null
                 binding.txtTinhtrangda.setText("Không có");
             }
-        } else {
-            // Hiển thị "Không có" nếu không có đăng nhập
-            binding.txtTinhtrangda.setText("Không có");
         }
-
     }
 
     private String getLoggedInPhone() {
@@ -120,13 +124,6 @@ public class Aboutskin_lichhen extends AppCompatActivity {
     }
 
 
-    private void addEvents() {
-        binding.btnDatlich.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Aboutskin_lichhen.this, Aboutskin_datlich.class);
-                startActivity(intent);
-            }
-        });
-    }
+
+
 }
