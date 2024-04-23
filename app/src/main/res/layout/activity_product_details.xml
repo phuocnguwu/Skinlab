@@ -31,7 +31,8 @@
             android:layout_weight="8"
             android:gravity="center"
             android:text="Skinlab"
-            android:textSize="26dp"
+            android:textSize="30dp"
+            android:textColor="@color/blue"
             android:textStyle="bold" />
 
         <ImageView
@@ -71,7 +72,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imvProduct">
+                app:layout_constraintTop_toBottomOf="@+id/imvProduct"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/txtProductBrand"
@@ -79,8 +81,9 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
                     android:text="Brand"
+                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/txtProductName"
@@ -111,50 +114,25 @@
                         android:id="@+id/txtProductPrice2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="price2" />
-
+                        android:text="price2"
+                        android:textStyle="italic"
+                        android:textSize="16sp"/>
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="15dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imvProduct"
-                    android:weightSum="10">
-
-<!--                    <Button-->
-<!--                        android:id="@+id/btnBuyNow"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginEnd="10dp"-->
-<!--                        android:backgroundTint="#ECF96E"-->
-<!--                        android:text="Mua ngay"-->
-<!--                        android:layout_weight="4"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="18sp" />-->
 
                     <Button
                         android:id="@+id/btnAddToCart"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imvProduct"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:backgroundTint="#ECF96E"
+                        android:backgroundTint="@color/blue"
                         android:text="Thêm vào giỏ hàng"
                         android:layout_weight="5"
                         android:textColor="@color/black"
                         android:background="@drawable/round_corner_4"
+                        android:paddingBottom="15dp"
                         android:textSize="18sp" />
-
-<!--                    <ImageView-->
-<!--                        android:id="@+id/imvFavorite"-->
-<!--                        android:layout_width="48dp"-->
-<!--                        android:layout_height="48dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:src="@drawable/shop" />-->
-
-
-                </LinearLayout>
 
                 <TextView
                     android:id="@+id/textView3"
