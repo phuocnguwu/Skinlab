@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.models.Account;
+import com.example.models.Appointment;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "Skinlab.db";
@@ -34,6 +35,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_MOTA1 = "skin_mota";
     public static final String COLUMN_MOTA2 = "skin_mota2";
     public static final String COLUMN_USERSKIN = "user_skin";
+
+
+    public static final String TBL_NAME = "ABOUTSKIN_LICHTUVAN";
+    public static final String COLUMN_USER_NAME2 = "user_name";
+    public static final String COLUMN_USER_PHONE2 = "user_phone";
+    public static final String COLUMN_USER_ADDRESS3 = "user_address";
+    public static final String COLUMN_USER_DATE = "user_date";
+    public static final String COLUMN_USER_TIME = "user_time";
+    public static final String COLUMN_USER_CONTENT = "user_content";
+
 
 
     public static final String COLUMN_USER_SKINTYPE = "user_skin";
@@ -73,6 +84,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        String createTableQuery = "CREATE TABLE IF NOT EXISTS " + TBL_NAME + " (" +
+                COLUMN_USER_NAME2 + " TEXT, " +
+                COLUMN_USER_PHONE2 + " TEXT, " +
+                COLUMN_USER_ADDRESS3 + " TEXT, " +
+                COLUMN_USER_DATE + " TEXT, " +
+                COLUMN_USER_TIME + " TEXT, " +
+                COLUMN_USER_CONTENT + " TEXT)";
+        db.execSQL(createTableQuery);
 
     }
 
@@ -301,6 +321,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String selection = COLUMN_USERSKIN + " = ?";
         String[] selectionArgs = {skinType};
         return db.query(TBL_SKIN, columns, selection, selectionArgs, null, null, null);
+    }
+
+
+    public void addAppointment(Appointment appointment) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_NAME2, appointment.getUserName());
+        values.put(COLUMN_USER_PHONE2, appointment.getUserPhone());
+        values.put(COLUMN_USER_ADDRESS3, appointment.getUserAddress());
+        values.put(COLUMN_USER_DATE, appointment.getUserDate());
+        values.put(COLUMN_USER_TIME, appointment.getUserTime());
+        values.put(COLUMN_USER_CONTENT, appointment.getUserContent());
+
+        db.insert(TBL_NAME, null, values);
+        db.close();
     }
 
 
