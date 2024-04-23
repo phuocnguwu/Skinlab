@@ -40,6 +40,8 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         holder.txtSdt.setText(appointment.getUserPhone());
         holder.txtDiachi.setText(appointment.getUserAddress());
         holder.txtNgayhen.setText(appointment.getUserDate());
+        holder.txtGiohen.setText(appointment.getUserTime());
+        holder.txtTuvan.setText(appointment.getUserContent());
     }
 
     @Override
@@ -48,7 +50,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtHoten, txtSdt, txtDiachi, txtNgayhen;
+        TextView txtHoten, txtSdt, txtDiachi, txtNgayhen, txtGiohen, txtTuvan;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +58,8 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
             txtSdt = itemView.findViewById(R.id.txtSdt);
             txtDiachi = itemView.findViewById(R.id.txtDiachi);
             txtNgayhen = itemView.findViewById(R.id.txtNgayhen);
+            txtGiohen = itemView.findViewById(R.id.txtGiohen);
+            txtTuvan = itemView.findViewById(R.id.txtTuvan);
         }
     }
 }

@@ -30,6 +30,10 @@ public class Aboutskin_lichhen extends AppCompatActivity {
     public static final String COLUMN_USER_PHONE = "user_phone";
     public static final String COLUMN_USER_ADDRESS = "user_address";
     public static final String COLUMN_USER_DATE = "user_date";
+    public static final String COLUMN_USER_TIME = "user_time";
+    public static final String COLUMN_USER_CONTENT = "user_content";
+
+
 
 
     public static SQLiteDatabase db = null;
@@ -79,16 +83,23 @@ public class Aboutskin_lichhen extends AppCompatActivity {
                     int columnIndexPhone = cursor.getColumnIndex(COLUMN_USER_PHONE);
                     int columnIndexAddress = cursor.getColumnIndex(COLUMN_USER_ADDRESS);
                     int columnIndexDate = cursor.getColumnIndex(COLUMN_USER_DATE);
+                    int columnIndexTime = cursor.getColumnIndex(COLUMN_USER_TIME);
+                    int columnIndexContent = cursor.getColumnIndex(COLUMN_USER_CONTENT);
+
 
                     if (columnIndexName != -1 && columnIndexPhone != -1 &&
-                            columnIndexAddress != -1 && columnIndexDate != -1){
+                            columnIndexAddress != -1 && columnIndexDate != -1
+                            && columnIndexTime != -1 && columnIndexContent != -1){
 
                         String Name = cursor.getString(columnIndexName);
                         String Phone = cursor.getString(columnIndexPhone);
                         String Address = cursor.getString(columnIndexAddress);
                         String Date = cursor.getString(columnIndexDate);
+                        String Time = cursor.getString(columnIndexTime);
+                        String Content = cursor.getString(columnIndexContent);
 
-                        Appointment appointment = new Appointment(Name, Phone, Address, Date);
+
+                        Appointment appointment = new Appointment(Name, Phone, Address, Date, Time, Content);
                         appointments.add(appointment);
                     }
                 } while (cursor.moveToNext());
