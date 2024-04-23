@@ -33,7 +33,7 @@
 
                 <ImageView
                     android:id="@+id/imvBack"
-                    android:layout_width="48dp"
+                    android:layout_width="44dp"
                     android:layout_height="48dp"
                     android:layout_gravity="start"
                     android:src="@drawable/back" />

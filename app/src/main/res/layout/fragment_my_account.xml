@@ -212,62 +212,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/morongcaidat"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/morongdiachi">
-            <ImageView
-                android:id="@+id/iconcaidat"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="28dp"
-                android:src="@drawable/caidat"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txtCaidat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="28dp"
-                android:text="Cài đặt"
-                android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/iconcaidat"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/btnmorongcaidat"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="292dp"
-                android:layout_marginTop="4dp"
-                android:src="@drawable/morong"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.555"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/iconcaidat" />
-
-            <View
-                android:id="@+id/view4"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtCaidat" />
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/morongdangxuat"
@@ -277,7 +222,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/morongcaidat">
+            app:layout_constraintTop_toBottomOf="@+id/morongdiachi">
             <ImageView
                 android:id="@+id/icondangxuat"
                 android:layout_width="25dp"

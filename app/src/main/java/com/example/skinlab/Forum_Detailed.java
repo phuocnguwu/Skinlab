@@ -117,6 +117,8 @@ public class Forum_Detailed extends AppCompatActivity {
         binding.btnclickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("Forum_Detailed", "Button clickback clicked");
+
                 finish();
             }
         });

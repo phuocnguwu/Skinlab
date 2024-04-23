@@ -26,10 +26,11 @@
 
             <ImageView
                 android:id="@+id/imvAvatar"
-                android:layout_width="50dp"
+                android:layout_width="40dp"
                 android:layout_height="50dp"
                 android:layout_weight="2"
-                android:src="@drawable/ic_launcher_background" />
+                android:background="@drawable/circle_shape"
+                android:src="@drawable/avatar3" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -69,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="Rating"
                 android:textSize="16sp"
+                android:layout_gravity="end"
                 android:layout_weight="1"/>
 
 

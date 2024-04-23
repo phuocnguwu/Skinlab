@@ -37,6 +37,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -197,13 +201,6 @@ public class ForumFragment extends Fragment {
 
                 Toast.makeText(getContext(), "Review deleted", Toast.LENGTH_SHORT).show();
                 return true;
-            }
-        });
-        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(requireActivity(), MainActivity_containtFragment.class);
-                startActivity(intent);
             }
         });
         binding.lvReview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -9,13 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Forum_Detailed">
-        <ImageButton
+        <ImageView
             android:id="@+id/btnclickback"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="27dp"
-            android:src="@drawable/arrowleft"
+            android:layout_width="44dp"
+            android:layout_height="48dp"
+            android:layout_gravity="start"
+            android:src="@drawable/back"
             android:background="@drawable/backgroundbuttonback"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

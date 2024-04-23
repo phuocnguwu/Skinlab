@@ -193,13 +193,7 @@ public class MyAccountFragment extends Fragment {
 
             }
         });
-        binding.morongcaidat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-
-            }
-        });
 
 
         binding.morongdangxuat.setOnClickListener(new View.OnClickListener() {
