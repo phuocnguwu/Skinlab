@@ -48,7 +48,6 @@ public class Aboutskin_lichhen extends AppCompatActivity {
         setContentView(binding.getRoot());
         databaseHelper = new DatabaseHelper(this);
 
-        loadLichhen();
         addEvents();
 
     }
@@ -57,6 +56,8 @@ public class Aboutskin_lichhen extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         updateDb();
+        loadLichhen();
+
     }
 
     private void addEvents() {
