@@ -201,7 +201,7 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
             }
         } else {
             // Hiển thị "Không có" nếu không có đăng nhập
-            binding.txtTinhtrangda.setText("Không có");
+            binding.txtTinhtrangda.setText("Đăng nhập để hiển thị");
         }
 
     }

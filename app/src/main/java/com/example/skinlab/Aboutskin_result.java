@@ -186,9 +186,29 @@ public class Aboutskin_result extends AppCompatActivity {
             if (totalScore > 20 && totalScore <= 40) {
                 binding.txtDa.setText("Da dầu");
                 userSkinType = "Da dầu";
+                Cursor cursor = dbHelper.getSkinDataByType("Da dầu");
+                if (cursor != null && cursor.moveToFirst()) {
+                    // Hiển thị dữ liệu lên các TextView tương ứng
+                    binding.txtDacdiem1.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DACDIEM1)));
+                    binding.txtDacdiem2.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DACDIEM2)));
+                    binding.txtDacdiem3.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DACDIEM3)));
+                    binding.txtMota1.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MOTA1)));
+                    binding.txtMota2.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MOTA2)));
+                    cursor.close();
+                }
             } else if (totalScore >= 10 && totalScore <= 20) {
                 binding.txtDa.setText("Da khô");
                 userSkinType = "Da khô";
+                Cursor cursor = dbHelper.getSkinDataByType("Da khô");
+                if (cursor != null && cursor.moveToFirst()) {
+                    // Hiển thị dữ liệu lên các TextView tương ứng
+                    binding.txtDacdiem1.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DACDIEM1)));
+                    binding.txtDacdiem2.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DACDIEM2)));
+                    binding.txtDacdiem3.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DACDIEM3)));
+                    binding.txtMota1.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MOTA1)));
+                    binding.txtMota2.setText(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MOTA2)));
+                    cursor.close();
+                }
             }
 //            loadDb();
         }
