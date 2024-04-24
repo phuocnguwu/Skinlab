@@ -91,8 +91,8 @@
             android:src="@drawable/baseline_filter_24"
             android:background="@drawable/round_corner_4"
             android:padding="5dp"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:backgroundTint="#8AB0F9"
             android:layout_gravity="center_vertical" />
 

@@ -203,26 +203,19 @@ public class Homepage extends Fragment {
             while (cursor.moveToNext()) ;
             cursor.close();
         }
-        // Tạo layout manager cho RecyclerView (ở đây là GridLayoutManager)
+
         GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(), 3);
-        binding.rcvProduct.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
+        binding.rcvProduct.setLayoutManager(layoutManager);
 
         ArrayList<Product> limitedProducts = new ArrayList<>(products.subList(0, Math.min(products.size(), 9)));
-        // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
         adapter = new ProductAdapter(requireActivity(), limitedProducts);
+        binding.rcvProduct.setAdapter(adapter);
 
-        binding.rcvProduct.setAdapter(adapter); // Đặt adapter cho RecyclerView
-
-        // Định nghĩa sự kiện click trên mỗi sản phẩm trong RecyclerView
         adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Product product) {
-                // Xử lý khi người dùng nhấn vào một item trong RecyclerView
-                // Khởi tạo Intent để chuyển sang màn hình chi tiết sản phẩm
                 Intent intent = new Intent(requireActivity(), Product_Details.class);
-                // Đính kèm thông tin sản phẩm được chọn vào Intent
                 intent.putExtra("selectedProduct", product);
-                // Chuyển sang màn hình chi tiết sản phẩm
                 startActivity(intent);
             }
         });
@@ -232,18 +225,13 @@ public class Homepage extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false);
         binding.rcvSlider.setLayoutManager(layoutManager);
         binding.rcvSlider.setHasFixedSize(true);
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireActivity(), layoutManager.getOrientation());
         binding.rcvSlider.addItemDecoration(dividerItemDecoration);
-
-
         sliders = new ArrayList<>();
         sliders.add(new Slider(R.drawable.slider1));
         sliders.add(new Slider(R.drawable.slider2));
-
         adapter2 = new SliderRecyclerAdapter(requireContext(), sliders);
         binding.rcvSlider.setAdapter(adapter2);
-
         // Tự động chuyển ảnh
         sliderHandler = new Handler();
         sliderRunnable = new Runnable() {
@@ -251,7 +239,8 @@ public class Homepage extends Fragment {
             public void run() {
                 if (currentPosition == sliders.size()) {
                     currentPosition = 0;
-                    binding.rcvSlider.scrollToPosition(currentPosition); // Đưa slider về vị trí đầu tiên
+                    // Đưa slider về vị trí đầu tiên
+                    binding.rcvSlider.scrollToPosition(currentPosition);
                 } else {
                     binding.rcvSlider.smoothScrollToPosition(currentPosition++);
                 }
@@ -259,7 +248,6 @@ public class Homepage extends Fragment {
             }
         };
         sliderHandler.postDelayed(sliderRunnable, DELAY_MS);
-
     }
     @Override
     public void onDestroyView() {
