@@ -79,8 +79,8 @@ public class AddressRecyclerAdapter extends RecyclerView.Adapter<AddressRecycler
                 deleteAddress(holder); // Pass the ViewHolder to retrieve the position later
             }
         });
-        goToDonhangDathang(addressList.get(position));
-        Log.d("test onBindView", "chay ne");
+//        goToDonhangDathang(addressList.get(position));
+//        Log.d("test onBindView", "chay ne");
     }
 
 
