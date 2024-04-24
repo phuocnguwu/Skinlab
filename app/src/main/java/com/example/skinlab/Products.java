@@ -83,7 +83,6 @@ public class Products extends AppCompatActivity {
         String brand = intent.getStringExtra("brand");
         String category = intent.getStringExtra("category");
 
-
         Cursor cursor;
 
         if (showAllProducts) {
@@ -144,15 +143,13 @@ public class Products extends AppCompatActivity {
             cursor.close();
         }
 
-        // Tạo layout manager cho RecyclerView (ở đây là GridLayoutManager)
+        // Tạo layout GridLayoutManager
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
-        binding.rcvProduct.setLayoutManager(layoutManager); // Đặt layout manager cho RecyclerView
+        binding.rcvProduct.setLayoutManager(layoutManager); //
 
-        // Khởi tạo adapter và gán danh sách sản phẩm vào adapter
         adapter = new ProductAdapter(this, products);
-        binding.rcvProduct.setAdapter(adapter); // Đặt adapter cho RecyclerView
+        binding.rcvProduct.setAdapter(adapter);
 
-        // Định nghĩa sự kiện click trên mỗi sản phẩm trong RecyclerView
         adapter.setOnItemClickListener(new ProductAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Product product) {
@@ -171,12 +168,10 @@ public class Products extends AppCompatActivity {
         if (!selectedCategories.isEmpty()) {
             conditions.add(COLUMN_PD_CATE + " IN (" + buildInCondition(selectedCategories) + ")");
         }
-
         // Lọc theo thương hiệu
         if (!selectedBrands.isEmpty()) {
             conditions.add(COLUMN_PD_BRAND + " IN (" + buildInCondition(selectedBrands) + ")");
         }
-
         // Lọc theo khoảng giá
         if (!selectedPriceRanges.isEmpty()) {
             List<String> priceConditions = new ArrayList<>();
@@ -212,7 +207,6 @@ public class Products extends AppCompatActivity {
         if (selection.length() > 0) {
             cursor = db.query(TBL_NAME, null, selection.toString(), null, null, null, null);
         } else {
-//            cursor = null;
             cursor = db.query(TBL_NAME, null, null, null, null, null, null);
         }
 
@@ -276,17 +270,11 @@ public class Products extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String keyword = binding.edtSearch.getText().toString().trim();
-
-                // Kiểm tra xem keyword có rỗng không
                 if (!keyword.isEmpty()) {
-                    // Tạo Intent để chuyển sang trang Product
                     Intent intent = new Intent(Products.this, Products.class);
-                    // Đính kèm từ khoá tìm kiếm vào Intent
                     intent.putExtra("searchKeyword", keyword);
-                    // Chuyển sang trang Product
                     startActivity(intent);
                 } else {
-                    // Hiển thị thông báo cho người dùng nhập từ khóa tìm kiếm
                     Toast.makeText(Products.this, "Vui lòng nhập từ khóa tìm kiếm", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -462,8 +450,9 @@ public class Products extends AppCompatActivity {
                 restoreCheckBoxState("checkboxPrice_750", checkboxPrice750, sharedPreferences);
                 restoreCheckBoxState("checkboxPrice_1000", checkboxPrice1000, sharedPreferences);
 
-
                 Button btnDefault = dialog.findViewById(R.id.btnFilter_Default);
+
+
                 btnDefault.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -516,8 +505,6 @@ public class Products extends AppCompatActivity {
                 });
 
 
-
-
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
                 WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -544,7 +531,7 @@ public class Products extends AppCompatActivity {
     }
 
     private void restoreCheckBoxState(String key, CheckBox checkBox, SharedPreferences sharedPreferences) {
-        boolean isChecked = sharedPreferences.getBoolean(key, false); // Giá trị mặc định là false nếu chưa lưu trạng thái
+        boolean isChecked = sharedPreferences.getBoolean(key, false);
         checkBox.setChecked(isChecked);
 
         if (!isChecked) {
@@ -566,13 +553,6 @@ public class Products extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("checkbox_states", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear(); // Xóa tất cả trạng thái checkbox đã lưu
-        editor.apply();
-    }
-
-    private void clearCheckBoxStates() {
-        SharedPreferences sharedPreferences = getSharedPreferences("checkbox_states", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
         editor.apply();
     }
 
