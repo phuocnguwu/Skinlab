@@ -284,34 +284,6 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
             }
         });
 
-//        binding.btnsavepf.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String newhoten = binding.txtHoten.getText().toString();
-//                String newsdt = binding.txtsdt.getText().toString();
-//                String newemail = binding.txtEmail.getText().toString();
-//                binding.txtHoten.setText(newhoten);
-//                binding.txtsdt.setText(newsdt);
-//                binding.txtEmail.setText(newemail);
-//                showAlerDialog();
-//            }
-//            private void showAlerDialog() {
-//                ActivityDialogSaveBinding dialogsaveBinding = ActivityDialogSaveBinding.inflate(LayoutInflater.from(Myaccount_Profile.this));
-//                AlertDialog.Builder builder = new AlertDialog.Builder(Myaccount_Profile.this)
-//                        .setView(dialogsaveBinding.getRoot())
-//                        .setCancelable(true);
-//                final AlertDialog dialog = builder.create();
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                dialog.getWindow().setLayout(200, 200);
-//                dialog.show();
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        dialog.dismiss();
-//                    }
-//                }, 1000);
-//            }
-//        });
         binding.btnsavepf.setOnClickListener(v -> saveUserProfile());
 
     }
@@ -348,37 +320,23 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
     private void updateUserInDatabase(String hoTen, String sdt, String email, String gioiTinh, String ngaySinh, Uri avatarUri) {
         // Get the writable database
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-
-        // Create a ContentValues object to store the new values
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_USER_NAME, hoTen);
         values.put(DatabaseHelper.COLUMN_USER_PHONE, sdt);
         values.put(DatabaseHelper.COLUMN_USER_EMAIL, email);
         values.put(DatabaseHelper.COLUMN_USER_GENDER, gioiTinh);
         values.put(DatabaseHelper.COLUMN_USER_DOB, ngaySinh);
-
-        // Check if an avatar URI is provided
         if (avatarUri != null) {
-            // If avatar URI is provided, convert it to string and store it in ContentValues
             String avatarUrl = avatarUri.toString();
             values.put(DatabaseHelper.COLUMN_USER_AVA, avatarUrl);
         }
-
-        // Define the selection clause to update the correct user
         String selection = DatabaseHelper.COLUMN_USER_PHONE + " = ?";
         String[] selectionArgs = {getLoggedInPhone()};
-
-        // Update the user information in the database
         int rowsUpdated = db.update(DatabaseHelper.USER, values, selection, selectionArgs);
-
-        // Close the database
         db.close();
-        // Check if the update was successful
         if (rowsUpdated > 0) {
-            // Update successful, show a message to the user if needed
             binding.txtHotenprofile.setText(hoTen);
         } else {
-            // Update failed, show an error message to the user if needed
         }
     }
 
