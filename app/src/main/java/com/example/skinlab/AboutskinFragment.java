@@ -157,7 +157,8 @@ public class AboutskinFragment extends Fragment {
                     String pdSkintype = cursor.getString(columnIndexSkintype);
 
                     // Kiểm tra tình trạng da của người dùng có nằm trong pdSkintype của sản phẩm không
-                    if (pdSkintype != null && userSkinType != null && pdSkintype.contains(userSkinType)) {
+//                    if (pdSkintype != null && userSkinType != null && pdSkintype.contains(userSkinType)) {
+                    if (pdSkintype != null && userSkinType != null && pdSkintype.contains(userSkinType.trim())) {
                         // Tạo đối tượng Product từ dữ liệu truy vấn
                         Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
                         products.add(product);
