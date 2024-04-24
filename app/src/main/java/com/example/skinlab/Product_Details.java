@@ -33,6 +33,8 @@ import com.example.models.Product;
 import com.example.skinlab.databinding.ActivityProductDetailsDialogAddtocartBinding;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -70,7 +72,7 @@ public class Product_Details extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         loadData();
-        loadFeedback();
+        //loadFeedback();
         addEvents();
     }
 
@@ -142,12 +144,22 @@ public class Product_Details extends AppCompatActivity {
             if (intent != null && intent.hasExtra("selectedProduct")) {
                 selectedProduct = (Product) intent.getSerializableExtra("selectedProduct");
 
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                symbols.setGroupingSeparator('.');
+
+                DecimalFormat decimalFormat = new DecimalFormat("#,##0", symbols);
+                decimalFormat.setGroupingSize(3);
+
+                String formattedPrice = decimalFormat.format(selectedProduct.getPd_price());
+                String formattedPrice2 = decimalFormat.format(selectedProduct.getPd_price2());
+
+
                 if (selectedProduct != null) {
                     Picasso.get().load(selectedProduct.getPd_photo()).into(binding.imvProduct);
                     binding.txtProductName.setText(selectedProduct.getPd_name());
                     binding.txtProductBrand.setText(selectedProduct.getPd_brand());
-                    binding.txtProductPrice.setText(String.valueOf(selectedProduct.getPd_price() + " đ"));
-                    binding.txtProductPrice2.setText(String.valueOf(selectedProduct.getPd_price2() + " đ"));
+                    binding.txtProductPrice.setText(formattedPrice + " đ");
+                    binding.txtProductPrice2.setText(formattedPrice2 + " đ");
                     binding.txtProductDes.setText(selectedProduct.getPd_des());
                 }else{
                     Log.d("Product_Details", "selectedProduct is null");
