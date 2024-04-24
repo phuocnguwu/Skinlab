@@ -173,10 +173,12 @@ public class Forum_AddReview_Main extends AppCompatActivity {
                     String avatarUrl = getUserAvatarUrl(loggedInPhone);
                     if(isDataValid()){
                         loadDb();
+                        showAlerDialog();
                     }
                 } else {
                     if(isDataValid()){
                         loadDb();
+                        showAlerDialog();
                     }
                 }
             }
