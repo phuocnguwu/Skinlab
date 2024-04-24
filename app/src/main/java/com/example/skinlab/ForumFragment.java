@@ -210,8 +210,6 @@ public class ForumFragment extends Fragment {
                 Intent intent = new Intent(requireActivity(), Forum_Detailed.class);
                 intent.putExtra("forum_id", selectedForum.getFr_id());
                 startActivity(intent);
-
-                startActivity(intent);
             }
         });
     }

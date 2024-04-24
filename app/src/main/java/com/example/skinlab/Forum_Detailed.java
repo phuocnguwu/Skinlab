@@ -120,8 +120,17 @@ public class Forum_Detailed extends AppCompatActivity {
                 Log.d("Forum_Detailed", "Button clickback clicked");
 
                 finish();
+                checkActivityStack();
             }
         });
+    }
+
+    public void checkActivityStack() {
+        int taskId = getTaskId();
+        int backStackCount = getSupportFragmentManager().getBackStackEntryCount();
+
+        Log.d("ActivityStack", "Task ID: " + taskId);
+        Log.d("ActivityStack", "Fragment Back Stack Count: " + backStackCount);
     }
 
 }
