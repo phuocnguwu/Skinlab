@@ -79,8 +79,8 @@ public class AddressRecyclerAdapter extends RecyclerView.Adapter<AddressRecycler
                 deleteAddress(holder); // Pass the ViewHolder to retrieve the position later
             }
         });
-        goToDonhangDathang(addressList.get(position));
-        Log.d("test onBindView", "chay ne");
+//        goToDonhangDathang(addressList.get(position));
+//        Log.d("test onBindView", "chay ne");
     }
 
 
@@ -103,8 +103,8 @@ public class AddressRecyclerAdapter extends RecyclerView.Adapter<AddressRecycler
             txtphone = itemView.findViewById(R.id.txtSdt);
             txtaddress = itemView.findViewById(R.id.txtDiachicuthe);
             imbtnDelete = itemView.findViewById(R.id.btndelete);
-            Address address = addressList.get(getAdapterPosition());
-            goToDonhangDathang(address);
+//            Address address = addressList.get(getAdapterPosition());
+//            goToDonhangDathang(address);
             Log.d("test viewholder", "chạy nè");
         }
     }
