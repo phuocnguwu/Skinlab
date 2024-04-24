@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import com.example.adapters.AddressRecyclerAdapter;
 import com.example.adapters.GioHangAdapter;
 import com.example.models.Product;
 import com.example.skinlab.databinding.FragmentGiohangBinding;
@@ -31,6 +33,7 @@ public class Giohang_Fragment extends Fragment {
     FragmentGiohangBinding binding;
     Product selectedProduct;
     int totalPrice;
+    private AddressRecyclerAdapter addressRecyclerAdapter;
 
     public Giohang_Fragment() {}
 
@@ -87,6 +90,7 @@ public class Giohang_Fragment extends Fragment {
     }
 
 
+
     private void addEvents() {
         binding.btnDathangGiohang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +102,7 @@ public class Giohang_Fragment extends Fragment {
                 Log.d("test intent giohang", "Giá trị đơn: " + totalPrice);
                 startActivity(intent);
             }
+
         });
     }
 

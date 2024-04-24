@@ -4,6 +4,7 @@ package com.example.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.models.Address;
 import com.example.skinlab.DatabaseHelper;
+import com.example.skinlab.Donhang_dathang;
 import com.example.skinlab.Myaccount_Diachi;
 import com.example.skinlab.R;
 
@@ -77,6 +79,8 @@ public class AddressRecyclerAdapter extends RecyclerView.Adapter<AddressRecycler
                 deleteAddress(holder); // Pass the ViewHolder to retrieve the position later
             }
         });
+//        goToDonhangDathang(addressList.get(position));
+//        Log.d("test onBindView", "chay ne");
     }
 
 
@@ -99,6 +103,18 @@ public class AddressRecyclerAdapter extends RecyclerView.Adapter<AddressRecycler
             txtphone = itemView.findViewById(R.id.txtSdt);
             txtaddress = itemView.findViewById(R.id.txtDiachicuthe);
             imbtnDelete = itemView.findViewById(R.id.btndelete);
+//            Address address = addressList.get(getAdapterPosition());
+//            goToDonhangDathang(address);
+            Log.d("test viewholder", "chạy nè");
         }
     }
+
+    private void goToDonhangDathang(Address address) {
+        Intent intent = new Intent(context, Donhang_dathang.class);
+        intent.putExtra("name", address.getName());
+        intent.putExtra("phone", address.getPhone());
+        intent.putExtra("address", address.getAddress());
+        context.startActivity(intent);
+    }
+
 }
