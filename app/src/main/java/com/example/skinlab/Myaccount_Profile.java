@@ -275,11 +275,12 @@ public class Myaccount_Profile extends AppCompatActivity implements OnUserInfoUp
         binding.btnclickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyAccountFragment fragment = (MyAccountFragment) getSupportFragmentManager().findFragmentById(R.id.containerLayout);
-                if (fragment != null) {
-                    fragment.refreshUserProfile();
-                }
-                onBackPressed();
+//                MyAccountFragment fragment = (MyAccountFragment) getSupportFragmentManager().findFragmentById(R.id.containerLayout);
+//                if (fragment != null) {
+//                    fragment.refreshUserProfile();
+//                }
+//                onBackPressed();
+                finish();
             }
         });
 
