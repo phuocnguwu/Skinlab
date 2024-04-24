@@ -75,7 +75,7 @@ public class Product_Details extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         loadData();
-        loadFeedback();
+        //loadFeedback();
         addEvents();
     }
 

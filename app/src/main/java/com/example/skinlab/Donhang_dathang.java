@@ -149,7 +149,7 @@ public class Donhang_dathang extends AppCompatActivity {
         Integer[] quantityArray = quantities.toArray(new Integer[0]);
 
         // Tạo một đối tượng Order từ dữ liệu đã có
-        Order order = new Order("user_001", productIdArray[0], quantityArray[0], productIdArray[1], quantityArray[1], productIdArray[2], quantityArray[2], "Đang xử lý");
+        Order order = new Order("5", productIdArray[0], quantityArray[0], productIdArray[1], quantityArray[1], productIdArray[2], quantityArray[2], "Đang xử lý");
         return order;
     }
 
