@@ -13,24 +13,12 @@ public class Dialog_YeucauDangnhap extends AppCompatActivity {
 
     ActivityDialogYeucauDangnhapBinding binding;
 
-    Dialog dialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDialogYeucauDangnhapBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        addEvents();
-    }
-
-    private void addEvents() {
-        binding.imvcancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              dialog.dismiss();
-            }
-        });
     }
 
 
