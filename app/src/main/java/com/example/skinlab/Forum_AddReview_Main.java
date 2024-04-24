@@ -82,22 +82,16 @@ public class Forum_AddReview_Main extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
-        String loggedInPhone = getLoggedInPhone();
-        if (!loggedInPhone.isEmpty()) {
-            // Nếu đã đăng nhập, lấy tên và URL hình đại diện của người dùng
+        boolean loggedIn = Boolean.parseBoolean(isLoggedIn());
+        if (loggedIn) {
+            // Nếu đã đăng nhập, lấy thông tin người dùng và hiển thị
+            String loggedInPhone = getLoggedInPhone();
             String userName = getUserName(loggedInPhone);
             String avatarUrl = getUserAvatarUrl(loggedInPhone);
 
-            // Đặt tên người dùng vào EditText
+            // Hiển thị tên người dùng và avatar
             binding.txtName.setText(userName);
-
-            // Nếu có URL hình đại diện, tải hình từ URL và hiển thị lên ImageView
-            if (!avatarUrl.isEmpty()) {
-                Picasso.get().load(avatarUrl).into(binding.imvAvatar);
-            }
-        }else {
-            //Xử lý chưa đăng nhập
-            loadDb();
+            Picasso.get().load(avatarUrl).into(binding.imvAvatar);
         }
 
 
@@ -171,9 +165,17 @@ public class Forum_AddReview_Main extends AppCompatActivity {
         binding.btnSendReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isDataValid()) {
+                boolean loggedIn = Boolean.parseBoolean(isLoggedIn());
+                if (loggedIn) {
+                    // Nếu đã đăng nhập, sử dụng thông tin đã load sẵn và chỉ lấy các giá trị còn lại
+                    String loggedInPhone = getLoggedInPhone();
+                    String userName = getUserName(loggedInPhone);
+                    String avatarUrl = getUserAvatarUrl(loggedInPhone);
+                    loadDb();
+                } else {
                     loadDb();
                 }
+                isDataValid();
             }
 
         });
@@ -343,11 +345,20 @@ public class Forum_AddReview_Main extends AppCompatActivity {
         return avatarUrl;
     }
 
+    private String isLoggedIn() {
+        // Sử dụng requireContext() để lấy Context của Fragment
+        SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+        boolean loggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+        return String.valueOf(loggedIn);
+    }
+
     private String getLoggedInPhone() {
         // Sử dụng requireContext() để lấy Context của Fragment
         SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
         return sharedPreferences.getString("loggedInPhone", "");
     }
+
+
 
     private boolean isDataValid() {
         // Kiểm tra tất cả các trường đã được điền đầy đủ chưa
