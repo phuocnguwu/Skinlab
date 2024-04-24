@@ -149,6 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Mô tả"
+                    android:paddingBottom="5dp"
                     android:textColor="@color/blue"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -159,14 +160,16 @@
                     android:id="@+id/txtProductDes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="16dp"
+                    android:paddingBottom="15dp"
                     android:justificationMode="inter_word"
                     android:text="Description" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    >
 
                     <TextView
                         android:id="@+id/textView4"
