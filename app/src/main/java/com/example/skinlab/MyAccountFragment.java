@@ -180,7 +180,7 @@ public class MyAccountFragment extends Fragment {
         binding.morongdonhang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireActivity(), Donhang_dathang.class);
+                Intent intent = new Intent(requireActivity(), Donhang_Fragment.class);
                 startActivity(intent);
 
             }
