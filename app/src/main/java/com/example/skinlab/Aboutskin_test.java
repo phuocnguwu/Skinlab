@@ -106,6 +106,13 @@ public class Aboutskin_test extends AppCompatActivity {
     }
 
     private void addEvents() {
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         binding.btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -171,11 +171,14 @@ public class Forum_AddReview_Main extends AppCompatActivity {
                     String loggedInPhone = getLoggedInPhone();
                     String userName = getUserName(loggedInPhone);
                     String avatarUrl = getUserAvatarUrl(loggedInPhone);
-                    loadDb();
+                    if(isDataValid()){
+                        loadDb();
+                    }
                 } else {
-                    loadDb();
+                    if(isDataValid()){
+                        loadDb();
+                    }
                 }
-                isDataValid();
             }
 
         });
@@ -362,6 +365,10 @@ public class Forum_AddReview_Main extends AppCompatActivity {
 
     private boolean isDataValid() {
         // Kiểm tra tất cả các trường đã được điền đầy đủ chưa
+        if (binding.imvAvatar.getDrawable().toString().isEmpty()) {
+            Toast.makeText(this, "Vui lòng chọn ảnh đại diện của bạn", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if (binding.txtName.getText().toString().isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập tên của bạn", Toast.LENGTH_SHORT).show();
             return false;
@@ -379,6 +386,10 @@ public class Forum_AddReview_Main extends AppCompatActivity {
 
         if (binding.edtAddContent.getText().toString().isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập nội dung", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (binding.imvContentImg.getDrawable().toString().isEmpty()) {
+            Toast.makeText(this, "Vui lòng chọn ảnh cho phần Review của bạn", Toast.LENGTH_SHORT).show();
             return false;
         }
 
