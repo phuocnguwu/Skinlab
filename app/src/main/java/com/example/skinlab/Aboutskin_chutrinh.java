@@ -136,7 +136,7 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
         ProductAdapter suaruamatAdapter = new ProductAdapter(this, suaruamat);
         binding.rcvSuaruamat.setAdapter(suaruamatAdapter);
 
-        ArrayList<Product> toner = filterProductsByCategory(products, "Toner");
+        ArrayList<Product> toner = filterProductsByCategory(products, "Nước dưỡng");
         ProductAdapter tonerAdapter = new ProductAdapter(this, toner);
         binding.rcvToner.setAdapter(tonerAdapter);
 
