@@ -19,7 +19,6 @@ import java.util.List;
 public class DONHANG_Locdonhang extends AppCompatActivity {
 
     ActivityMainContaintFragmentBinding binding;
-    CategoryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,4 +26,5 @@ public class DONHANG_Locdonhang extends AppCompatActivity {
         binding = ActivityMainContaintFragmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
     }
+
 }

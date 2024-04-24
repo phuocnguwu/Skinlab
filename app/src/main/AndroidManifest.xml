@@ -69,6 +69,7 @@
         <activity
             android:name=".AboutskinFragment"
             android:exported="false" />
+
         <activity
             android:name=".Product_Details"
             android:exported="false" />
