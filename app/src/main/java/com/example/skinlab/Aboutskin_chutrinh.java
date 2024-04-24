@@ -60,7 +60,6 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
 
-        loadDb();
         addEvents();
 
 
@@ -69,12 +68,14 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
     @Override
     public void onResume() {
         updateDb();
+        loadDb();
         super.onResume();
     }
     private void loadDb() {
         db = SQLiteDatabase.openDatabase(getApplicationContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
         products = new ArrayList<>();
 
+        boolean loggedIn = Boolean.parseBoolean(isLoggedIn());
         String loggedInPhone = getLoggedInPhone();
         String userSkinType = dbHelper.getUserSkinType(loggedInPhone);
         Log.d("ProductCheck",  "Skintype: " + userSkinType);
@@ -107,7 +108,7 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
                     String pdSkintype = cursor.getString(columnIndexSkintype);
 //
 //                  / Kiểm tra tình trạng da của người dùng có nằm trong pdSkintype của sản phẩm không
-                    if (pdSkintype != null && userSkinType != null && pdSkintype.contains(userSkinType)) {
+                    if (pdSkintype != null && userSkinType != null && pdSkintype.contains(userSkinType) && loggedIn) {
                         // Tạo đối tượng Product từ dữ liệu truy vấn
                         Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
                         products.add(product);
@@ -135,7 +136,7 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
         ProductAdapter suaruamatAdapter = new ProductAdapter(this, suaruamat);
         binding.rcvSuaruamat.setAdapter(suaruamatAdapter);
 
-        ArrayList<Product> toner = filterProductsByCategory(products, "Toner");
+        ArrayList<Product> toner = filterProductsByCategory(products, "Nước dưỡng");
         ProductAdapter tonerAdapter = new ProductAdapter(this, toner);
         binding.rcvToner.setAdapter(tonerAdapter);
 
@@ -198,7 +199,8 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
         String userSkinType = dbHelper.getUserSkinType(loggedInPhone);
 
 // Kiểm tra xem có đăng nhập hay không
-        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+        boolean loggedIn = Boolean.parseBoolean(isLoggedIn());
+        if (loggedIn) {
             if (userSkinType != null && !userSkinType.isEmpty()) {
                 // Hiển thị dữ liệu từ cột user_skin nếu có
                 binding.txtTinhtrangda.setText(userSkinType);
@@ -213,6 +215,13 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
 
         }
 
+    }
+
+    private String isLoggedIn() {
+        // Sử dụng requireContext() để lấy Context của Fragment
+        SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+        boolean loggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+        return String.valueOf(loggedIn);
     }
 
     private String getLoggedInPhone() {
@@ -231,6 +240,12 @@ public class Aboutskin_chutrinh extends AppCompatActivity {
                 // Khởi chạy Intent
                 startActivity(intent);
 
+            }
+        });
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

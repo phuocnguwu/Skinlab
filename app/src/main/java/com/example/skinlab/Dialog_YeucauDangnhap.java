@@ -2,6 +2,7 @@ package com.example.skinlab;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,8 @@ import com.example.skinlab.databinding.ActivityDialogYeucauDangnhapBinding;
 public class Dialog_YeucauDangnhap extends AppCompatActivity {
 
     ActivityDialogYeucauDangnhapBinding binding;
+
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,11 +25,10 @@ public class Dialog_YeucauDangnhap extends AppCompatActivity {
     }
 
     private void addEvents() {
-        binding.btnDangNhap.setOnClickListener(new View.OnClickListener() {
+        binding.imvcancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Dialog_YeucauDangnhap.this, LoginFragment.class);
-                startActivity(intent);
+              dialog.dismiss();
             }
         });
     }
