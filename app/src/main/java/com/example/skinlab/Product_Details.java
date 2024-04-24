@@ -22,6 +22,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.adapters.FeedbackAdapter;
 import com.example.adapters.ProductDetailsAdapter;
@@ -157,7 +160,7 @@ public class Product_Details extends AppCompatActivity {
                 if (selectedProduct != null) {
                     Picasso.get().load(selectedProduct.getPd_photo()).into(binding.imvProduct);
                     binding.txtProductName.setText(selectedProduct.getPd_name());
-                    binding.txtProductBrand.setText(selectedProduct.getPd_brand());
+//                    binding.txtProductBrand.setText(selectedProduct.getPd_brand());
                     binding.txtProductPrice.setText(formattedPrice + " đ");
                     binding.txtProductPrice2.setText(formattedPrice2 + " đ");
                     binding.txtProductDes.setText(selectedProduct.getPd_des());
@@ -170,6 +173,24 @@ public class Product_Details extends AppCompatActivity {
     }
 
     private void addEvents() {
+
+        ImageButton btnMinus = findViewById(R.id.btnMinus);
+        ImageButton btnPlus = findViewById(R.id.btnPlus);
+        EditText edtQuantity = findViewById(R.id.edtQuantity);
+
+        btnMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                decreaseQuantity(edtQuantity);
+            }
+        });
+
+        btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                increaseQuantity(edtQuantity);
+            }
+        });
 
         binding.imvBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,42 +206,6 @@ public class Product_Details extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(Product_Details.this, MainActivity_containtFragment.class);
-//                intent.putExtra("selectedProduct", selectedProduct);
-//                startActivity(intent);
-
-                SharedPreferences sharedPreferences = getSharedPreferences("cart_prefs", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                Set<String> productSet = sharedPreferences.getStringSet("cart_items", new HashSet<String>());
-                Log.d("Product", "Product " + selectedProduct);
-                productSet.add(convertProductToString(selectedProduct));
-                editor.putStringSet("cart_items", productSet);
-                editor.apply();
-
-                // Mở MainActivity_containtFragment
-                Intent intent = new Intent(Product_Details.this, MainActivity_containtFragment.class);
-                startActivity(intent);
-
-                ActivityProductDetailsDialogAddtocartBinding DialogAddtocartBinding = ActivityProductDetailsDialogAddtocartBinding.inflate(LayoutInflater.from(Product_Details.this));
-                AlertDialog.Builder builder = new AlertDialog.Builder(Product_Details.this)
-                        .setView(DialogAddtocartBinding.getRoot())
-                        .setCancelable(true);
-                final AlertDialog dialog = builder.create();
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.getWindow().setLayout(200, 200);
-                dialog.show();
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.dismiss();
-                    }
-                }, 1000);
-
-            }
-        });
 
         binding.txtProductFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,6 +217,73 @@ public class Product_Details extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                EditText edtQuantity = findViewById(R.id.edtQuantity);
+                String quantityStr = edtQuantity.getText().toString().trim();
+
+                if (!quantityStr.isEmpty()) {
+                    int quantity = Integer.parseInt(quantityStr);
+
+                    if (quantity > 0) {
+                        addToCart(selectedProduct, quantity);
+                        showAddToCartDialog();
+                    } else {
+                        Toast.makeText(Product_Details.this, "Số lượng không hợp lệ", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(Product_Details.this, "Vui lòng nhập số lượng", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+    private void addToCart(Product product, int quantity) {
+        SharedPreferences sharedPreferences = getSharedPreferences("cart_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Set<String> productSet = sharedPreferences.getStringSet("cart_items", new HashSet<String>());
+        Log.d("Product", "Product " + selectedProduct);
+        productSet.add(convertProductToString(selectedProduct));
+        editor.putStringSet("cart_items", productSet);
+        editor.apply();
+    }
+
+    private void showAddToCartDialog() {
+        ActivityProductDetailsDialogAddtocartBinding DialogAddtocartBinding = ActivityProductDetailsDialogAddtocartBinding.inflate(LayoutInflater.from(Product_Details.this));
+        AlertDialog.Builder builder = new AlertDialog.Builder(Product_Details.this)
+                .setView(DialogAddtocartBinding.getRoot())
+                .setCancelable(true);
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setLayout(200, 200);
+        dialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 1000);
+    }
+
+
+    private void increaseQuantity(EditText edtQuantity) {
+        String quantityStr = edtQuantity.getText().toString().trim();
+        int quantity = (quantityStr.isEmpty()) ? 0 : Integer.parseInt(quantityStr);
+        quantity++;
+        edtQuantity.setText(String.valueOf(quantity));
+    }
+
+    private void decreaseQuantity(EditText edtQuantity) {
+        String quantityStr = edtQuantity.getText().toString().trim();
+        int quantity = (quantityStr.isEmpty()) ? 0 : Integer.parseInt(quantityStr);
+        if (quantity > 1) {
+            quantity--;
+            edtQuantity.setText(String.valueOf(quantity));
+        }
     }
 
     private String convertProductToString(Product product) {

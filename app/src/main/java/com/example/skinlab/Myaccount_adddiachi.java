@@ -68,8 +68,9 @@ public class Myaccount_adddiachi extends AppCompatActivity {
         binding.btnclickback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Myaccount_adddiachi.this,Myaccount_Diachi.class);
-                startActivity(intent);
+//                Intent intent = new Intent(Myaccount_adddiachi.this,Myaccount_Diachi.class);
+//                startActivity(intent);
+                finish();
             }
         });
         binding.btnupdatediachi.setOnClickListener(new View.OnClickListener() {

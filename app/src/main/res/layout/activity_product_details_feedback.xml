@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Product_Details_Feedback"
+    android:padding="10dp"
+    android:paddingTop="15dp"
     android:background="@color/white" >
 
     <LinearLayout
@@ -29,7 +31,7 @@
             android:layout_weight="8"
             android:gravity="center"
             android:text="Đánh giá"
-            android:textSize="26dp"
+            android:textSize="30dp"
             android:textStyle="bold" />
 
         <ImageView
