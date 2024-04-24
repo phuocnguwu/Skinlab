@@ -220,6 +220,7 @@ public class Aboutskin_result extends AppCompatActivity {
     }
 
     private void addEvents() {
+
         binding.btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.example.models.Account;
 import com.example.models.Appointment;
+import com.example.models.Order;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "Skinlab.db";
@@ -57,6 +58,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_USER_PASSWORD = "user_password";
 
+    public static final String TBL_ORDER = "ORDER";
+    public static final String COLUMN_PRODUCT1_ID = "product_order1";
+    public static final String COLUMN_PRODUCT1_QUANTITY = "quantity_product1";
+    public static final String COLUMN_PRODUCT2_ID = "product_order2";
+    public static final String COLUMN_PRODUCT2_QUANTITY = "quantity_product2";
+    public static final String COLUMN_PRODUCT3_ID = "product_order3";
+    public static final String COLUMN_PRODUCT3_QUANTITY = "quantity_product3";
+    public static final String COLUMN_STATUS = "status";
+
+
+
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -94,13 +106,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_USER_CONTENT + " TEXT)";
         db.execSQL(createTableQuery);
 
+        String createTableQuery2 = "CREATE TABLE IF NOT EXISTS " + TBL_ORDER + " (" +
+                COLUMN_USER_ID + " TEXT, " +
+                COLUMN_PRODUCT1_ID + " TEXT, " +
+                COLUMN_PRODUCT1_QUANTITY + " INT, " +
+                COLUMN_PRODUCT2_ID + " TEXT, " +
+                COLUMN_PRODUCT2_QUANTITY + " INT, " +
+                COLUMN_PRODUCT3_ID + " TEXT, " +
+                COLUMN_PRODUCT3_QUANTITY + " INT, " +
+                COLUMN_STATUS + " TEXT)";
+        db.execSQL(createTableQuery2);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Xóa bảng nếu tồn tại và tạo lại
         db.execSQL("DROP TABLE IF EXISTS " + USER);
+        db.execSQL("DROP TABLE IF EXISTS " + TBL_ORDER);
         onCreate(db);
+    }
+
+    public boolean insertOrder(Order order) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("user_id", "user_001");
+        contentValues.put("product_order1", order.getProduct_order1());
+        contentValues.put("quantity_product1", order.getQuantity_product1());
+        contentValues.put("product_order2", order.getProduct_order2());
+        contentValues.put("quantity_product2", order.getQuantity_product2());
+        contentValues.put("product_order3", order.getProduct_order3());
+        contentValues.put("quantity_product3", order.getQuantity_product3());
+        contentValues.put("status", "Đang xử lý");
+        long result = db.insert("\"ORDER\"", null, contentValues);
+        return result != -1;
     }
 
     public boolean checkLogin(String emailPhone, String password) {

@@ -48,7 +48,6 @@ public class Signup extends AppCompatActivity {
                 }
             }
 
-
             private void showSuccessDialog() {
                 String hoTen = binding.edtHoten.getText().toString().trim();
                 String sdt = binding.edtSdt.getText().toString().trim();
@@ -110,7 +109,6 @@ public class Signup extends AppCompatActivity {
                 }
                 return true;
             }
-
             private boolean isValidPassword(String password) {
                 // Kiểm tra mật khẩu có ít nhất 6 ký tự và chứa ít nhất một ký tự đặc biệt
                 if (password.length() < 6) {
@@ -123,7 +121,6 @@ public class Signup extends AppCompatActivity {
                 }
                 return true;
             }
-
             private boolean isValidDOB(String dob) {
                 // Kiểm tra định dạng ngày sinh theo mẫu dd/mm/yyyy
                 if (!dob.matches("^\\d{2}/\\d{2}/\\d{4}$")) {
@@ -132,7 +129,6 @@ public class Signup extends AppCompatActivity {
                 }
                 return true;
             }
-
             private boolean isInputValid() {
                 String hoTen = binding.edtHoten.getText().toString().trim();
                 String sdt = binding.edtSdt.getText().toString().trim();
@@ -140,7 +136,6 @@ public class Signup extends AppCompatActivity {
                 String matKhau = binding.edtMatkhau.getText().toString().trim();
                 String dob = binding.edtDOB.getText().toString().trim();
                 String gioiTinh = binding.edtGioitinh.getText().toString().trim();
-
                 // Kiểm tra xem các trường thông tin có rỗng không
                 if (hoTen.isEmpty() || sdt.isEmpty() || email.isEmpty() || matKhau.isEmpty() || dob.isEmpty() || gioiTinh.isEmpty()) {
                     showToast("Vui lòng điền đầy đủ thông tin");
@@ -150,12 +145,10 @@ public class Signup extends AppCompatActivity {
                 if (!isValidPhoneNumber(sdt)) {
                     return false;
                 }
-
                 // Kiểm tra email
                 if (!isValidEmail(email)) {
                     return false;
                 }
-
                 // Kiểm tra mật khẩu
                 if (matKhau.length() < 6 || !isValidPassword(matKhau)) {
                     return false;
