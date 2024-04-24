@@ -1,5 +1,6 @@
 package com.example.skinlab;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -9,12 +10,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.adapters.AppointmentAdapter;
 import com.example.skinlab.databinding.ActivityAboutskinLichhenBinding;
 import com.example.models.Appointment;
+import com.example.skinlab.databinding.ActivityDialogYeucauDangnhapBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,12 +70,20 @@ public class Aboutskin_lichhen extends AppCompatActivity {
             Intent intent = new Intent(Aboutskin_lichhen.this, Aboutskin_datlich.class);
             startActivity(intent);
         });
+
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
     private void loadLichhen() {
         String loggedInPhone = getLoggedInPhone();
-        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+        boolean loggedIn = Boolean.parseBoolean(isLoggedIn());
+        if (loggedIn) {
             appointments = new ArrayList<>();
             db = SQLiteDatabase.openDatabase(getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
             Cursor cursor = db.rawQuery("SELECT * FROM " + TBL_NAME +
@@ -118,8 +131,10 @@ public class Aboutskin_lichhen extends AppCompatActivity {
         String loggedInPhone = getLoggedInPhone(); // Lấy user_phone từ SharedPreferences
         String userSkinType = databaseHelper.getUserSkinType(loggedInPhone);
 
+
 // Kiểm tra xem có đăng nhập hay không
-        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+        boolean loggedIn = Boolean.parseBoolean(isLoggedIn());
+        if (loggedIn) {
             if (userSkinType != null && !userSkinType.isEmpty()) {
                 // Hiển thị dữ liệu từ cột user_skin nếu có
                 binding.txtTinhtrangda.setText(userSkinType);
@@ -127,7 +142,20 @@ public class Aboutskin_lichhen extends AppCompatActivity {
                 // Hiển thị "Không có" nếu cột user_skin trống hoặc dữ liệu là null
                 binding.txtTinhtrangda.setText("Không có");
             }
+        } else {
+            // Hiển thị "Không có" nếu không có đăng nhập
+            binding.txtTinhtrangda.setText("Không có");
+            showAlerDialog();
+
         }
+    }
+
+
+    private String isLoggedIn() {
+        // Sử dụng requireContext() để lấy Context của Fragment
+        SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+        boolean loggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+        return String.valueOf(loggedIn);
     }
 
     private String getLoggedInPhone() {
@@ -135,6 +163,18 @@ public class Aboutskin_lichhen extends AppCompatActivity {
         return sharedPreferences.getString("loggedInPhone", "");
     }
 
+    private void showAlerDialog() {
+        ActivityDialogYeucauDangnhapBinding yeucauDangnhapBinding = ActivityDialogYeucauDangnhapBinding.inflate(LayoutInflater.from(Aboutskin_lichhen.this));
+        AlertDialog.Builder builder = new AlertDialog.Builder(Aboutskin_lichhen.this)
+                .setView(yeucauDangnhapBinding.getRoot())
+                .setCancelable(true);
+
+        // Create dialog
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setLayout(200, 200);
+        dialog.show();
+    }
 
 
 

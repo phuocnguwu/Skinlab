@@ -51,6 +51,14 @@ public class Aboutskin_datlich extends AppCompatActivity {
     }
 
     private void addEvents() {
+
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         binding.btnDatlich.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
