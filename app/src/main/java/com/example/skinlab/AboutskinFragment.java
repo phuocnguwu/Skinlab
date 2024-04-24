@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -17,6 +20,7 @@ import android.view.ViewGroup;
 
 import com.example.adapters.ProductAdapter;
 import com.example.models.Product;
+import com.example.skinlab.databinding.ActivityDialogYeucauDangnhapBinding;
 import com.example.skinlab.databinding.FragmentAboutskinBinding;
 import com.example.skinlab.databinding.FragmentForumBinding;
 
@@ -121,6 +125,7 @@ public class AboutskinFragment extends Fragment {
         db = SQLiteDatabase.openDatabase(requireContext().getDatabasePath(DB_NAME).getPath(), null, SQLiteDatabase.OPEN_READONLY);
         products = new ArrayList<>();
 
+        boolean loggedIn = Boolean.parseBoolean(isLoggedIn());
         String loggedInPhone = getLoggedInPhone();
         userSkinType = dbHelper.getUserSkinType(loggedInPhone);
 
@@ -195,7 +200,8 @@ public class AboutskinFragment extends Fragment {
         String userSkinType = dbHelper.getUserSkinType(loggedInPhone);
 
 // Kiểm tra xem có đăng nhập hay không
-        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+        boolean loggedIn = Boolean.parseBoolean(isLoggedIn());
+        if (loggedIn) {
             if (userSkinType != null && !userSkinType.isEmpty()) {
                 // Hiển thị dữ liệu từ cột user_skin nếu có
                 binding.txtTinhtrangda.setText(userSkinType);
@@ -206,8 +212,16 @@ public class AboutskinFragment extends Fragment {
         } else {
             // Hiển thị "Không có" nếu không có đăng nhập
             binding.txtTinhtrangda.setText("Không có");
+
         }
 
+    }
+
+    private String isLoggedIn() {
+        // Sử dụng requireContext() để lấy Context của Fragment
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+        boolean loggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+        return String.valueOf(loggedIn);
     }
 
     private String getLoggedInPhone() {
@@ -222,11 +236,17 @@ public class AboutskinFragment extends Fragment {
         binding.btnTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Tạo một Intent để chuyển từ Main_Aboutskin đến Aboutskin_intro_test
-                Intent intent = new Intent(requireActivity(), Aboutskin_intro_test.class);
+                // Kiểm tra xem đã đăng nhập hay chưa
+                boolean loggedIn = Boolean.parseBoolean(isLoggedIn());
 
-                // Khởi chạy Intent
-                startActivity(intent);
+                if (loggedIn) {
+                    // Đã đăng nhập, chuyển sang màn hình Aboutskin_intro_test
+                    Intent intent = new Intent(requireActivity(), Aboutskin_intro_test.class);
+                    startActivity(intent);
+                } else {
+                    // Chưa đăng nhập, hiển thị AlertDialog
+                    showAlertDialog();
+                }
             }
         });
 
@@ -251,6 +271,19 @@ public class AboutskinFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
     }
+
+    private void showAlertDialog() {
+        ActivityDialogYeucauDangnhapBinding yeucauDangnhapBinding = ActivityDialogYeucauDangnhapBinding.inflate(LayoutInflater.from(requireContext()));
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext())
+                .setView(yeucauDangnhapBinding.getRoot())
+                .setCancelable(true);
+
+        // Create dialog
+        final AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setLayout(200, 200);
+        dialog.show();
+    }
+
 }
