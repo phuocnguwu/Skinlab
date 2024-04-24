@@ -72,7 +72,7 @@ public class Product_Details extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         loadData();
-        //loadFeedback();
+        loadFeedback();
         addEvents();
     }
 
@@ -157,7 +157,7 @@ public class Product_Details extends AppCompatActivity {
                 if (selectedProduct != null) {
                     Picasso.get().load(selectedProduct.getPd_photo()).into(binding.imvProduct);
                     binding.txtProductName.setText(selectedProduct.getPd_name());
-                    binding.txtProductBrand.setText(selectedProduct.getPd_brand());
+//                    binding.txtProductBrand.setText(selectedProduct.getPd_brand());
                     binding.txtProductPrice.setText(formattedPrice + " đ");
                     binding.txtProductPrice2.setText(formattedPrice2 + " đ");
                     binding.txtProductDes.setText(selectedProduct.getPd_des());
