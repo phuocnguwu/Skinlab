@@ -35,6 +35,12 @@ public class Quenmatkhau extends AppCompatActivity {
                 kiemTraSoDienThoai();
             }
         });
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void kiemTraSoDienThoai() {

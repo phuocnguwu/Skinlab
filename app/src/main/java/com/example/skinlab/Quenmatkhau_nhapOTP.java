@@ -35,7 +35,14 @@ public class Quenmatkhau_nhapOTP extends AppCompatActivity {
                 kiemTraOTP();
             }
         });
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
 
     private void kiemTraOTP() {
         String otp1 = binding.edtOTP1.getText().toString().trim();

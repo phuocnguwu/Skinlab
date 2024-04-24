@@ -158,6 +158,13 @@ public class Quenmatkhau_Matkhaumoi extends AppCompatActivity {
 
 
         });
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+
+            }
+        });
     }
 
     private void saveUserNewPassword() {
