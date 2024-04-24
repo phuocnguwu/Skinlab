@@ -31,15 +31,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtOrderDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:text="15/03/2024"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="67dp" />
+<!--    <TextView-->
+<!--        android:id="@+id/txtOrderDate"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="4dp"-->
+<!--        android:text="15/03/2024"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        tools:ignore="MissingConstraints"-->
+<!--        tools:layout_editor_absoluteY="67dp" />-->
 
     <TextView
         android:layout_width="match_parent"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtTennguoinhan"
+        android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -80,7 +80,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/tctSdtnguoinhan"
+        android:id="@+id/txtphone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -92,7 +92,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/txtDiachinguoinhan"
+        android:id="@+id/txtaddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -107,13 +107,13 @@
         android:id="@+id/txtTitle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="12dp"
         android:text="Danh sách sản phẩm:"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDiachinguoinhan"
+        app:layout_constraintTop_toBottomOf="@+id/txtaddress"
         tools:ignore="MissingConstraints" />
 
     <ListView
@@ -151,17 +151,6 @@
         app:layout_constraintTop_toBottomOf="@+id/txtSubTitle1"
         tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:id="@+id/txtSubtitle3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
-        android:text="Giảm giá:"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSUbtitle2"
-        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtSubtitle4"
@@ -172,7 +161,7 @@
         android:text="Thành tiền"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSubtitle3"
+        app:layout_constraintTop_toBottomOf="@+id/txtSUbtitle2"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -200,18 +189,6 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textView36"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="-20.000 đ"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.881"
-        app:layout_constraintStart_toEndOf="@+id/txtSubtitle3"
-        app:layout_constraintTop_toBottomOf="@+id/textView35"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
         android:id="@+id/textView37"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -222,7 +199,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.874"
         app:layout_constraintStart_toEndOf="@+id/txtSubtitle4"
-        app:layout_constraintTop_toBottomOf="@+id/textView36"
+        app:layout_constraintTop_toBottomOf="@+id/txtSUbtitle2"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -232,21 +209,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="15dp"
         android:textStyle="bold"
-        android:text="Phương thức thanh toán"
+        android:text="Phương thức thanh toán: COD"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSubtitle4"
-        tools:ignore="MissingConstraints" />
-
-    <Spinner
-        android:id="@+id/spnPTTT"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitle3"
         tools:ignore="MissingConstraints" />
 
     <Button
