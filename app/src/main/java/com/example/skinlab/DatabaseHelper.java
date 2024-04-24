@@ -58,7 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_USER_PASSWORD = "user_password";
 
-    public static final String TBL_ORDER = "ORDER";
+    public static final String TBL_ORDER = "ORDERS";
     public static final String COLUMN_PRODUCT1_ID = "product_order1";
     public static final String COLUMN_PRODUCT1_QUANTITY = "quantity_product1";
     public static final String COLUMN_PRODUCT2_ID = "product_order2";

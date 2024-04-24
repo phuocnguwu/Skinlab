@@ -288,32 +288,23 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 String emailPhone = binding.editTextEmailPhone.getText().toString().trim();
                 String password = binding.editTextPassword.getText().toString().trim();
-
-                // Kiểm tra xem các EditText đã được điền đầy đủ thông tin chưa
                 if (emailPhone.isEmpty() || password.isEmpty()) {
                     Toast.makeText(getContext(), "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                // Kiểm tra định dạng của email hoặc số điện thoại
                 if (!isValidEmailOrPhoneNumber(emailPhone)) {
                     Toast.makeText(getContext(), "Email hoặc Số điện thoại đã sai định dạng", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                // Kiểm tra xem email hoặc số điện thoại đã tồn tại trong cơ sở dữ liệu chưa
                 if (!isEmailOrPhoneNumberExists(emailPhone)) {
                     Toast.makeText(getContext(), "Tài khoản chưa được đăng ký", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                // Kiểm tra đăng nhập
                 if (databaseHelper.checkLogin(emailPhone, password)) {
                     isLoggedIn = true;
                     String loggedInPhone = databaseHelper.getUserPhone(emailPhone); // Lấy user_phone tương ứng với email hoặc số điện thoại
                     saveLoginStatus(isLoggedIn, loggedInPhone); // Lưu user_phone của người dùng đăng nhập
                     Toast.makeText(getContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                    // In ra để kiểm tra số điện thoại mới đã được cập nhật chưa
                     Log.d("LoginFragment", "Số điện thoại của người dùng mới: " + loggedInPhone);
                     FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
