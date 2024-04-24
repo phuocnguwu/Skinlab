@@ -130,7 +130,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean insertOrder(Order order) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("user_id", "user_001");
+        contentValues.put("user_id", "5");
         contentValues.put("product_order1", order.getProduct_order1());
         contentValues.put("quantity_product1", order.getQuantity_product1());
         contentValues.put("product_order2", order.getProduct_order2());
