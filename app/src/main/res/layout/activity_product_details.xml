@@ -183,7 +183,7 @@
                     android:layout_marginBottom="15dp"
                     android:backgroundTint="@color/yellow"
                     android:text="THÊM VÀO GIỎ HÀNG"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:background="@drawable/round_corner_4"
                     android:textSize="20sp" />
 

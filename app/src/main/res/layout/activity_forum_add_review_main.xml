@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingRight="10dp"
         tools:context=".Forum_AddReview_Main">
         <ImageView
             android:id="@+id/btnclickback"
@@ -73,7 +75,7 @@
 
         <EditText
             android:id="@+id/edtAddTitle"
-            android:layout_width="380dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="214dp"
@@ -100,7 +102,7 @@
 
         <EditText
             android:id="@+id/edtAddContent"
-            android:layout_width="380dp"
+            android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="320dp"
@@ -128,7 +130,7 @@
 
         <EditText
             android:id="@+id/edtShortContent"
-            android:layout_width="380dp"
+            android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="576dp"
