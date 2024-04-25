@@ -99,6 +99,7 @@ public class Homepage extends Fragment {
     public static final String COLUMN_PD_PHOTO = "pd_photo";
     public static final String COLUMN_PD_DES = "pd_des";
     public static final String COLUMN_PD_SKINTYPE = "pd_skintype";
+    public static final String COLUMN_PD_RATING = "rating";
     private int currentPosition = 0;
     private final int DELAY_MS = 2000;
     private Handler sliderHandler;
@@ -177,10 +178,11 @@ public class Homepage extends Fragment {
                 int columnIndexDes = cursor.getColumnIndex(COLUMN_PD_DES);
                 int columnIndexPhoto = cursor.getColumnIndex(COLUMN_PD_PHOTO);
                 int columnIndexSkintype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
+                int columnIndexRating = cursor.getColumnIndex(COLUMN_PD_RATING);
 
                 if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
                         columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
-                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkintype != -1) {
+                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkintype != -1 && columnIndexRating != -1) {
 
                     String pdId = cursor.getString(columnIndexId);
                     String pdName = cursor.getString(columnIndexName);
@@ -191,9 +193,10 @@ public class Homepage extends Fragment {
                     String pdDes = cursor.getString(columnIndexDes);
                     String pdPhoto = cursor.getString(columnIndexPhoto);
                     String pdSkintype = cursor.getString(columnIndexSkintype);
+                    int pdRating = cursor.getInt(columnIndexRating);
 //
 //                    // Tạo đối tượng Product từ dữ liệu truy vấn
-                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
+                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype, pdRating);
                     products.add(product);
                 }
             }

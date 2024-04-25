@@ -63,6 +63,7 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<ProductDetailsAd
         holder.txtProductName.setText(products.get(position).getPd_name());
         holder.txtProductDes.setText(products.get(position).getPd_des());
         holder.txtId.setText(products.get(position).getPd_id());
+        holder.txtRatings.setText(products.get(position).getPd_ratings());
 
         // Khi click 1 item
         final int itemPosition = position;
@@ -88,7 +89,7 @@ public class ProductDetailsAdapter extends RecyclerView.Adapter<ProductDetailsAd
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imvProduct;
-        TextView txtProductName, txtProductPrice, txtProductBrand, txtProductPrice2, txtProductDes, txtProductFeedback, txtId;
+        TextView txtProductName, txtProductPrice, txtProductBrand, txtProductPrice2, txtProductDes, txtProductFeedback, txtId, txtRatings;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

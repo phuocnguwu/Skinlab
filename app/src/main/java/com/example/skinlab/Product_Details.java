@@ -161,6 +161,7 @@ public class Product_Details extends AppCompatActivity {
                     binding.txtProductName.setText(selectedProduct.getPd_name());
                     binding.txtProductPrice.setText(formattedPrice + " đ");
                     binding.txtProductPrice2.setText(formattedPrice2 + " đ");
+                    binding.txtRatings.setText(String.valueOf(selectedProduct.getPd_ratings()));
                     binding.txtProductDes.setText(selectedProduct.getPd_des());
                 }else{
                     Log.d("Product_Details", "selectedProduct is null");
@@ -257,7 +258,8 @@ public class Product_Details extends AppCompatActivity {
     }
 
     private void showAddToCartDialog() {
-        ActivityProductDetailsDialogAddtocartBinding DialogAddtocartBinding = ActivityProductDetailsDialogAddtocartBinding.inflate(LayoutInflater.from(Product_Details.this));
+        ActivityProductDetailsDialogAddtocartBinding DialogAddtocartBinding = ActivityProductDetailsDialogAddtocartBinding
+                .inflate(LayoutInflater.from(Product_Details.this));
         AlertDialog.Builder builder = new AlertDialog.Builder(Product_Details.this)
                 .setView(DialogAddtocartBinding.getRoot())
                 .setCancelable(true);

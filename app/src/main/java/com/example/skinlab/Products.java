@@ -53,6 +53,7 @@ public class Products extends AppCompatActivity {
     public static final String COLUMN_PD_PHOTO = "pd_photo";
     public static final String COLUMN_PD_DES = "pd_des";
     public static final String COLUMN_PD_SKINTYPE = "pd_skintype";
+    public static final String COLUMN_PD_RATING = "rating";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,10 +120,11 @@ public class Products extends AppCompatActivity {
                 int columnIndexDes = cursor.getColumnIndex(COLUMN_PD_DES);
                 int columnIndexPhoto = cursor.getColumnIndex(COLUMN_PD_PHOTO);
                 int columnIndexSkiptype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
+                int columnIndexRating = cursor.getColumnIndex(COLUMN_PD_RATING);
 
                 if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
                         columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
-                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkiptype != -1) {
+                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkiptype != -1 && columnIndexRating != -1) {
 
                     String pdId = cursor.getString(columnIndexId);
                     String pdName = cursor.getString(columnIndexName);
@@ -133,9 +135,10 @@ public class Products extends AppCompatActivity {
                     String pdDes = cursor.getString(columnIndexDes);
                     String pdPhoto = cursor.getString(columnIndexPhoto);
                     String pdSkintype = cursor.getString(columnIndexPhoto);
+                    int pdRating = cursor.getInt(columnIndexRating);
 
                     // Tạo đối tượng Product từ dữ liệu truy vấn
-                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
+                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype, pdRating);
                     products.add(product);
                 }
             } while (cursor.moveToNext());
@@ -223,10 +226,12 @@ public class Products extends AppCompatActivity {
                 int columnIndexDes = cursor.getColumnIndex(COLUMN_PD_DES);
                 int columnIndexPhoto = cursor.getColumnIndex(COLUMN_PD_PHOTO);
                 int columnIndexSkiptype = cursor.getColumnIndex(COLUMN_PD_SKINTYPE);
+                int columnIndexRating = cursor.getColumnIndex(COLUMN_PD_RATING);
+
 
                 if (columnIndexId != -1 && columnIndexName != -1 && columnIndexPrice != -1 &&
                         columnIndexPrice2 != -1 && columnIndexBrand != -1 && columnIndexCate != -1 &&
-                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkiptype != -1) {
+                        columnIndexDes != -1 && columnIndexPhoto != -1 && columnIndexSkiptype != -1 && columnIndexRating != -1) {
 
                     String pdId = cursor.getString(columnIndexId);
                     String pdName = cursor.getString(columnIndexName);
@@ -237,9 +242,10 @@ public class Products extends AppCompatActivity {
                     String pdDes = cursor.getString(columnIndexDes);
                     String pdPhoto = cursor.getString(columnIndexPhoto);
                     String pdSkintype = cursor.getString(columnIndexPhoto);
+                    int pdRating = cursor.getInt(columnIndexRating);
 
                     // Tạo đối tượng Product từ dữ liệu truy vấn
-                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype);
+                    Product product = new Product(pdPhoto, pdId, pdName, pdPrice, pdPrice2, pdBrand, pdCate, pdDes, pdSkintype, pdRating);
                     products.add(product);
                 }
             } while (cursor.moveToNext());
