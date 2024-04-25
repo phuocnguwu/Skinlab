@@ -77,11 +77,11 @@ public class Donhang_Fragment extends Fragment {
     }
 
     private void addEvents() {
-        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+//        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getActivity().onBackPressed();
+//            }
+//        });
     }
 }

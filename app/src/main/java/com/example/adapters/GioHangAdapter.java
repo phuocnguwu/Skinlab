@@ -77,11 +77,6 @@ public class GioHangAdapter extends ArrayAdapter<Product> {
         TextView txtProductPrice = listItemView.findViewById(R.id.txtProductprice);
         TextView txtProductquantity1 = listItemView.findViewById(R.id.txtProductquantity1);
 
-
-
-
-
-
         // Đặt giá trị cho các view
         Picasso.get().load(item.getPd_photo()).into(imgProduct);
         txtProductName.setText(item.getPd_name());
