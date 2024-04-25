@@ -91,7 +91,7 @@
                     android:layout_height="45dp"
                     android:backgroundTint="#8AB0F9"
                     android:text="Tìm"
-                    android:textColor="@color/black"
+                    android:textColor="@color/yellow"
                     android:textSize="18dp" />
 
             </LinearLayout>
