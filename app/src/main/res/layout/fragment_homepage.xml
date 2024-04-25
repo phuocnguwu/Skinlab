@@ -89,9 +89,9 @@
                     android:id="@+id/btnSearch"
                     android:layout_width="80dp"
                     android:layout_height="45dp"
-                    android:backgroundTint="#8AB0F9"
+                    android:backgroundTint="@color/yellow"
                     android:text="Tìm"
-                    android:textColor="@color/yellow"
+                    android:textColor="@color/black"
                     android:textSize="18dp" />
 
             </LinearLayout>

@@ -80,7 +80,7 @@
             android:id="@+id/btnSearch"
             android:layout_width="80dp"
             android:layout_height="45dp"
-            android:backgroundTint="#8AB0F9"
+            android:backgroundTint="@color/yellow"
             android:text="Tìm"
             android:layout_marginEnd="5dp"
             android:textColor="@color/black"
@@ -93,7 +93,7 @@
             android:padding="5dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:backgroundTint="#8AB0F9"
+            android:backgroundTint="@color/yellow"
             android:layout_gravity="center_vertical" />
 
     </LinearLayout>
