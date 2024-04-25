@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ForumFragment"
+    android:background="@color/white"
     android:padding="10dp">
     <TextView
         android:id="@+id/textviewTieude"
@@ -58,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="210dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="50dp"
         android:backgroundTint="#ECF96E"
         android:text="+  Thêm đánh giá"
         android:textColor="#000000"
