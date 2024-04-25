@@ -178,11 +178,15 @@ public class MyAccountFragment extends Fragment {
         });
 
         binding.morongdonhang.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireActivity(), Donhang_dathang.class);
-                startActivity(intent);
+                // Tạo một phiên bản mới của Donhang_Fragment
+                Donhang_Fragment donhangFragment = new Donhang_Fragment();
 
+                // Thêm fragment mới vào hoạt động hiện tại
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.containerLayout, donhangFragment) // Thay thế fragment_container bằng id của container trong layout của bạn
+                        .addToBackStack(null) // Thêm fragment này vào ngăn xếp back stack
+                        .commit();
             }
         });
         binding.morongdiachi.setOnClickListener(new View.OnClickListener() {

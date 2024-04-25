@@ -29,9 +29,9 @@
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:text="Kết quả của bạn"
-        android:textSize="26sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,13 +59,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tình trạng da "
-        android:textSize="26sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:textColor="#8AB0F9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -224,14 +223,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="@color/yellow"
         android:text="Thực hiện lại bài kiểm tra"
         android:textColor="#000000"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

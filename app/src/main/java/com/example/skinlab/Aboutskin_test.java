@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -123,16 +124,17 @@ public class Aboutskin_test extends AppCompatActivity {
                     intent.putExtra("TOTAL_SCORE", totalScore);
                     startActivity(intent);
                 } else {
-                    // Hiển thị hộp thoại cảnh báo nếu các câu hỏi chưa được trả lời đầy đủ
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Aboutskin_test.this);
-                    builder.setMessage("Vui lòng trả lời đầy đủ");
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.show();
+                    Toast.makeText(Aboutskin_test.this, "Vui lòng trả lời đầy đủ", Toast.LENGTH_SHORT).show();
+//                    // Hiển thị hộp thoại cảnh báo nếu các câu hỏi chưa được trả lời đầy đủ
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(Aboutskin_test.this);
+//                    builder.setMessage("Vui lòng trả lời đầy đủ");
+//                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    });
+//                    builder.show();
                 }
             }
         });

@@ -6,24 +6,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".AboutskinFragment">
+
+        <TextView
+            android:id="@+id/textviewTieude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Tư vấn"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="2:1"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:src="@drawable/round_corner_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/textviewTieude" />
 
         <TextView
             android:id="@+id/txtTinhtrangcontent"
@@ -45,7 +60,7 @@
             android:text="Không có"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#8AB0F9"
+            android:textColor="@color/blue"
             android:layout_marginStart="30sp"
             app:layout_constraintStart_toStartOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/txtTinhtrangcontent" />
@@ -54,10 +69,10 @@
             android:id="@+id/btnTest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#ECF96E"
+            android:backgroundTint="@color/yellow"
             android:text="Kiểm tra"
             android:textColor="#000000"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
@@ -95,7 +110,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Chu trình dưỡng da"
                 android:textColor="#000000"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/ibtnChutrinh"
                 app:layout_constraintTop_toTopOf="@+id/ibtnChutrinh" />
 
@@ -122,7 +137,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Xem lịch    tư vấn"
                 android:textColor="#000000"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/ibtnLichhen"
                 app:layout_constraintTop_toTopOf="@+id/ibtnLichhen" />
         </androidx.constraintlayout.widget.ConstraintLayout>

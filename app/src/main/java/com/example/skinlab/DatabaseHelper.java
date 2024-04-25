@@ -13,6 +13,8 @@ import com.example.models.Account;
 import com.example.models.Appointment;
 import com.example.models.Order;
 
+import java.util.ArrayList;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "Skinlab.db";
     private static final int DB_VERSION = 1;
@@ -168,6 +170,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.insert(USER, null, values);
         db.close();
     }
+
+    public ArrayList<Order> getAllOrders() {
+        ArrayList<Order> orderList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Câu lệnh truy vấn
+        String query = "SELECT * FROM " + TBL_ORDER;
+
+        // Thực hiện truy vấn và nhận kết quả
+        Cursor cursor = db.rawQuery(query, null);
+
+        // Đọc dữ liệu từ con trỏ và thêm vào danh sách
+        if (cursor.moveToFirst()) {
+            do {
+                @SuppressLint("Range") String userId = cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID));
+                @SuppressLint("Range") String productOrder1 = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT1_ID));
+                @SuppressLint("Range") int quantityProduct1 = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT1_QUANTITY));
+                @SuppressLint("Range") String productOrder2 = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT2_ID));
+                @SuppressLint("Range") int quantityProduct2 = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT2_QUANTITY));
+                @SuppressLint("Range") String productOrder3 = cursor.getString(cursor.getColumnIndex(COLUMN_PRODUCT3_ID));
+                @SuppressLint("Range") int quantityProduct3 = cursor.getInt(cursor.getColumnIndex(COLUMN_PRODUCT3_QUANTITY));
+                @SuppressLint("Range") String status = cursor.getString(cursor.getColumnIndex(COLUMN_STATUS));
+
+                // Tạo đối tượng Order và thêm vào danh sách
+                Order order = new Order(userId, productOrder1, quantityProduct1, productOrder2, quantityProduct2, productOrder3, quantityProduct3, status);
+                orderList.add(order);
+            } while (cursor.moveToNext());
+        }
+
+        // Đóng con trỏ và đóng kết nối tới cơ sở dữ liệu
+        cursor.close();
+        db.close();
+
+        return orderList;
+    }
+
+
     public void updateUserProfile(String phone, String newName, String newEmail, String newPhone, String newGender, String newDOB, String newAvatarUrl) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

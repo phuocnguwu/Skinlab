@@ -10,11 +10,14 @@ import static java.security.AccessController.getContext;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,9 +25,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 
+import com.example.adapters.AddressRecyclerAdapter;
 import com.example.adapters.GioHangAdapter;
+import com.example.models.Address;
 import com.example.models.Order;
 import com.example.models.Product;
 import com.example.skinlab.databinding.ActivityDialogDathangBinding;
@@ -45,22 +51,104 @@ public class Donhang_dathang extends AppCompatActivity {
     GioHangAdapter gioHangAdapter;
     private ArrayList<Product> gioHangItemList = new ArrayList<>();
     int receivedTotalPrice = 0;
+    ArrayList<Address> addresses;
+    DatabaseHelper databaseHelper;
 
+    String name;
+    String phone;
+    String address;
+    String address2;
+
+   AddressRecyclerAdapter addressAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDonhangDathangBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            Log.d("test intent donhang", "chạy nè");
+            String name = intent.getStringExtra("name");
+            String phone = intent.getStringExtra("phone");
+            String address = intent.getStringExtra("address");
+            Log.d("test intent donhang", "name: " + name);
+
+            // Hiển thị thông tin địa chỉ trong các TextView tương ứng
+            binding.txtName.setText(name);
+            binding.txtphone.setText(phone);
+            binding.txtaddress.setText(address);
+        }
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             receivedTotalPrice = extras.getInt("totalPrice");
         }
         gioHangAdapter = new GioHangAdapter(Donhang_dathang.this, R.layout.dathang_item_list, gioHangItemList);
+
         binding.lvOrderlist.setAdapter(gioHangAdapter);
         loadCartFromSharedPreferences();
         addEvents();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //loadUserAddresses();
+    }
+
+//    private void loadUserAddresses() {
+//        String loggedInPhone = getLoggedInPhone();
+//        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+//            addresses = new ArrayList<>();
+//            SQLiteDatabase db = databaseHelper.getReadableDatabase();
+//            Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.USER +
+//                    " WHERE " + DatabaseHelper.COLUMN_USER_PHONE + " = ?", new String[]{loggedInPhone});
+//            if (cursor.moveToFirst()) {
+//                do {
+//                    String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_NAME));
+//                    String phone = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_PHONE));
+//                    String address1 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS));
+//                    String address2 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS2));
+//                    String name2ForAddress2 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_NAME2FORADDRESS2));
+//                    String phone2ForAddress2 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_PHONE2FORADDRESS2));
+//
+//                    // Kiểm tra xem cả address1 và address2 đều có giá trị
+//                    if (address1 != null && !address1.isEmpty()) {
+//                        Address address = new Address(name, phone, address1, null);
+//                        addresses.add(address);
+//                    }
+//                    // Nếu address2 cũng có giá trị, thêm một địa chỉ mới với address2
+//                    if (address2 != null && !address2.isEmpty()) {
+//                        Address address2Item = new Address(name2ForAddress2, phone2ForAddress2, address2, null);
+//                        addresses.add(address2Item);
+//                    }
+//                } while (cursor.moveToNext());
+//            }
+//            cursor.close();
+//            db.close();
+//            // Kiểm tra xem danh sách địa chỉ có dữ liệu hay không
+//            if (addresses.isEmpty()) {
+//                Toast.makeText(this, "Không có địa chỉ", Toast.LENGTH_SHORT).show();
+//            } else {
+//                // Nếu danh sách địa chỉ có dữ liệu, hiển thị RecyclerView và hiển thị các địa chỉ
+//                binding.rcvdiachi.setVisibility(View.VISIBLE);
+//                displayAddresses();
+//            }
+//        } else {
+//            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//
+//    public String getLoggedInPhone() {
+//        SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+//        return sharedPreferences.getString("loggedInPhone", "");
+//    }
+//
+//    private void displayAddresses() {
+//        AddressRecyclerAdapter adapter = new AddressRecyclerAdapter(this, addresses,databaseHelper);
+//        binding.rcvdiachi.setAdapter(adapter);
+//    }
 
 
     private void loadCartFromSharedPreferences() {
