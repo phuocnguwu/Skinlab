@@ -7,6 +7,7 @@ import static java.security.AccessController.getContext;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
@@ -173,23 +174,23 @@ public class Product_Details extends AppCompatActivity {
 
     private void addEvents() {
 
-        ImageButton btnMinus = findViewById(R.id.btnMinus);
-        ImageButton btnPlus = findViewById(R.id.btnPlus);
-        EditText edtQuantity = findViewById(R.id.edtQuantity);
+//        ImageButton btnMinus = findViewById(R.id.btnMinus);
+//        ImageButton btnPlus = findViewById(R.id.btnPlus);
+//        EditText edtQuantity = findViewById(R.id.edtQuantity);
 
-        btnMinus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                decreaseQuantity(edtQuantity);
-            }
-        });
-
-        btnPlus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                increaseQuantity(edtQuantity);
-            }
-        });
+//        btnMinus.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                decreaseQuantity(edtQuantity);
+//            }
+//        });
+//
+//        btnPlus.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                increaseQuantity(edtQuantity);
+//            }
+//        });
 
         binding.imvBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,13 +199,19 @@ public class Product_Details extends AppCompatActivity {
             }
         });
 
-        binding.imvCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Product_Details.this, Donhang_dathang.class);
-                startActivity(intent);
-            }
-        });
+//        binding.imvCart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Tạo một đối tượng FragmentTransaction
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//
+//                // Thêm Giohang_Fragment vào FragmentManager và thay thế fragment hiện tại
+//                transaction.replace(android.R.id.content, new Giohang_Fragment());
+//
+//                // Thực hiện giao dịch
+//                transaction.commit();
+//            }
+//        });
 
         binding.txtProductFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,21 +228,21 @@ public class Product_Details extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                EditText edtQuantity = findViewById(R.id.edtQuantity);
-                String quantityStr = edtQuantity.getText().toString().trim();
-
-                if (!quantityStr.isEmpty()) {
-                    int quantity = Integer.parseInt(quantityStr);
-
-                    if (quantity > 0) {
-                        addToCart(selectedProduct, quantity);
-                        showAddToCartDialog();
-                    } else {
-                        Toast.makeText(Product_Details.this, "Số lượng không hợp lệ", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(Product_Details.this, "Vui lòng nhập số lượng", Toast.LENGTH_SHORT).show();
-                }
+//                EditText edtQuantity = findViewById(R.id.edtQuantity);
+//                String quantityStr = edtQuantity.getText().toString().trim();
+//
+//                if (!quantityStr.isEmpty()) {
+//                    int quantity = Integer.parseInt(quantityStr);
+//
+//                    if (quantity > 0) {
+//                        addToCart(selectedProduct, quantity);
+//                        showAddToCartDialog();
+//                    } else {
+//                        Toast.makeText(Product_Details.this, "Số lượng không hợp lệ", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    Toast.makeText(Product_Details.this, "Vui lòng nhập số lượng", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 

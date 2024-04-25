@@ -5,13 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Donhang_dathang"
-    android:padding="10dp">
+    tools:context=".Donhang_dathang">
 
     <ImageButton
         android:id="@+id/btnclickback"
@@ -32,34 +29,24 @@
         android:layout_marginTop="30dp"
         android:text="Thanh toán"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/txtOrderDate"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="4dp"-->
-<!--        android:text="15/03/2024"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        tools:ignore="MissingConstraints"-->
-<!--        tools:layout_editor_absoluteY="67dp" />-->
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="92dp"
+        android:background="@drawable/round_corner"
         android:backgroundTint="@color/blue"
+        android:gravity="center"
         android:text="Thông tin đơn hàng"
         android:textColor="@color/black"
         android:textSize="20sp"
-        android:gravity="center"
-        android:background="@drawable/round_corner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"  />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtTitle1"
@@ -80,7 +67,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:textSize="16sp"
-        android:text="Nguyễn Vũ Mai Thanh"
+        android:text="Lê Thị Linh Chi"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle1"
         tools:ignore="MissingConstraints" />
@@ -91,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="36dp"
-        android:text="0123456789"
+        android:text="0123933147"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle1"
@@ -104,7 +91,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="68dp"
         android:textSize="16sp"
-        android:text="Thủ Đức, Hồ Chí Minh"
+        android:text="21 đường Rạch Ga, phường 9, Lấp Vò, Đồng Tháp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle1"
         tools:ignore="MissingConstraints" />
@@ -124,8 +111,8 @@
 
     <ListView
         android:id="@+id/lvOrderlist"
-        android:layout_width="348dp"
-        android:layout_height="114dp"
+        android:layout_width="333dp"
+        android:layout_height="182dp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
@@ -146,19 +133,6 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/txtSUbtitle2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
-        android:text="Phí vận chuyển"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSubTitle1"
-        tools:ignore="MissingConstraints" />
-
-
-    <TextView
         android:id="@+id/txtSubtitle4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -167,7 +141,7 @@
         android:text="Thành tiền"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSUbtitle2"
+        app:layout_constraintTop_toBottomOf="@+id/txtSubTitle1"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -183,18 +157,6 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textView35"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="20.000 đ"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.859"
-        app:layout_constraintStart_toEndOf="@+id/txtSUbtitle2"
-        app:layout_constraintTop_toBottomOf="@+id/textView34"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
         android:id="@+id/textView37"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -205,7 +167,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.874"
         app:layout_constraintStart_toEndOf="@+id/txtSubtitle4"
-        app:layout_constraintTop_toBottomOf="@+id/txtSUbtitle2"
+        app:layout_constraintTop_toBottomOf="@+id/txtSubTitle1"
         tools:ignore="MissingConstraints" />
 
     <TextView

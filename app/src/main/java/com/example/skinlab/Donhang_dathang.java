@@ -67,19 +67,6 @@ public class Donhang_dathang extends AppCompatActivity {
         binding = ActivityDonhangDathangBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Intent intent = getIntent();
-        if (intent != null) {
-            Log.d("test intent donhang", "chạy nè");
-            String name = intent.getStringExtra("name");
-            String phone = intent.getStringExtra("phone");
-            String address = intent.getStringExtra("address");
-            Log.d("test intent donhang", "name: " + name);
-
-            // Hiển thị thông tin địa chỉ trong các TextView tương ứng
-            binding.txtName.setText(name);
-            binding.txtphone.setText(phone);
-            binding.txtaddress.setText(address);
-        }
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             receivedTotalPrice = extras.getInt("totalPrice");
@@ -94,7 +81,6 @@ public class Donhang_dathang extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //loadUserAddresses();
     }
 
 //    private void loadUserAddresses() {
@@ -199,6 +185,12 @@ public class Donhang_dathang extends AppCompatActivity {
     }
 
     private void addEvents() {
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         binding.btnDatHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,8 +210,8 @@ public class Donhang_dathang extends AppCompatActivity {
 
                 // Hiển thị dialog hoặc chuyển sang activity khác ở đây
                 showAlerDialog();
-                Intent intent = new Intent(Donhang_dathang.this, Donhang_Chitietdonhang.class);
-                startActivity(intent);
+//                Intent intent = new Intent(Donhang_dathang.this, Donhang_Chitietdonhang.class);
+//                startActivity(intent);
             }
         });
     }

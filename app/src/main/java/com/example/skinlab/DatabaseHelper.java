@@ -60,7 +60,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_USER_PASSWORD = "user_password";
 
-    public static final String TBL_ORDER = "ORDERS";
+    public static final String TBL_ORDER = "ORDER";
     public static final String COLUMN_PRODUCT1_ID = "product_order1";
     public static final String COLUMN_PRODUCT1_QUANTITY = "quantity_product1";
     public static final String COLUMN_PRODUCT2_ID = "product_order2";
@@ -108,7 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_USER_CONTENT + " TEXT)";
         db.execSQL(createTableQuery);
 
-        String createTableQuery2 = "CREATE TABLE IF NOT EXISTS " + TBL_ORDER + " (" +
+        String createTableQuery2 = "CREATE TABLE IF NOT EXISTS \"ORDER\""  + " (" +
                 COLUMN_USER_ID + " TEXT, " +
                 COLUMN_PRODUCT1_ID + " TEXT, " +
                 COLUMN_PRODUCT1_QUANTITY + " INT, " +
@@ -125,7 +125,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Xóa bảng nếu tồn tại và tạo lại
         db.execSQL("DROP TABLE IF EXISTS " + USER);
-        db.execSQL("DROP TABLE IF EXISTS " + TBL_ORDER);
+        db.execSQL("DROP TABLE IF EXISTS \"ORDER\"");
         onCreate(db);
     }
 
@@ -176,7 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Câu lệnh truy vấn
-        String query = "SELECT * FROM " + TBL_ORDER;
+        String query = "SELECT * FROM \"ORDER\"";
 
         // Thực hiện truy vấn và nhận kết quả
         Cursor cursor = db.rawQuery(query, null);

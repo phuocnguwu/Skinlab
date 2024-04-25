@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -363,8 +364,14 @@ public class Homepage extends Fragment {
         binding.imvCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireActivity(), Donhang_dathang.class);
-                startActivity(intent);
+                // Tạo một đối tượng FragmentTransaction
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                // Thêm Giohang_Fragment vào FragmentManager và thay thế fragment hiện tại
+                transaction.replace(R.id.containerLayout, new Giohang_Fragment());
+
+                // Thực hiện giao dịch
+                transaction.commit();
             }
         });
 

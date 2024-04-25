@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.example.adapters.OrderAdapter;
 import com.example.models.Order;
+import com.example.skinlab.databinding.FragmentDonhangBinding;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,7 @@ public class Donhang_Fragment extends Fragment {
      * @return A new instance of fragment Donhang_Fragment.
      */
     // TODO: Rename and change types and number of parameters
+    FragmentDonhangBinding binding;
     public static Donhang_Fragment newInstance(String param1, String param2) {
         Donhang_Fragment fragment = new Donhang_Fragment();
         Bundle args = new Bundle();
@@ -60,16 +62,26 @@ public class Donhang_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_donhang_, container, false);
-        ListView lvDonhang = view.findViewById(R.id.lvDonhang);
+        //ListView lvDonhang = view.findViewById(R.id.lvDonhang);
+//
+//        // Truy vấn dữ liệu từ cơ sở dữ liệu
+//        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
+//        ArrayList<Order> orderList = dbHelper.getAllOrders(); // Cần phải triển khai phương thức getAllOrders trong DatabaseHelper
+//
+//        // Tạo Adapter và gán cho ListView
+//        OrderAdapter adapter = new OrderAdapter(getContext(), R.layout.donhang_listbelowcategory, orderList);
+//        lvDonhang.setAdapter(adapter);
 
-        // Truy vấn dữ liệu từ cơ sở dữ liệu
-        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
-        ArrayList<Order> orderList = dbHelper.getAllOrders(); // Cần phải triển khai phương thức getAllOrders trong DatabaseHelper
-
-        // Tạo Adapter và gán cho ListView
-        OrderAdapter adapter = new OrderAdapter(getContext(), R.layout.donhang_listbelowcategory, orderList);
-        lvDonhang.setAdapter(adapter);
-
+        addEvents();
         return view;
+    }
+
+    private void addEvents() {
+        binding.btnclickback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
     }
 }
