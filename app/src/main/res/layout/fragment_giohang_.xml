@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="44dp"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="@color/yellow"
         android:text="Đặt hàng"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottom" />
