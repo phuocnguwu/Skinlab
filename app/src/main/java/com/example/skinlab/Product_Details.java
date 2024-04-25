@@ -156,11 +156,9 @@ public class Product_Details extends AppCompatActivity {
                 String formattedPrice = decimalFormat.format(selectedProduct.getPd_price());
                 String formattedPrice2 = decimalFormat.format(selectedProduct.getPd_price2());
 
-
                 if (selectedProduct != null) {
                     Picasso.get().load(selectedProduct.getPd_photo()).into(binding.imvProduct);
                     binding.txtProductName.setText(selectedProduct.getPd_name());
-//                    binding.txtProductBrand.setText(selectedProduct.getPd_brand());
                     binding.txtProductPrice.setText(formattedPrice + " đ");
                     binding.txtProductPrice2.setText(formattedPrice2 + " đ");
                     binding.txtProductDes.setText(selectedProduct.getPd_des());
@@ -169,7 +167,6 @@ public class Product_Details extends AppCompatActivity {
                 }
             }
         }
-
     }
 
     private void addEvents() {
@@ -227,6 +224,7 @@ public class Product_Details extends AppCompatActivity {
         binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showAddToCartDialog();
 
 //                EditText edtQuantity = findViewById(R.id.edtQuantity);
 //                String quantityStr = edtQuantity.getText().toString().trim();
@@ -272,7 +270,7 @@ public class Product_Details extends AppCompatActivity {
             public void run() {
                 dialog.dismiss();
             }
-        }, 1000);
+        }, 2000);
     }
 
 

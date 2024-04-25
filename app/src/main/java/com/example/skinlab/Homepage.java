@@ -146,10 +146,6 @@ public class Homepage extends Fragment {
         //data/data/packageName/databases/product_db.db
         try {
             InputStream inputStream = requireContext().getAssets().open(DB_NAME);
-//            File f = new File(requireContext().getApplicationInfo().dataDir + DB_FOLDER);
-//            if(!f.exists()){
-//                f.mkdir();
-//            }
             OutputStream outputStream = new FileOutputStream(dbPath);
             byte[] buffer = new byte[1024]; int length;
             while((length=inputStream.read(buffer))>0){
