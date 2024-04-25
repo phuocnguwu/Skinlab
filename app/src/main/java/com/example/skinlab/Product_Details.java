@@ -225,6 +225,17 @@ public class Product_Details extends AppCompatActivity {
         binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences("cart_prefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                Set<String> productSet = sharedPreferences.getStringSet("cart_items", new HashSet<String>());
+                Log.d("Product", "Product " + selectedProduct);
+                productSet.add(convertProductToString(selectedProduct));
+                editor.putStringSet("cart_items", productSet);
+                editor.apply();
+
+                // Mở MainActivity_containtFragment
+                Intent intent = new Intent(Product_Details.this, MainActivity_containtFragment.class);
+                startActivity(intent);
                 showAddToCartDialog();
 
 //                EditText edtQuantity = findViewById(R.id.edtQuantity);
