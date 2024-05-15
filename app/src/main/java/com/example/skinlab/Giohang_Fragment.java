@@ -7,6 +7,8 @@ import static java.lang.Integer.parseInt;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
@@ -16,9 +18,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.adapters.AddressRecyclerAdapter;
 import com.example.adapters.GioHangAdapter;
+import com.example.models.Address;
 import com.example.models.Product;
 import com.example.skinlab.databinding.FragmentGiohangBinding;
 import java.util.ArrayList;
@@ -34,6 +38,12 @@ public class Giohang_Fragment extends Fragment {
     Product selectedProduct;
     int totalPrice;
     private AddressRecyclerAdapter addressRecyclerAdapter;
+    ArrayList<Address> addresses;
+    DatabaseHelper databaseHelper;
+    String name;
+    String phone;
+    String address;
+
 
     public Giohang_Fragment() {}
 
@@ -71,6 +81,8 @@ public class Giohang_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGiohangBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+        databaseHelper = new DatabaseHelper(getContext());
+
         lvGiohang = view.findViewById(R.id.lvGiohang);
         gioHangAdapter = new GioHangAdapter(getContext(), R.layout.giohang_item, gioHangItemList);
         gioHangAdapter = new GioHangAdapter(getContext(), R.layout.giohang_item, gioHangItemList);
@@ -95,15 +107,52 @@ public class Giohang_Fragment extends Fragment {
         binding.btnDathangGiohang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadUserAddresses();
                 calculateTotalPrice();
                 Intent intent;
                 intent = new Intent(getActivity(), Donhang_dathang.class);
+                intent.putExtra("userName", name);
+                intent.putExtra("userPhone", phone);
+                intent.putExtra("userAddress", address);
                 intent.putExtra("totalPrice", totalPrice);
                 Log.d("test intent giohang", "Giá trị đơn: " + totalPrice);
                 startActivity(intent);
             }
 
         });
+    }
+
+    public String getLoggedInPhone() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("login_pref", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("loggedInPhone", "");
+    }
+
+    private void loadUserAddresses() {
+        String loggedInPhone = getLoggedInPhone();
+        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+            addresses = new ArrayList<>();
+            SQLiteDatabase db = databaseHelper.getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.USER +
+                    " WHERE " + DatabaseHelper.COLUMN_USER_PHONE + " = ?", new String[]{loggedInPhone});
+            if (cursor.moveToFirst()) {
+                do {
+                    name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_NAME));
+                    phone = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_PHONE));
+                    address = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS));
+                    Log.d("Giohang_intent test", name + " nè");
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+
+//            Intent intent = new Intent(getContext(), Donhang_dathang.class);
+//            intent.putExtra("userName", name);
+//            intent.putExtra("userPhone", phone);
+//            intent.putExtra("userAddress", address);
+//            startActivity(intent);
+        } else {
+            Toast.makeText(getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

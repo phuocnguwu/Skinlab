@@ -67,6 +67,18 @@ public class Donhang_dathang extends AppCompatActivity {
         binding = ActivityDonhangDathangBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Nhận dữ liệu từ Intent
+        Intent intent = getIntent();
+        String userName = intent.getStringExtra("userName");
+        String userPhone = intent.getStringExtra("userPhone");
+        String userAddress = intent.getStringExtra("userAddress");
+
+        // Hiển thị dữ liệu lên TextView
+        binding.txtName.setText(userName);
+        binding.txtphone.setText(userPhone);
+        binding.txtaddress.setText(userAddress);
+        Log.d("binding address", userName + " nè");
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             receivedTotalPrice = extras.getInt("totalPrice");
@@ -83,7 +95,13 @@ public class Donhang_dathang extends AppCompatActivity {
         super.onStart();
     }
 
-//    private void loadUserAddresses() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //loadUserAddresses();
+    }
+
+    //    private void loadUserAddresses() {
 //        String loggedInPhone = getLoggedInPhone();
 //        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
 //            addresses = new ArrayList<>();
@@ -130,10 +148,37 @@ public class Donhang_dathang extends AppCompatActivity {
 //        SharedPreferences sharedPreferences = getSharedPreferences("login_pref", Context.MODE_PRIVATE);
 //        return sharedPreferences.getString("loggedInPhone", "");
 //    }
+////
+////    private void displayAddresses() {
+////        AddressRecyclerAdapter adapter = new AddressRecyclerAdapter(this, addresses,databaseHelper);
+////        binding.rcvdiachi.setAdapter(adapter);
+////    }
 //
-//    private void displayAddresses() {
-//        AddressRecyclerAdapter adapter = new AddressRecyclerAdapter(this, addresses,databaseHelper);
-//        binding.rcvdiachi.setAdapter(adapter);
+//    private void loadUserAddresses() {
+//        String loggedInPhone = getLoggedInPhone();
+//        if (loggedInPhone != null && !loggedInPhone.isEmpty()) {
+//            addresses = new ArrayList<>();
+//            SQLiteDatabase db = databaseHelper.getReadableDatabase();
+//            Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.USER +
+//                    " WHERE " + DatabaseHelper.COLUMN_USER_PHONE + " = ?", new String[]{loggedInPhone});
+//            if (cursor.moveToFirst()) {
+//                do {
+//                    String name = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_NAME));
+//                    String phone = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_PHONE));
+//                    String address1 = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_USER_ADDRESS));
+//                } while (cursor.moveToNext());
+//            }
+//            cursor.close();
+//            db.close();
+//
+//            Intent intent = new Intent(MainActivity.this, Donhang_dathang.class);
+//            intent.putExtra("userName", userName);
+//            intent.putExtra("userPhone", userPhone);
+//            intent.putExtra("userAddress", userAddress);
+//            startActivity(intent);
+//        } else {
+//            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+//        }
 //    }
 
 
@@ -194,8 +239,6 @@ public class Donhang_dathang extends AppCompatActivity {
         binding.btnDatHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Tạo một đối tượng Order từ dữ liệu đã có
-                //Order order = new Order("user_001", "product_order1_here", 1, "product_order2_here", 2, "product_order3_here", 3, "Đang xử lý");
                 Order order = createOrderFromCart();
 
                 // Chèn đối tượng Order vào cơ sở dữ liệu
@@ -207,11 +250,7 @@ public class Donhang_dathang extends AppCompatActivity {
                     // Nếu chèn không thành công, hiển thị thông báo hoặc xử lý lỗi ở đây
                     Log.d("Database", "Insert failed");
                 }
-
-                // Hiển thị dialog hoặc chuyển sang activity khác ở đây
                 showAlerDialog();
-//                Intent intent = new Intent(Donhang_dathang.this, Donhang_Chitietdonhang.class);
-//                startActivity(intent);
             }
         });
     }
@@ -223,12 +262,8 @@ public class Donhang_dathang extends AppCompatActivity {
             productIds.add(product.getPd_id());
             quantities.add(product.getQuantity());
         }
-
-        // Chuyển list thành mảng để truyền vào constructor của Order
         String[] productIdArray = productIds.toArray(new String[0]);
         Integer[] quantityArray = quantities.toArray(new Integer[0]);
-
-        // Tạo một đối tượng Order từ dữ liệu đã có
         Order order = new Order("5", productIdArray[0], quantityArray[0], productIdArray[1], quantityArray[1], productIdArray[2], quantityArray[2], "Đang xử lý");
         return order;
     }
